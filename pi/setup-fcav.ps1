@@ -18,7 +18,9 @@ Write-Host "  ██║     ██║   ██║██║  ██║███�
 Write-Host "  ██║     ██║   ██║██║  ██║██╔══╝  " -ForegroundColor $Green
 Write-Host "  ╚██████╗╚██████╔╝██████╔╝███████╗" -ForegroundColor $Green
 Write-Host "   ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝" -ForegroundColor $Green
-Write-Host "  Facultad de Comercio y Administración Victoria" -ForegroundColor $Green
+Write-Host "        Facultad de Comercio " -ForegroundColor $Green
+Write-Host "                 y           " -ForegroundColor $Green
+Write-Host "       Administración Victoria" -ForegroundColor $Green
 Write-Host ""
 Write-Host "  Instalando FCAV CODE..." -ForegroundColor $Yellow
 Write-Host ""

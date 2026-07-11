@@ -10,4 +10,6 @@
   ██║     ██║   ██║██║  ██║██╔══╝  
   ╚██████╗╚██████╔╝██████╔╝███████╗
    ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝
-  Facultad de Comercio y Administración Victoria
+        Facultad de Comercio 
+                 y
+       Administración Victoria
