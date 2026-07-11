@@ -25,6 +25,7 @@ Write-Host ""
 # 1. Verificar Node.js
 if (-not (Get-Command node -ErrorAction SilentlyContinue)) {
     Write-Host "ERROR: Node.js no encontrado. Instala desde https://nodejs.org" -ForegroundColor Red
+    Read-Host "Presiona Enter para salir..."
     exit 1
 }
 

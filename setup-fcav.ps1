@@ -41,6 +41,7 @@ Write-Header "INSTALADOR UNIFICADO FCAV CODE"
 Write-Log "INFO" "Comprobando requisitos del sistema..."
 if (-not (Get-Command node -ErrorAction SilentlyContinue)) {
     Write-Log "ERR" "Node.js no esta instalado. Por favor instala Node.js (https://nodejs.org)."
+    Read-Host "Presiona Enter para salir..."
     exit 1
 }
 Write-Log "OK" "Node.js detectado."
@@ -119,5 +120,9 @@ try {
     Invoke-Expression $script
 } catch {
     Write-Log "ERR" "Hubo un error al descargar o ejecutar el script de instalacion."
+    Read-Host "Presiona Enter para salir..."
     exit 1
 }
+
+Write-Host ""
+Read-Host "Presiona Enter para cerrar esta ventana..."
