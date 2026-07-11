@@ -64,6 +64,17 @@ PI_CONFIG_DIR="$HOME/.pi/agent"
 mkdir -p "$PI_CONFIG_DIR"
 echo "{\"theme\": \"$CONFIG_DIR/themes/fcav.json\"}" > "$PI_CONFIG_DIR/config.json"
 
+# 6. Descargar e instalar Skills globales de FCAV
+echo -e "${YELLOW}[5/5] Instalando habilidades institucionales de FCAV...${NC}"
+GLOBAL_SKILLS_DIR="$HOME/.pi/agent/skills"
+mkdir -p "$GLOBAL_SKILLS_DIR/fcav-cybersecurity"
+mkdir -p "$GLOBAL_SKILLS_DIR/fcav-visual"
+mkdir -p "$GLOBAL_SKILLS_DIR/audit-seguridad"
+
+curl -s -o "$GLOBAL_SKILLS_DIR/fcav-cybersecurity/SKILL.md" "$BASE_URL_MASTER/pi/skills/fcav-cybersecurity/SKILL.md"
+curl -s -o "$GLOBAL_SKILLS_DIR/fcav-visual/SKILL.md" "$BASE_URL_MASTER/pi/skills/fcav-visual/SKILL.md"
+curl -s -o "$GLOBAL_SKILLS_DIR/audit-seguridad/SKILL.md" "$BASE_URL_MASTER/pi/skills/audit-seguridad/SKILL.md"
+
 WRAPPER="/usr/local/bin/fcavcode"
 if [ ! -w "/usr/local/bin" ]; then
     WRAPPER="$HOME/.local/bin/fcavcode"

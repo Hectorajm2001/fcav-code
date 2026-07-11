@@ -68,6 +68,17 @@ $piConfigDir = "$env:USERPROFILE\.pi\agent"
 New-Item -ItemType Directory -Force -Path $piConfigDir | Out-Null
 '{"theme": "' + $themesDir.Replace('\','\\') + '\\fcav.json"}' | Out-File "$piConfigDir\config.json" -Encoding utf8
 
+# 6. Descargar e instalar Skills globales de FCAV
+Write-Host "[5/5] Instalando habilidades institucionales de FCAV..." -ForegroundColor $Yellow
+$globalSkillsDir = "$env:USERPROFILE\.pi\agent\skills"
+New-Item -ItemType Directory -Force -Path "$globalSkillsDir\fcav-cybersecurity" | Out-Null
+New-Item -ItemType Directory -Force -Path "$globalSkillsDir\fcav-visual" | Out-Null
+New-Item -ItemType Directory -Force -Path "$globalSkillsDir\audit-seguridad" | Out-Null
+
+Invoke-WebRequest "$baseUrlMaster/pi/skills/fcav-cybersecurity/SKILL.md" -OutFile "$globalSkillsDir\fcav-cybersecurity\SKILL.md" -ErrorAction SilentlyContinue
+Invoke-WebRequest "$baseUrlMaster/pi/skills/fcav-visual/SKILL.md" -OutFile "$globalSkillsDir\fcav-visual\SKILL.md" -ErrorAction SilentlyContinue
+Invoke-WebRequest "$baseUrlMaster/pi/skills/audit-seguridad/SKILL.md" -OutFile "$globalSkillsDir\audit-seguridad\SKILL.md" -ErrorAction SilentlyContinue
+
 try {
     $npmGlobal = npm root -g | Split-Path
     
