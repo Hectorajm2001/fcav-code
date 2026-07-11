@@ -1,4 +1,4 @@
-# setup-fcav.ps1 — Instalador Unificado FCAV CODE
+﻿# setup-fcav.ps1 — Instalador Unificado FCAV CODE
 # Uso: irm https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/setup-fcav.ps1 | iex
 
 $ErrorActionPreference = "Stop"
