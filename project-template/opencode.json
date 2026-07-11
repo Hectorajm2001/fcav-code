@@ -1,0 +1,25 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "lmstudio": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "LM Studio (FCAV Intranet)",
+      "options": {
+        "baseURL": "http://IP-SERVIDOR:1234/v1"
+      },
+      "models": {
+        "qwen2.5-coder-32b": {
+          "model": "qwen2.5-coder-32b-instruct"
+        }
+      }
+    }
+  },
+  "model": "lmstudio/qwen2.5-coder-32b",
+  "agent": {
+    "auditor": {
+      "description": "Auditor de ciberseguridad FCAV — OWASP Top 10 + LGPDPPP",
+      "prompt": "Eres un auditor de ciberseguridad de la FCAV. Revisa el código C#/.NET/SQL Server siguiendo OWASP Top 10 y la LGPDPPP. Una línea por hallazgo: archivo:línea → problema → fix. Sin ensayos.",
+      "model": "lmstudio/qwen2.5-coder-32b"
+    }
+  }
+}
