@@ -41,15 +41,28 @@ fi
 
 # 3. Crear comando fcavcode
 echo -e "${YELLOW}[2/4] Configurando comando 'fcavcode'...${NC}"
-NPM_GLOBAL=$(npm root -g | xargs dirname)
-if [ -w "$NPM_GLOBAL" ]; then
-    echo '#!/bin/bash' > "$NPM_GLOBAL/fcavcode"
-    echo 'opencode "$@"' >> "$NPM_GLOBAL/fcavcode"
-    chmod +x "$NPM_GLOBAL/fcavcode"
-    echo -e "${GREEN}      Comando fcavcode creado ✓${NC}"
-else
-    echo -e "${YELLOW}      Advertencia: No se pudo crear el comando fcavcode por permisos.${NC}"
+WRAPPER="/usr/local/bin/fcavcode"
+if [ ! -w "/usr/local/bin" ]; then
+    WRAPPER="$HOME/.local/bin/fcavcode"
+    mkdir -p "$HOME/.local/bin"
 fi
+
+cat << 'EOF' > "$WRAPPER"
+#!/bin/bash
+CONFIG_DIR="$HOME/.config/opencode"
+if [ ! -d ".opencode" ]; then
+    mkdir -p ".opencode/themes"
+fi
+if [ ! -f ".opencode/tui.json" ]; then
+    cp "$CONFIG_DIR/tui.json" ".opencode/tui.json" 2>/dev/null
+fi
+if [ -d "$CONFIG_DIR/themes" ] && [ ! -f ".opencode/themes/fcav.json" ]; then
+    cp -r "$CONFIG_DIR/themes/"* ".opencode/themes/" 2>/dev/null
+fi
+opencode "$@"
+EOF
+chmod +x "$WRAPPER"
+echo -e "${GREEN}      Comando fcavcode creado en $WRAPPER ✓${NC}"
 
 # 4. Clonar config FCAV
 echo -e "${YELLOW}[3/4] Configurando identidad FCAV CODE...${NC}"

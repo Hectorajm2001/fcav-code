@@ -43,11 +43,23 @@ try {
     
     # Wrapper para CMD
     $wrapperCmd = "$npmGlobal\fcavcode.cmd"
-    "@echo off`r`nopencode %*" | Out-File $wrapperCmd -Encoding utf8
+    @"
+@echo off
+if not exist ".opencode" mkdir ".opencode"
+if not exist ".opencode\tui.json" copy "%USERPROFILE%\.config\opencode\tui.json" ".opencode\tui.json" >nul
+if not exist ".opencode\themes" xcopy "%USERPROFILE%\.config\opencode\themes" ".opencode\themes" /E /I /Q >nul
+opencode %*
+"@ | Out-File $wrapperCmd -Encoding utf8
     
     # Wrapper para PowerShell
     $wrapperPs1 = "$npmGlobal\fcavcode.ps1"
-    "opencode `$args" | Out-File $wrapperPs1 -Encoding utf8
+    @"
+`$configDir = "`$env:USERPROFILE\.config\opencode"
+if (!(Test-Path ".opencode")) { New-Item -ItemType Directory -Force -Path ".opencode" | Out-Null }
+if (!(Test-Path ".opencode\tui.json")) { Copy-Item "`$configDir\tui.json" ".opencode\tui.json" }
+if (!(Test-Path ".opencode\themes")) { Copy-Item "`$configDir\themes" ".opencode\themes" -Recurse }
+opencode `$args
+"@ | Out-File $wrapperPs1 -Encoding utf8
     
     Write-Host "      Comando fcavcode creado ✓" -ForegroundColor $Green
 } catch {
