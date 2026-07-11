@@ -76,6 +76,7 @@ New-Item -ItemType Directory -Force -Path "$globalSkillsDir\fcav-cybersecurity" 
 New-Item -ItemType Directory -Force -Path "$globalSkillsDir\fcav-visual" | Out-Null
 New-Item -ItemType Directory -Force -Path "$globalSkillsDir\audit-seguridad" | Out-Null
 
+$baseUrlMaster = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master"
 Invoke-WebRequest "$baseUrlMaster/pi/skills/fcav-cybersecurity/SKILL.md" -OutFile "$globalSkillsDir\fcav-cybersecurity\SKILL.md" -ErrorAction SilentlyContinue
 Invoke-WebRequest "$baseUrlMaster/pi/skills/fcav-visual/SKILL.md" -OutFile "$globalSkillsDir\fcav-visual\SKILL.md" -ErrorAction SilentlyContinue
 Invoke-WebRequest "$baseUrlMaster/pi/skills/audit-seguridad/SKILL.md" -OutFile "$globalSkillsDir\audit-seguridad\SKILL.md" -ErrorAction SilentlyContinue

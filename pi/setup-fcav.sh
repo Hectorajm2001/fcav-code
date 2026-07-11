@@ -71,6 +71,7 @@ mkdir -p "$GLOBAL_SKILLS_DIR/fcav-cybersecurity"
 mkdir -p "$GLOBAL_SKILLS_DIR/fcav-visual"
 mkdir -p "$GLOBAL_SKILLS_DIR/audit-seguridad"
 
+BASE_URL_MASTER="https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master"
 curl -s -o "$GLOBAL_SKILLS_DIR/fcav-cybersecurity/SKILL.md" "$BASE_URL_MASTER/pi/skills/fcav-cybersecurity/SKILL.md"
 curl -s -o "$GLOBAL_SKILLS_DIR/fcav-visual/SKILL.md" "$BASE_URL_MASTER/pi/skills/fcav-visual/SKILL.md"
 curl -s -o "$GLOBAL_SKILLS_DIR/audit-seguridad/SKILL.md" "$BASE_URL_MASTER/pi/skills/audit-seguridad/SKILL.md"
