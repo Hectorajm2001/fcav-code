@@ -61,8 +61,13 @@ $baseUrlConfig = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/mast
 Invoke-WebRequest "$baseUrlConfig/AGENTS.md" -OutFile "$configDir\AGENTS.md" -ErrorAction SilentlyContinue
 Invoke-WebRequest "$baseUrlConfig/themes/fcav.json" -OutFile "$themesDir\fcav.json" -ErrorAction SilentlyContinue
 
-# 5. Crear comando fcavcode
-Write-Host "[4/4] Configurando comando 'fcavcode'..." -ForegroundColor $Yellow
+# 5. Configurar Pi y crear comando fcavcode
+Write-Host "[4/4] Configurando opciones globales..." -ForegroundColor $Yellow
+
+$piConfigDir = "$env:USERPROFILE\.pi\agent"
+New-Item -ItemType Directory -Force -Path $piConfigDir | Out-Null
+'{"theme": "' + $themesDir.Replace('\','\\') + '\\fcav.json"}' | Out-File "$piConfigDir\config.json" -Encoding utf8
+
 try {
     $npmGlobal = npm root -g | Split-Path
     

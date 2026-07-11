@@ -57,8 +57,13 @@ BASE_URL_CONFIG="https://raw.githubusercontent.com/Hectorajm2001/fcav-code/maste
 curl -s -o "$CONFIG_DIR/AGENTS.md" "$BASE_URL_CONFIG/AGENTS.md"
 curl -s -o "$CONFIG_DIR/themes/fcav.json" "$BASE_URL_CONFIG/themes/fcav.json"
 
-# 5. Crear comando fcavcode
-echo -e "${YELLOW}[4/4] Configurando comando 'fcavcode'...${NC}"
+# 5. Configurar Pi y crear comando fcavcode
+echo -e "${YELLOW}[4/4] Configurando opciones globales...${NC}"
+
+PI_CONFIG_DIR="$HOME/.pi/agent"
+mkdir -p "$PI_CONFIG_DIR"
+echo "{\"theme\": \"$CONFIG_DIR/themes/fcav.json\"}" > "$PI_CONFIG_DIR/config.json"
+
 WRAPPER="/usr/local/bin/fcavcode"
 if [ ! -w "/usr/local/bin" ]; then
     WRAPPER="$HOME/.local/bin/fcavcode"
