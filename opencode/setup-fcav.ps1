@@ -1,4 +1,4 @@
-# setup-fcav.ps1 — Instala FCAV CODE en un comando
+﻿# setup-fcav.ps1 — Instala FCAV CODE en un comando
 # Uso: irm https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/setup-fcav.ps1 | iex
 
 $ErrorActionPreference = "Stop"
