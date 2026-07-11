@@ -1,4 +1,4 @@
-# setup-fcav.ps1 — Instala FCAV CODE en un comando
+﻿# setup-fcav.ps1 — Instala FCAV CODE en un comando
 # Uso: irm https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/setup-fcav.ps1 | iex
 
 $ErrorActionPreference = "Stop"
@@ -65,23 +65,25 @@ try {
     
     # Wrapper para CMD
     $wrapperCmd = "$npmGlobal\fcavcode.cmd"
-    @"
-@echo off
-powershell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host (Get-Content '%USERPROFILE%\.config\fcav\fcav-logo.txt' -Raw -Encoding utf8) -ForegroundColor Green"
-set OPENAI_API_KEY=lm-studio
-set OPENAI_BASE_URL=http://${serverIP}:1234/v1
-pi --provider openai --model qwen2.5-coder-32b-instruct %*
-"@ | Out-File $wrapperCmd -Encoding utf8
+    $cmdLines = @(
+        "@echo off",
+        "powershell -Command `"[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host (Get-Content '%USERPROFILE%\.config\fcav\fcav-logo.txt' -Raw -Encoding utf8) -ForegroundColor Green`"",
+        "set OPENAI_API_KEY=lm-studio",
+        "set OPENAI_BASE_URL=http://${serverIP}:1234/v1",
+        "pi --provider openai --model qwen2.5-coder-32b-instruct %*"
+    )
+    $cmdLines | Out-File $wrapperCmd -Encoding utf8
     
     # Wrapper para PowerShell
     $wrapperPs1 = "$npmGlobal\fcavcode.ps1"
-    @"
-[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-Write-Host (Get-Content "`$env:USERPROFILE\.config\fcav\fcav-logo.txt" -Raw -Encoding utf8) -ForegroundColor Green
-`$env:OPENAI_API_KEY = "lm-studio"
-`$env:OPENAI_BASE_URL = "http://${serverIP}:1234/v1"
-pi --provider openai --model qwen2.5-coder-32b-instruct `$args
-"@ | Out-File $wrapperPs1 -Encoding utf8
+    $ps1Lines = @(
+        "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8",
+        "Write-Host (Get-Content `"`$env:USERPROFILE\.config\fcav\fcav-logo.txt`" -Raw -Encoding utf8) -ForegroundColor Green",
+        "`$env:OPENAI_API_KEY = `"lm-studio`"",
+        "`$env:OPENAI_BASE_URL = `"http://${serverIP}:1234/v1`"",
+        "pi --provider openai --model qwen2.5-coder-32b-instruct `$args"
+    )
+    $ps1Lines | Out-File $wrapperPs1 -Encoding utf8
     
     Write-Host "      Comando fcavcode creado ✓" -ForegroundColor $Green
 } catch {
