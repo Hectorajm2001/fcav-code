@@ -112,6 +112,5 @@ Write-Host "    1. Abre terminal en tu proyecto" -ForegroundColor White
 Write-Host "    2. Escribe: fcavcode" -ForegroundColor $Green
 Write-Host ""
 Write-Host "  Para iniciar un nuevo proyecto FCAV:" -ForegroundColor White
-Write-Host "    git clone https://github.com/Hectorajm2001/fcav-code" -ForegroundColor $Yellow
-Write-Host "    Copia project-template/ como base de tu proyecto" -ForegroundColor White
+Write-Host "    fcavcode init" -ForegroundColor $Yellow
 Write-Host ""
