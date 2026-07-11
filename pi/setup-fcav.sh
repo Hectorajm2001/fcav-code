@@ -67,6 +67,12 @@ fi
 
 cat << EOF > "$WRAPPER"
 #!/bin/bash
+if [ "\$1" = "init" ]; then
+    shift
+    export FCAV_INIT_ARGS="\$*"
+    curl -fsSL https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/pi/init.sh | bash
+    exit \$?
+fi
 echo -e "\033[0;32m"
 cat "\$HOME/.config/fcav/fcav-logo.txt"
 echo -e "\033[0m"

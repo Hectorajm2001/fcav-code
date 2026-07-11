@@ -70,6 +70,10 @@ try {
     $wrapperCmd = "$npmGlobal\fcavcode.cmd"
     $cmdLines = @(
         "@echo off",
+        "if `"%~1`"==`"init`" (",
+        "    powershell -Command `"`$env:FCAV_INIT_ARGS = '%*'.Replace('init','').Trim(); Invoke-Expression (Invoke-RestMethod 'https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/pi/init.ps1')`"",
+        "    exit /b %ERRORLEVEL%",
+        ")",
         "powershell -Command `"[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host (Get-Content '%USERPROFILE%\.config\fcav\fcav-logo.txt' -Raw -Encoding utf8) -ForegroundColor Green`"",
         "set OPENAI_API_KEY=lm-studio",
         "set OPENAI_BASE_URL=http://${serverIP}:1234/v1",
@@ -81,6 +85,11 @@ try {
     $wrapperPs1 = "$npmGlobal\fcavcode.ps1"
     $ps1Lines = @(
         "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8",
+        "if (`$args.Count -gt 0 -and `$args[0] -eq 'init') {",
+        "    if (`$args.Count -gt 1) { `$env:FCAV_INIT_ARGS = `$args[1..(`$args.Count-1)] -join ' ' }",
+        "    Invoke-Expression (Invoke-RestMethod 'https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/pi/init.ps1')",
+        "    exit `$LASTEXITCODE",
+        "}",
         "Write-Host (Get-Content `"`$env:USERPROFILE\.config\fcav\fcav-logo.txt`" -Raw -Encoding utf8) -ForegroundColor Green",
         "`$env:OPENAI_API_KEY = `"lm-studio`"",
         "`$env:OPENAI_BASE_URL = `"http://${serverIP}:1234/v1`"",
