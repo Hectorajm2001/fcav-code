@@ -67,21 +67,19 @@ try {
     $wrapperCmd = "$npmGlobal\fcavcode.cmd"
     @"
 @echo off
-powershell -Command "Write-Host (Get-Content '%USERPROFILE%\.config\fcav\fcav-logo.txt' -Raw) -ForegroundColor Green"
+powershell -Command "Write-Host (Get-Content '%USERPROFILE%\.config\fcav\fcav-logo.txt' -Raw -Encoding utf8) -ForegroundColor Green"
 set OPENAI_API_KEY=lm-studio
 set OPENAI_BASE_URL=http://${serverIP}:1234/v1
-set OPENAI_MODEL=qwen2.5-coder-32b-instruct
-pi %*
+pi --provider openai --model qwen2.5-coder-32b-instruct %*
 "@ | Out-File $wrapperCmd -Encoding utf8
     
     # Wrapper para PowerShell
     $wrapperPs1 = "$npmGlobal\fcavcode.ps1"
     @"
-Write-Host (Get-Content "`$env:USERPROFILE\.config\fcav\fcav-logo.txt" -Raw) -ForegroundColor Green
+Write-Host (Get-Content "`$env:USERPROFILE\.config\fcav\fcav-logo.txt" -Raw -Encoding utf8) -ForegroundColor Green
 `$env:OPENAI_API_KEY = "lm-studio"
 `$env:OPENAI_BASE_URL = "http://${serverIP}:1234/v1"
-`$env:OPENAI_MODEL = "qwen2.5-coder-32b-instruct"
-pi `$args
+pi --provider openai --model qwen2.5-coder-32b-instruct `$args
 "@ | Out-File $wrapperPs1 -Encoding utf8
     
     Write-Host "      Comando fcavcode creado ✓" -ForegroundColor $Green
