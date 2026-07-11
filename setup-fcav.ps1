@@ -45,21 +45,63 @@ if (-not (Get-Command node -ErrorAction SilentlyContinue)) {
 }
 Write-Log "OK" "Node.js detectado."
 
-Write-Host ""
-Write-Host "  Motores de IA disponibles:" -ForegroundColor $C_TEXT
-Write-Host "  --------------------------------------------------------" -ForegroundColor $C_DIM
-Write-Host "  [1] Pi       (Recomendado, comandos y herramientas)" -ForegroundColor $C_SUCCESS
-Write-Host "  [2] OpenCode (Version original legacy)" -ForegroundColor $C_DIM
-Write-Host "  --------------------------------------------------------" -ForegroundColor $C_DIM
-Write-Host ""
+function Get-InteractiveMenu {
+    param (
+        [string]$Title,
+        [string[]]$Options
+    )
+    
+    Write-Host ""
+    Write-Host "  $Title" -ForegroundColor $C_TEXT
+    Write-Host "  (Usa flechas Arriba/Abajo y Enter para seleccionar)" -ForegroundColor $C_DIM
+    
+    $selectedIndex = 0
+    
+    for ($i = 0; $i -lt $Options.Length; $i++) { Write-Host "" }
+    
+    try { [Console]::CursorVisible = $false } catch {}
 
-$opcion = ""
-while ($opcion -notmatch "^[12]$") {
-    $opcion = Read-Host "  Selecciona una opcion (1 o 2)"
-    if ($opcion -notmatch "^[12]$") {
-        Write-Log "WARN" "Opcion no valida, intenta de nuevo."
+    $key = $null
+    while ($true) {
+        try { [Console]::SetCursorPosition(0, [Console]::CursorTop - $Options.Length) } catch {}
+        
+        for ($i = 0; $i -lt $Options.Length; $i++) {
+            try { [Console]::SetCursorPosition(0, [Console]::CursorTop) } catch {}
+            if ($i -eq $selectedIndex) {
+                $line = "  > $($Options[$i])"
+                Write-Host $line.PadRight(60) -ForegroundColor $C_SUCCESS
+            } else {
+                $line = "    $($Options[$i])"
+                Write-Host $line.PadRight(60) -ForegroundColor $C_DIM
+            }
+        }
+        
+        try {
+            $key = [System.Console]::ReadKey($true)
+            if ($key.Key -eq 'UpArrow') {
+                $selectedIndex = [Math]::Max(0, $selectedIndex - 1)
+            } elseif ($key.Key -eq 'DownArrow') {
+                $selectedIndex = [Math]::Min($Options.Length - 1, $selectedIndex + 1)
+            } elseif ($key.Key -eq 'Enter') {
+                break
+            }
+        } catch {
+            try { [Console]::CursorVisible = $true } catch {}
+            $res = Read-Host "  Selecciona una opcion (1 o 2)"
+            if ($res -match "^[12]$") {
+                return $res
+            }
+        }
     }
+    
+    try { [Console]::CursorVisible = $true } catch {}
+    return ($selectedIndex + 1).ToString()
 }
+
+$opcion = Get-InteractiveMenu -Title "Motores de IA disponibles:" -Options @(
+    "Pi       (Recomendado, comandos y herramientas)",
+    "OpenCode (Version original legacy)"
+)
 
 if ($opcion -eq "1") {
     Write-Host ""

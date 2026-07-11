@@ -45,21 +45,64 @@ if ! command -v node &> /dev/null; then
 fi
 write_log "OK" "Node.js detectado."
 
-echo -e ""
-echo -e "  ${C_TEXT}Motores de IA disponibles:${NC}"
-echo -e "  ${C_DIM}--------------------------------------------------------${NC}"
-echo -e "  ${C_SUCCESS}[1] Pi       (Recomendado, comandos y herramientas)${NC}"
-echo -e "  ${C_DIM}[2] OpenCode (Version original legacy)${NC}"
-echo -e "  ${C_DIM}--------------------------------------------------------${NC}"
-echo -e ""
+get_interactive_menu() {
+    local prompt="$1"
+    shift
+    local options=("$@")
+    local selected=0
+    local num_options=${#options[@]}
+    local key seq
 
-opcion=""
-while [[ ! "$opcion" =~ ^[12]$ ]]; do
-    read -p "  Selecciona una opcion (1 o 2): " opcion
-    if [[ ! "$opcion" =~ ^[12]$ ]]; then
-        write_log "WARN" "Opcion no valida, intenta de nuevo."
-    fi
-done
+    echo -e ""
+    echo -e "  ${C_TEXT}${prompt}${NC}"
+    echo -e "  ${C_DIM}(Usa flechas Arriba/Abajo y Enter para seleccionar)${NC}"
+
+    echo -en "\033[?25l" # Ocultar cursor
+
+    for i in "${!options[@]}"; do echo ""; done
+
+    while true; do
+        echo -en "\033[${num_options}A" # Subir cursor
+
+        for i in "${!options[@]}"; do
+            echo -en "\033[2K\r" # Limpiar linea
+            if [ $i -eq $selected ]; then
+                echo -e "  ${C_SUCCESS}> ${options[$i]}${NC}"
+            else
+                echo -e "    ${C_DIM}${options[$i]}${NC}"
+            fi
+        done
+
+        if [ -c /dev/tty ]; then
+            read -rsn1 key < /dev/tty
+        else
+            read -rsn1 key
+        fi
+
+        case "$key" in
+            $'\x1b')
+                if [ -c /dev/tty ]; then
+                    read -rsn2 -t 0.1 seq < /dev/tty
+                else
+                    read -rsn2 -t 0.1 seq
+                fi
+                case "$seq" in
+                    "[A") [ $selected -gt 0 ] && selected=$((selected - 1)) ;;
+                    "[B") [ $selected -lt $((num_options - 1)) ] && selected=$((selected + 1)) ;;
+                esac
+                ;;
+            "") break ;;
+        esac
+    done
+
+    echo -en "\033[?25h" # Mostrar cursor
+    return $((selected + 1))
+}
+
+get_interactive_menu "Motores de IA disponibles:" \
+    "Pi       (Recomendado, comandos y herramientas)" \
+    "OpenCode (Version original legacy)"
+opcion=$?
 
 if [ "$opcion" = "1" ]; then
     echo -e ""
