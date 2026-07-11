@@ -40,7 +40,7 @@ else
 fi
 
 # 3. Preguntar IP del servidor
-echo -e "${YELLOW}[2/4] Configuración del servidor...${NC}"
+echo -e "${YELLOW}[2/4] Configuracion del servidor...${NC}"
 read -p "  IP del servidor LM Studio (ej: 192.168.1.100) [localhost]: " SERVER_IP
 SERVER_IP=${SERVER_IP:-localhost}
 echo -e "${GREEN}  Servidor configurado: http://${SERVER_IP}:1234/v1${NC}"

@@ -1,4 +1,4 @@
-﻿# setup-fcav.ps1 — Instala FCAV CODE en un comando
+# setup-fcav.ps1 — Instala FCAV CODE en un comando
 # Uso: irm https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/setup-fcav.ps1 | iex
 
 $ErrorActionPreference = "Stop"
@@ -37,7 +37,7 @@ if (-not (Get-Command pi -ErrorAction SilentlyContinue)) {
 }
 
 # 3. Preguntar IP del servidor
-Write-Host "[2/4] Configuración del servidor..." -ForegroundColor $Yellow
+Write-Host "[2/4] Configuracion del servidor..." -ForegroundColor $Yellow
 $serverIP = Read-Host "  IP del servidor LM Studio (ej: 192.168.1.100)"
 if ([string]::IsNullOrWhiteSpace($serverIP)) {
     $serverIP = "localhost"

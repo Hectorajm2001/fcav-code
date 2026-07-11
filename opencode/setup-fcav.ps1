@@ -86,7 +86,7 @@ Invoke-WebRequest "$baseUrl/themes/fcav.json" -OutFile "$themesDir\fcav.json"
 Invoke-WebRequest "$baseUrl/AGENTS.md" -OutFile "$configDir\AGENTS.md"
 
 # 5. Preguntar IP del servidor
-Write-Host "[4/4] Configuración del servidor..." -ForegroundColor $Yellow
+Write-Host "[4/4] Configuracion del servidor..." -ForegroundColor $Yellow
 $serverIP = Read-Host "  IP del servidor LM Studio (ej: 192.168.1.100)"
 if ([string]::IsNullOrWhiteSpace($serverIP)) {
     $serverIP = "localhost"
