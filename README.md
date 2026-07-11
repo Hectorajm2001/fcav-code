@@ -3,9 +3,14 @@
 Agente de programación de la Facultad de Comercio y Administración Victoria (FCAV), UAT.
 Conectado a servidor IA local en Intranet (LM Studio).
 
-> **Nota:** FCAV CODE ahora está basado en el motor **Pi** (`@earendil-works/pi-coding-agent`), que ofrece una experiencia de terminal pura, altamente minimalista y compatible de manera nativa con modelos locales a través de OpenAI-compatible endpoints.
+Este repositorio aloja dos variantes del agente de IA de la FCAV. Puedes instalar cualquiera de los dos motores usando nuestro instalador unificado.
 
-## Instalación
+- **Pi (Recomendado):** Un motor más moderno y ligero basado en terminal (`@earendil-works/pi-coding-agent`), que soporta *extensiones en código (TypeScript)* y automatización avanzada (ej. `/audit-seguridad`, `/add-controller`).
+- **OpenCode (Legacy):** La versión original de la interfaz que proveía soporte a temas personalizados en `.opencode/`.
+
+## Instalación (Instalador Unificado)
+
+Al ejecutar estos comandos, el instalador te preguntará qué motor deseas utilizar (Pi u OpenCode) y te guiará en la configuración del servidor local.
 
 **En Windows (PowerShell como Administrador):**
 ```powershell
@@ -19,18 +24,21 @@ curl -fsSL https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/setup-
 
 ## Uso
 
-Abre una terminal en tu proyecto y escribe:
+Una vez instalado, abre una terminal en tu proyecto y escribe:
 ```bash
 fcavcode
 ```
-*(Este comando inyectará automáticamente la identidad gráfica de la FCAV y configurará el entorno para conectarse al servidor local).*
+*(Este comando inyectará automáticamente la identidad gráfica de la FCAV y arrancará el motor que hayas seleccionado).*
 
 ## Template de Proyectos
 
 Para iniciar un nuevo proyecto bajo los estándares de la FCAV:
-1. Clona este repositorio.
-2. Copia el contenido de la carpeta `project-template/` (o si migras de OpenCode, la carpeta `opencode/project-template/`) a tu nuevo proyecto.
-3. Inicia `fcavcode`.
+1. Clona este repositorio: `git clone https://github.com/Hectorajm2001/fcav-code`
+2. Si instalaste **Pi**, copia el contenido de `pi/project-template/` a tu nuevo proyecto. Esto agregará las reglas (`AGENTS.md`) y las extensiones personalizadas para Pi.
+3. Si instalaste **OpenCode**, copia el contenido de `opencode/project-template/` a tu nuevo proyecto.
+4. Inicia tu editor y ejecuta `fcavcode`.
 
-## Historial y Migración
-Los archivos antiguos de OpenCode se encuentran en la carpeta `opencode/` para referencia futura. El nuevo motor Pi no requiere archivos JSON para la UI, sino que confía en el comando Wrapper `fcavcode` para imprimir el logo institucional antes de arrancar.
+## Estructura del Repositorio
+- `pi/`: Instaladores y templates exclusivos para el motor Pi.
+- `opencode/`: Instaladores y plantillas originales de OpenCode.
+- `resources/`: Recursos compartidos (como el logo ASCII de FCAV).
