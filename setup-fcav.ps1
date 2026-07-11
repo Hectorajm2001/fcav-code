@@ -28,16 +28,38 @@ if (-not (Get-Command node -ErrorAction SilentlyContinue)) {
     exit 1
 }
 
-# 2. Instalar OpenCode
-if (-not (Get-Command opencode -ErrorAction SilentlyContinue)) {
-    Write-Host "[1/4] Instalando motor de IA..." -ForegroundColor $Yellow
-    npm i -g opencode-ai
+# 2. Instalar motor Pi
+if (-not (Get-Command pi -ErrorAction SilentlyContinue)) {
+    Write-Host "[1/4] Instalando motor de IA (Pi)..." -ForegroundColor $Yellow
+    npm i -g @earendil-works/pi-coding-agent
 } else {
     Write-Host "[1/4] Motor de IA ya instalado ✓" -ForegroundColor $Green
 }
 
-# 3. Crear comando fcavcode
-Write-Host "[2/4] Configurando comando 'fcavcode'..." -ForegroundColor $Yellow
+# 3. Preguntar IP del servidor
+Write-Host "[2/4] Configuración del servidor..." -ForegroundColor $Yellow
+$serverIP = Read-Host "  IP del servidor LM Studio (ej: 192.168.1.100)"
+if ([string]::IsNullOrWhiteSpace($serverIP)) {
+    $serverIP = "localhost"
+}
+Write-Host "  Servidor configurado: http://${serverIP}:1234/v1" -ForegroundColor $Green
+
+# 4. Clonar config FCAV (Logo y Agents)
+Write-Host "[3/4] Configurando identidad FCAV CODE..." -ForegroundColor $Yellow
+$configDir = "$env:USERPROFILE\.config\fcav"
+$tempDir = "$env:TEMP\fcav-code-setup"
+
+New-Item -ItemType Directory -Force -Path $configDir | Out-Null
+New-Item -ItemType Directory -Force -Path $tempDir | Out-Null
+
+$baseUrl = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/resources"
+Invoke-WebRequest "$baseUrl/fcav-logo.txt" -OutFile "$configDir\fcav-logo.txt"
+
+$baseUrlConfig = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/opencode/config"
+Invoke-WebRequest "$baseUrlConfig/AGENTS.md" -OutFile "$configDir\AGENTS.md" -ErrorAction SilentlyContinue
+
+# 5. Crear comando fcavcode
+Write-Host "[4/4] Configurando comando 'fcavcode'..." -ForegroundColor $Yellow
 try {
     $npmGlobal = npm root -g | Split-Path
     
@@ -45,66 +67,27 @@ try {
     $wrapperCmd = "$npmGlobal\fcavcode.cmd"
     @"
 @echo off
-if not exist ".opencode" mkdir ".opencode"
-if not exist ".opencode\tui.json" copy "%USERPROFILE%\.config\opencode\tui.json" ".opencode\tui.json" >nul
-if not exist ".opencode\themes" xcopy "%USERPROFILE%\.config\opencode\themes" ".opencode\themes" /E /I /Q >nul
-opencode %*
+powershell -Command "Write-Host (Get-Content '%USERPROFILE%\.config\fcav\fcav-logo.txt' -Raw) -ForegroundColor Green"
+set OPENAI_API_KEY=lm-studio
+set OPENAI_BASE_URL=http://${serverIP}:1234/v1
+set OPENAI_MODEL=qwen2.5-coder-32b-instruct
+pi %*
 "@ | Out-File $wrapperCmd -Encoding utf8
     
     # Wrapper para PowerShell
     $wrapperPs1 = "$npmGlobal\fcavcode.ps1"
     @"
-`$configDir = "`$env:USERPROFILE\.config\opencode"
-if (!(Test-Path ".opencode")) { New-Item -ItemType Directory -Force -Path ".opencode" | Out-Null }
-if (!(Test-Path ".opencode\tui.json")) { Copy-Item "`$configDir\tui.json" ".opencode\tui.json" }
-if (!(Test-Path ".opencode\themes")) { Copy-Item "`$configDir\themes" ".opencode\themes" -Recurse }
-opencode `$args
+Write-Host (Get-Content "`$env:USERPROFILE\.config\fcav\fcav-logo.txt" -Raw) -ForegroundColor Green
+`$env:OPENAI_API_KEY = "lm-studio"
+`$env:OPENAI_BASE_URL = "http://${serverIP}:1234/v1"
+`$env:OPENAI_MODEL = "qwen2.5-coder-32b-instruct"
+pi `$args
 "@ | Out-File $wrapperPs1 -Encoding utf8
     
     Write-Host "      Comando fcavcode creado ✓" -ForegroundColor $Green
 } catch {
     Write-Host "      Advertencia: No se pudo crear el comando fcavcode globalmente." -ForegroundColor Yellow
 }
-
-# 4. Clonar config FCAV
-Write-Host "[3/4] Configurando identidad FCAV CODE..." -ForegroundColor $Yellow
-$configDir = "$env:USERPROFILE\.config\opencode"
-$themesDir = "$configDir\themes"
-$tempDir = "$env:TEMP\fcav-code-setup"
-
-New-Item -ItemType Directory -Force -Path $themesDir | Out-Null
-New-Item -ItemType Directory -Force -Path $tempDir | Out-Null
-
-$baseUrl = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/config"
-Invoke-WebRequest "$baseUrl/tui.json" -OutFile "$configDir\tui.json"
-Invoke-WebRequest "$baseUrl/fcav-logo.txt" -OutFile "$configDir\fcav-logo.txt"
-Invoke-WebRequest "$baseUrl/themes/fcav.json" -OutFile "$themesDir\fcav.json"
-Invoke-WebRequest "$baseUrl/AGENTS.md" -OutFile "$configDir\AGENTS.md"
-
-# 5. Preguntar IP del servidor
-Write-Host "[4/4] Configuración del servidor..." -ForegroundColor $Yellow
-$serverIP = Read-Host "  IP del servidor LM Studio (ej: 192.168.1.100)"
-if ([string]::IsNullOrWhiteSpace($serverIP)) {
-    $serverIP = "localhost"
-}
-Write-Host "  Servidor configurado: http://${serverIP}:1234/v1" -ForegroundColor $Green
-
-# Guardar IP en config global
-$opencodeJson = @{
-    '$schema' = "https://opencode.ai/config.json"
-    provider = @{
-        lmstudio = @{
-            npm = "@ai-sdk/openai-compatible"
-            name = "LM Studio (FCAV Intranet)"
-            options = @{ baseURL = "http://${serverIP}:1234/v1" }
-            models = @{
-                "qwen2.5-coder-32b" = @{ model = "qwen2.5-coder-32b-instruct" }
-            }
-        }
-    }
-    model = "lmstudio/qwen2.5-coder-32b"
-} | ConvertTo-Json -Depth 5
-$opencodeJson | Out-File "$configDir\opencode.json" -Encoding utf8
 
 Remove-Item $tempDir -Recurse -Force -ErrorAction SilentlyContinue
 

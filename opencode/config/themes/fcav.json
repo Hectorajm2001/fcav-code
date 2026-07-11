@@ -1,0 +1,31 @@
+{
+  "name": "fcav",
+  "dark": {
+    "primary": "#559C52",
+    "secondary": "#003D5C",
+    "background": "#0A0E14",
+    "surface": "#111820",
+    "text": "#E8E8E8",
+    "muted": "#55565B",
+    "border": "#2E7D32",
+    "success": "#81C784",
+    "warning": "#D05F27",
+    "error": "#E74C3C",
+    "info": "#003D5C",
+    "accent": "#559C52"
+  },
+  "light": {
+    "primary": "#2E7D32",
+    "secondary": "#003D5C",
+    "background": "#F5F5F4",
+    "surface": "#FFFFFF",
+    "text": "#1A1A1A",
+    "muted": "#77787C",
+    "border": "#81C784",
+    "success": "#559C52",
+    "warning": "#D05F27",
+    "error": "#E74C3C",
+    "info": "#003D5C",
+    "accent": "#2E7D32"
+  }
+}
