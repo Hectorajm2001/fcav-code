@@ -47,9 +47,11 @@ Write-Host "  Servidor configurado: http://${serverIP}:1234/v1" -ForegroundColor
 # 4. Clonar config FCAV (Logo y Agents)
 Write-Host "[3/4] Configurando identidad FCAV CODE..." -ForegroundColor $Yellow
 $configDir = "$env:USERPROFILE\.config\fcav"
+$themesDir = "$configDir\themes"
 $tempDir = "$env:TEMP\fcav-code-setup"
 
 New-Item -ItemType Directory -Force -Path $configDir | Out-Null
+New-Item -ItemType Directory -Force -Path $themesDir | Out-Null
 New-Item -ItemType Directory -Force -Path $tempDir | Out-Null
 
 $baseUrl = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/resources"
@@ -57,6 +59,7 @@ Invoke-WebRequest "$baseUrl/fcav-logo.txt" -OutFile "$configDir\fcav-logo.txt"
 
 $baseUrlConfig = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/config"
 Invoke-WebRequest "$baseUrlConfig/AGENTS.md" -OutFile "$configDir\AGENTS.md" -ErrorAction SilentlyContinue
+Invoke-WebRequest "$baseUrlConfig/themes/fcav.json" -OutFile "$themesDir\fcav.json" -ErrorAction SilentlyContinue
 
 # 5. Crear comando fcavcode
 Write-Host "[4/4] Configurando comando 'fcavcode'..." -ForegroundColor $Yellow
@@ -70,7 +73,7 @@ try {
         "powershell -Command `"[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host (Get-Content '%USERPROFILE%\.config\fcav\fcav-logo.txt' -Raw -Encoding utf8) -ForegroundColor Green`"",
         "set OPENAI_API_KEY=lm-studio",
         "set OPENAI_BASE_URL=http://${serverIP}:1234/v1",
-        "pi --provider openai --model qwen2.5-coder-32b-instruct %*"
+        "pi --theme `"%USERPROFILE%\.config\fcav\themes\fcav.json`" --provider openai --model qwen2.5-coder-32b-instruct %*"
     )
     $cmdLines | Out-File $wrapperCmd -Encoding utf8
     
@@ -81,7 +84,7 @@ try {
         "Write-Host (Get-Content `"`$env:USERPROFILE\.config\fcav\fcav-logo.txt`" -Raw -Encoding utf8) -ForegroundColor Green",
         "`$env:OPENAI_API_KEY = `"lm-studio`"",
         "`$env:OPENAI_BASE_URL = `"http://${serverIP}:1234/v1`"",
-        "pi --provider openai --model qwen2.5-coder-32b-instruct `$args"
+        "pi --theme `"`$env:USERPROFILE\.config\fcav\themes\fcav.json`" --provider openai --model qwen2.5-coder-32b-instruct `$args"
     )
     $ps1Lines | Out-File $wrapperPs1 -Encoding utf8
     

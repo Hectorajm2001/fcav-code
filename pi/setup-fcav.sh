@@ -48,13 +48,14 @@ echo -e "${GREEN}  Servidor configurado: http://${SERVER_IP}:1234/v1${NC}"
 # 4. Clonar config FCAV (Logo y Agents)
 echo -e "${YELLOW}[3/4] Configurando identidad FCAV CODE...${NC}"
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/fcav"
-mkdir -p "$CONFIG_DIR"
+mkdir -p "$CONFIG_DIR/themes"
 
 BASE_URL="https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/resources"
 curl -s -o "$CONFIG_DIR/fcav-logo.txt" "$BASE_URL/fcav-logo.txt"
 
 BASE_URL_CONFIG="https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/config"
 curl -s -o "$CONFIG_DIR/AGENTS.md" "$BASE_URL_CONFIG/AGENTS.md"
+curl -s -o "$CONFIG_DIR/themes/fcav.json" "$BASE_URL_CONFIG/themes/fcav.json"
 
 # 5. Crear comando fcavcode
 echo -e "${YELLOW}[4/4] Configurando comando 'fcavcode'...${NC}"
@@ -71,7 +72,7 @@ cat "\$HOME/.config/fcav/fcav-logo.txt"
 echo -e "\033[0m"
 export OPENAI_API_KEY="lm-studio"
 export OPENAI_BASE_URL="http://${SERVER_IP}:1234/v1"
-pi --provider openai --model qwen2.5-coder-32b-instruct "\$@"
+pi --theme "\$HOME/.config/fcav/themes/fcav.json" --provider openai --model qwen2.5-coder-32b-instruct "\$@"
 EOF
 chmod +x "$WRAPPER"
 echo -e "${GREEN}      Comando fcavcode creado en $WRAPPER ✓${NC}"
