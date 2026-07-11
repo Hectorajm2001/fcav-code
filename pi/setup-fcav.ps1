@@ -111,7 +111,9 @@ try {
         "Write-Host (Get-Content `"`$env:USERPROFILE\.config\fcav\fcav-logo.txt`" -Raw -Encoding utf8) -ForegroundColor Green",
         "`$env:OPENAI_API_KEY = `"lm-studio`"",
         "`$env:OPENAI_BASE_URL = `"http://${serverIP}:1234/v1`"",
-        "pi --theme `"`$env:USERPROFILE\.config\fcav\themes\fcav.json`" --append-system-prompt `"`$env:USERPROFILE\.config\fcav\AGENTS.md`" --provider openai --model qwen2.5-coder-32b-instruct `$args"
+        "`$piArgs = @('--theme', `"`$env:USERPROFILE\.config\fcav\themes\fcav.json`", '--append-system-prompt', `"`$env:USERPROFILE\.config\fcav\AGENTS.md`", '--provider', 'openai', '--model', 'qwen2.5-coder-32b-instruct')",
+        "if (`$args.Count -gt 0) { `$piArgs += `$args }",
+        "& pi @piArgs"
     )
     $ps1Lines | Out-File $wrapperPs1 -Encoding utf8
     
