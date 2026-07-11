@@ -21,6 +21,7 @@ echo -e "${GREEN}  ██║     ██║   ██║██║  ██║██
 echo -e "${GREEN}  ██║     ██║   ██║██║  ██║██╔══╝  ${NC}"
 echo -e "${GREEN}  ╚██████╗╚██████╔╝██████╔╝███████╗${NC}"
 echo -e "${GREEN}   ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝${NC}"
+echo -e "${GREEN}  Facultad de Comercio y Administración Victoria${NC}"
 echo -e ""
 echo -e "${YELLOW}  Instalando FCAV CODE...${NC}"
 echo -e ""
