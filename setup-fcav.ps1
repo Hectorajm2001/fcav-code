@@ -1,5 +1,5 @@
 # setup-fcav.ps1 - Instalador Unificado FCAV CODE
-# Uso: irm https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/setup-fcav.ps1 | iex
+# Uso: irm https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/setup-fcav.ps1 | iex
 
 $ErrorActionPreference = "Stop"
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
@@ -30,7 +30,7 @@ function Write-Header {
 }
 
 Clear-Host
-$logoUrl = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/resources/fcav-logo.txt"
+$logoUrl = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/resources/fcav-logo.txt"
 try {
     $logo = Invoke-RestMethod $logoUrl -ErrorAction SilentlyContinue
     if ($logo) { Write-Host $logo -ForegroundColor $C_SUCCESS }
@@ -106,11 +106,11 @@ $opcion = Get-InteractiveMenu -Title "Motores de IA disponibles:" -Options @(
 if ($opcion -eq "1") {
     Write-Host ""
     Write-Log "INFO" "Iniciando instalacion de Pi..."
-    $scriptUrl = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/pi/setup-fcav.ps1"
+    $scriptUrl = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/pi/setup-fcav.ps1"
 } else {
     Write-Host ""
     Write-Log "INFO" "Iniciando instalacion de OpenCode..."
-    $scriptUrl = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/opencode/setup-fcav.ps1"
+    $scriptUrl = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/setup-fcav.ps1"
 }
 
 try {

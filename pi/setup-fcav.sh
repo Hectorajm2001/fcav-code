@@ -1,6 +1,6 @@
 #!/bin/bash
 # setup-fcav.sh — Instala FCAV CODE en un comando
-# Uso: curl -fsSL https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/setup-fcav.sh | bash
+# Uso: curl -fsSL https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/setup-fcav.sh | bash
 
 set -e
 
@@ -50,10 +50,10 @@ echo -e "${YELLOW}[3/4] Configurando identidad FCAV CODE...${NC}"
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/fcav"
 mkdir -p "$CONFIG_DIR"
 
-BASE_URL="https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/resources"
+BASE_URL="https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/resources"
 curl -s -o "$CONFIG_DIR/fcav-logo.txt" "$BASE_URL/fcav-logo.txt"
 
-BASE_URL_CONFIG="https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/opencode/config"
+BASE_URL_CONFIG="https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/config"
 curl -s -o "$CONFIG_DIR/AGENTS.md" "$BASE_URL_CONFIG/AGENTS.md"
 
 # 5. Crear comando fcavcode

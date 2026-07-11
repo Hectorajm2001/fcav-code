@@ -1,6 +1,6 @@
 #!/bin/bash
 # setup-fcav.sh - Instalador Unificado FCAV CODE
-# Uso: curl -fsSL https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/setup-fcav.sh | bash
+# Uso: curl -fsSL https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/setup-fcav.sh | bash
 
 set -e
 
@@ -33,7 +33,7 @@ write_header() {
 
 clear
 echo -e "${C_SUCCESS}"
-curl -fsSL https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/resources/fcav-logo.txt || true
+curl -fsSL https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/resources/fcav-logo.txt || true
 echo -e "${NC}"
 
 write_header "INSTALADOR UNIFICADO FCAV CODE"
@@ -107,9 +107,9 @@ opcion=$?
 if [ "$opcion" = "1" ]; then
     echo -e ""
     write_log "INFO" "Iniciando instalacion de Pi..."
-    curl -fsSL https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/pi/setup-fcav.sh | bash
+    curl -fsSL https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/pi/setup-fcav.sh | bash
 else
     echo -e ""
     write_log "INFO" "Iniciando instalacion de OpenCode..."
-    curl -fsSL https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/opencode/setup-fcav.sh | bash
+    curl -fsSL https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/setup-fcav.sh | bash
 fi

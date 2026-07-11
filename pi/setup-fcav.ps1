@@ -1,5 +1,5 @@
 # setup-fcav.ps1 — Instala FCAV CODE en un comando
-# Uso: irm https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/setup-fcav.ps1 | iex
+# Uso: irm https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/setup-fcav.ps1 | iex
 
 $ErrorActionPreference = "Stop"
 $Green = "Green"
@@ -52,10 +52,10 @@ $tempDir = "$env:TEMP\fcav-code-setup"
 New-Item -ItemType Directory -Force -Path $configDir | Out-Null
 New-Item -ItemType Directory -Force -Path $tempDir | Out-Null
 
-$baseUrl = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/resources"
+$baseUrl = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/resources"
 Invoke-WebRequest "$baseUrl/fcav-logo.txt" -OutFile "$configDir\fcav-logo.txt"
 
-$baseUrlConfig = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/opencode/config"
+$baseUrlConfig = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/config"
 Invoke-WebRequest "$baseUrlConfig/AGENTS.md" -OutFile "$configDir\AGENTS.md" -ErrorAction SilentlyContinue
 
 # 5. Crear comando fcavcode
