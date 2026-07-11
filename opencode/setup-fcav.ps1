@@ -1,4 +1,4 @@
-﻿# setup-fcav.ps1 — Instala FCAV CODE en un comando
+# setup-fcav.ps1 — Instala FCAV CODE en un comando
 # Uso: irm https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/setup-fcav.ps1 | iex
 
 $ErrorActionPreference = "Stop"
@@ -55,9 +55,13 @@ opencode %*
     $wrapperPs1 = "$npmGlobal\fcavcode.ps1"
     @"
 `$configDir = "`$env:USERPROFILE\.config\opencode"
-if (!(Test-Path ".opencode")) { New-Item -ItemType Directory -Force -Path ".opencode" | Out-Null }
-if (!(Test-Path ".opencode\tui.json")) { Copy-Item "`$configDir\tui.json" ".opencode\tui.json" }
-if (!(Test-Path ".opencode\themes")) { Copy-Item "`$configDir\themes" ".opencode\themes" -Recurse }
+try {
+    if (!(Test-Path ".opencode")) { New-Item -ItemType Directory -Force -Path ".opencode" -ErrorAction Stop | Out-Null }
+    if (!(Test-Path ".opencode\tui.json")) { Copy-Item "`$configDir\tui.json" ".opencode\tui.json" -ErrorAction Stop }
+    if (!(Test-Path ".opencode\themes")) { Copy-Item "`$configDir\themes" ".opencode\themes" -Recurse -ErrorAction Stop }
+} catch {
+    # Ignorar si no hay permisos para crear .opencode localmente (ej: System32)
+}
 opencode `$args
 "@ | Out-File $wrapperPs1 -Encoding utf8
     

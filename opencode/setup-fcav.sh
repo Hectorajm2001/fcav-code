@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 # setup-fcav.sh — Instala FCAV CODE en un comando
 # Uso: curl -fsSL https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/setup-fcav.sh | bash
 
@@ -51,7 +51,7 @@ cat << 'EOF' > "$WRAPPER"
 #!/bin/bash
 CONFIG_DIR="$HOME/.config/opencode"
 if [ ! -d ".opencode" ]; then
-    mkdir -p ".opencode/themes"
+    mkdir -p ".opencode/themes" 2>/dev/null || true
 fi
 if [ ! -f ".opencode/tui.json" ]; then
     cp "$CONFIG_DIR/tui.json" ".opencode/tui.json" 2>/dev/null
