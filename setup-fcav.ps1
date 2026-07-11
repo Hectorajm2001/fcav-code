@@ -64,18 +64,10 @@ New-Item -ItemType Directory -Force -Path $themesDir | Out-Null
 New-Item -ItemType Directory -Force -Path $tempDir | Out-Null
 
 $baseUrl = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/config"
+Invoke-WebRequest "$baseUrl/tui.json" -OutFile "$configDir\tui.json"
 Invoke-WebRequest "$baseUrl/fcav-logo.txt" -OutFile "$configDir\fcav-logo.txt"
 Invoke-WebRequest "$baseUrl/themes/fcav.json" -OutFile "$themesDir\fcav.json"
 Invoke-WebRequest "$baseUrl/AGENTS.md" -OutFile "$configDir\AGENTS.md"
-
-# Generar tui.json dinámicamente con la ruta absoluta del logo
-$logoPath = "$configDir\fcav-logo.txt".Replace("\", "/")
-$tuiJson = @{
-    '$schema' = "https://opencode.ai/tui.json"
-    theme = "fcav"
-    logo = $logoPath
-} | ConvertTo-Json
-$tuiJson | Out-File "$configDir\tui.json" -Encoding utf8
 
 # 5. Preguntar IP del servidor
 Write-Host "[4/4] Configuración del servidor..." -ForegroundColor $Yellow

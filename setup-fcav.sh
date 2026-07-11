@@ -57,18 +57,10 @@ CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/opencode"
 mkdir -p "$CONFIG_DIR/themes"
 
 BASE_URL="https://raw.githubusercontent.com/Hectorajm2001/fcav-code/main/config"
+curl -s -o "$CONFIG_DIR/tui.json" "$BASE_URL/tui.json"
 curl -s -o "$CONFIG_DIR/fcav-logo.txt" "$BASE_URL/fcav-logo.txt"
 curl -s -o "$CONFIG_DIR/themes/fcav.json" "$BASE_URL/themes/fcav.json"
 curl -s -o "$CONFIG_DIR/AGENTS.md" "$BASE_URL/AGENTS.md"
-
-# Generar tui.json dinámicamente con la ruta absoluta del logo
-cat > "$CONFIG_DIR/tui.json" << EOF
-{
-  "\$schema": "https://opencode.ai/tui.json",
-  "theme": "fcav",
-  "logo": "$CONFIG_DIR/fcav-logo.txt"
-}
-EOF
 
 # 5. Preguntar IP del servidor
 echo -e "${YELLOW}[4/4] Configuración del servidor...${NC}"
