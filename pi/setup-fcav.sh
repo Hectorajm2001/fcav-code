@@ -95,7 +95,7 @@ cat "\$HOME/.config/fcav/fcav-logo.txt"
 echo -e "\033[0m"
 export OPENAI_API_KEY="lm-studio"
 export OPENAI_BASE_URL="http://${SERVER_IP}:1234/v1"
-pi --theme "\$HOME/.config/fcav/themes/fcav.json" --provider openai --model qwen2.5-coder-32b-instruct "\$@"
+pi --theme "\$HOME/.config/fcav/themes/fcav.json" --append-system-prompt "\$HOME/.config/fcav/AGENTS.md" --provider openai --model qwen2.5-coder-32b-instruct "\$@"
 EOF
 chmod +x "$WRAPPER"
 echo -e "${GREEN}      Comando fcavcode creado en $WRAPPER ✓${NC}"

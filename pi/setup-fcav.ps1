@@ -95,7 +95,7 @@ try {
         "powershell -Command `"[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host (Get-Content '%USERPROFILE%\.config\fcav\fcav-logo.txt' -Raw -Encoding utf8) -ForegroundColor Green`"",
         "set OPENAI_API_KEY=lm-studio",
         "set OPENAI_BASE_URL=http://${serverIP}:1234/v1",
-        "pi --theme `"%USERPROFILE%\.config\fcav\themes\fcav.json`" --provider openai --model qwen2.5-coder-32b-instruct %*"
+        "pi --theme `"%USERPROFILE%\.config\fcav\themes\fcav.json`" --append-system-prompt `"%USERPROFILE%\.config\fcav\AGENTS.md`" --provider openai --model qwen2.5-coder-32b-instruct %*"
     )
     $cmdLines | Out-File $wrapperCmd -Encoding utf8
     
@@ -111,7 +111,7 @@ try {
         "Write-Host (Get-Content `"`$env:USERPROFILE\.config\fcav\fcav-logo.txt`" -Raw -Encoding utf8) -ForegroundColor Green",
         "`$env:OPENAI_API_KEY = `"lm-studio`"",
         "`$env:OPENAI_BASE_URL = `"http://${serverIP}:1234/v1`"",
-        "pi --theme `"`$env:USERPROFILE\.config\fcav\themes\fcav.json`" --provider openai --model qwen2.5-coder-32b-instruct `$args"
+        "pi --theme `"`$env:USERPROFILE\.config\fcav\themes\fcav.json`" --append-system-prompt `"`$env:USERPROFILE\.config\fcav\AGENTS.md`" --provider openai --model qwen2.5-coder-32b-instruct `$args"
     )
     $ps1Lines | Out-File $wrapperPs1 -Encoding utf8
     
