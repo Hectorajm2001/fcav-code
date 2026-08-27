@@ -1,228 +1,79 @@
 {
   "$schema": "https://opencode.ai/theme.json",
+  "name": "fcav",
   "defs": {
-    "matrixInk0": "#0a0e0a",
-    "matrixInk1": "#0e130d",
-    "matrixInk2": "#141c12",
-    "matrixInk3": "#1e2a1b",
-    "rainGreen": "#2eff6a",
-    "rainGreenDim": "#1cc24b",
-    "rainGreenHi": "#62ff94",
-    "rainCyan": "#00efff",
-    "rainTeal": "#24f6d9",
-    "rainPurple": "#c770ff",
-    "rainOrange": "#ffa83d",
-    "alertRed": "#ff4b4b",
-    "alertYellow": "#e6ff57",
-    "alertBlue": "#30b3ff",
-    "rainGray": "#8ca391",
-    "lightBg": "#eef3ea",
-    "lightPaper": "#e4ebe1",
-    "lightInk1": "#dae1d7",
-    "lightText": "#203022",
-    "lightGray": "#748476"
+    "matrixInk0": "#080d08",
+    "matrixInk1": "#0e140e",
+    "matrixInk2": "#141d14",
+    "matrixInk3": "#1c281b",
+    "fcavGreen": "#22C55E",
+    "fcavGreenDim": "#16A34A",
+    "fcavGreenHi": "#4ADE80",
+    "uatBlue": "#0369A1",
+    "uatBlueLight": "#38BDF8",
+    "uatOrange": "#FB923C",
+    "uatOrangeDark": "#C2410C",
+    "uatGold": "#FBBF24",
+    "uatGoldDark": "#B45309",
+    "rainGray": "#6B8070",
+    "alertRed": "#EF4444",
+    "alertRedDark": "#DC2626",
+    "lightBg": "#FFFFFF",
+    "lightPaper": "#F4FAF4",
+    "lightInk1": "#E6F2E6",
+    "lightText": "#0D2B14",
+    "lightGray": "#5A7A60"
   },
   "theme": {
-    "primary": {
-      "dark": "rainGreen",
-      "light": "rainGreenDim"
-    },
-    "secondary": {
-      "dark": "rainCyan",
-      "light": "rainTeal"
-    },
-    "accent": {
-      "dark": "rainPurple",
-      "light": "rainPurple"
-    },
-    "error": {
-      "dark": "alertRed",
-      "light": "alertRed"
-    },
-    "warning": {
-      "dark": "alertYellow",
-      "light": "alertYellow"
-    },
-    "success": {
-      "dark": "rainGreenHi",
-      "light": "rainGreenDim"
-    },
-    "info": {
-      "dark": "alertBlue",
-      "light": "alertBlue"
-    },
-    "text": {
-      "dark": "rainGreenHi",
-      "light": "lightText"
-    },
-    "textMuted": {
-      "dark": "rainGray",
-      "light": "lightGray"
-    },
-    "background": {
-      "dark": "matrixInk0",
-      "light": "lightBg"
-    },
-    "backgroundPanel": {
-      "dark": "matrixInk1",
-      "light": "lightPaper"
-    },
-    "backgroundElement": {
-      "dark": "matrixInk2",
-      "light": "lightInk1"
-    },
-    "border": {
-      "dark": "matrixInk3",
-      "light": "lightGray"
-    },
-    "borderActive": {
-      "dark": "rainGreen",
-      "light": "rainGreenDim"
-    },
-    "borderSubtle": {
-      "dark": "matrixInk2",
-      "light": "lightInk1"
-    },
-    "diffAdded": {
-      "dark": "rainGreenDim",
-      "light": "rainGreenDim"
-    },
-    "diffRemoved": {
-      "dark": "alertRed",
-      "light": "alertRed"
-    },
-    "diffContext": {
-      "dark": "rainGray",
-      "light": "lightGray"
-    },
-    "diffHunkHeader": {
-      "dark": "alertBlue",
-      "light": "alertBlue"
-    },
-    "diffHighlightAdded": {
-      "dark": "#77ffaf",
-      "light": "#5dac7e"
-    },
-    "diffHighlightRemoved": {
-      "dark": "#ff7171",
-      "light": "#d53a3a"
-    },
-    "diffAddedBg": {
-      "dark": "#132616",
-      "light": "#e0efde"
-    },
-    "diffRemovedBg": {
-      "dark": "#261212",
-      "light": "#f9e5e5"
-    },
-    "diffContextBg": {
-      "dark": "matrixInk1",
-      "light": "lightPaper"
-    },
-    "diffLineNumber": {
-      "dark": "textMuted",
-      "light": "#556156"
-    },
-    "diffAddedLineNumberBg": {
-      "dark": "#0f1b11",
-      "light": "#d6e7d2"
-    },
-    "diffRemovedLineNumberBg": {
-      "dark": "#1b1414",
-      "light": "#f2d2d2"
-    },
-    "markdownText": {
-      "dark": "rainGreenHi",
-      "light": "lightText"
-    },
-    "markdownHeading": {
-      "dark": "rainCyan",
-      "light": "rainTeal"
-    },
-    "markdownLink": {
-      "dark": "alertBlue",
-      "light": "alertBlue"
-    },
-    "markdownLinkText": {
-      "dark": "rainTeal",
-      "light": "rainTeal"
-    },
-    "markdownCode": {
-      "dark": "rainGreenDim",
-      "light": "rainGreenDim"
-    },
-    "markdownBlockQuote": {
-      "dark": "rainGray",
-      "light": "lightGray"
-    },
-    "markdownEmph": {
-      "dark": "rainOrange",
-      "light": "rainOrange"
-    },
-    "markdownStrong": {
-      "dark": "alertYellow",
-      "light": "alertYellow"
-    },
-    "markdownHorizontalRule": {
-      "dark": "rainGray",
-      "light": "lightGray"
-    },
-    "markdownListItem": {
-      "dark": "alertBlue",
-      "light": "alertBlue"
-    },
-    "markdownListEnumeration": {
-      "dark": "rainTeal",
-      "light": "rainTeal"
-    },
-    "markdownImage": {
-      "dark": "alertBlue",
-      "light": "alertBlue"
-    },
-    "markdownImageText": {
-      "dark": "rainTeal",
-      "light": "rainTeal"
-    },
-    "markdownCodeBlock": {
-      "dark": "rainGreenHi",
-      "light": "lightText"
-    },
-    "syntaxComment": {
-      "dark": "rainGray",
-      "light": "lightGray"
-    },
-    "syntaxKeyword": {
-      "dark": "rainPurple",
-      "light": "rainPurple"
-    },
-    "syntaxFunction": {
-      "dark": "alertBlue",
-      "light": "alertBlue"
-    },
-    "syntaxVariable": {
-      "dark": "rainGreenHi",
-      "light": "lightText"
-    },
-    "syntaxString": {
-      "dark": "rainGreenDim",
-      "light": "rainGreenDim"
-    },
-    "syntaxNumber": {
-      "dark": "rainOrange",
-      "light": "rainOrange"
-    },
-    "syntaxType": {
-      "dark": "alertYellow",
-      "light": "alertYellow"
-    },
-    "syntaxOperator": {
-      "dark": "rainTeal",
-      "light": "rainTeal"
-    },
-    "syntaxPunctuation": {
-      "dark": "rainGreenHi",
-      "light": "lightText"
-    }
-  },
-  "name": "fcav"
+    "primary": { "dark": "fcavGreen", "light": "fcavGreen" },
+    "secondary": { "dark": "uatBlueLight", "light": "uatBlue" },
+    "accent": { "dark": "fcavGreenHi", "light": "fcavGreenDim" },
+    "error": { "dark": "alertRed", "light": "alertRedDark" },
+    "warning": { "dark": "uatGold", "light": "uatGoldDark" },
+    "success": { "dark": "fcavGreenHi", "light": "fcavGreen" },
+    "info": { "dark": "uatBlueLight", "light": "uatBlue" },
+    "text": { "dark": "fcavGreenHi", "light": "lightText" },
+    "textMuted": { "dark": "rainGray", "light": "lightGray" },
+    "background": { "dark": "matrixInk0", "light": "lightBg" },
+    "backgroundPanel": { "dark": "matrixInk1", "light": "lightPaper" },
+    "backgroundElement": { "dark": "matrixInk2", "light": "lightInk1" },
+    "border": { "dark": "matrixInk3", "light": "lightInk1" },
+    "borderActive": { "dark": "fcavGreen", "light": "fcavGreen" },
+    "borderSubtle": { "dark": "matrixInk2", "light": "lightPaper" },
+    "diffAdded": { "dark": "fcavGreenDim", "light": "fcavGreen" },
+    "diffRemoved": { "dark": "alertRed", "light": "alertRedDark" },
+    "diffContext": { "dark": "rainGray", "light": "lightGray" },
+    "diffHunkHeader": { "dark": "uatBlueLight", "light": "uatBlue" },
+    "diffHighlightAdded": { "dark": "fcavGreenHi", "light": "fcavGreenDim" },
+    "diffHighlightRemoved": { "dark": "#FCA5A5", "light": "#EF4444" },
+    "diffAddedBg": { "dark": "#0f2312", "light": "#E6F7E6" },
+    "diffRemovedBg": { "dark": "#261212", "light": "#FEE2E2" },
+    "diffContextBg": { "dark": "matrixInk1", "light": "lightPaper" },
+    "diffLineNumber": { "dark": "textMuted", "light": "lightGray" },
+    "diffAddedLineNumberBg": { "dark": "#0f2312", "light": "#E6F7E6" },
+    "diffRemovedLineNumberBg": { "dark": "#261212", "light": "#FEE2E2" },
+    "markdownText": { "dark": "fcavGreenHi", "light": "lightText" },
+    "markdownHeading": { "dark": "uatBlueLight", "light": "uatBlue" },
+    "markdownLink": { "dark": "uatBlueLight", "light": "uatBlue" },
+    "markdownLinkText": { "dark": "fcavGreenHi", "light": "fcavGreen" },
+    "markdownCode": { "dark": "fcavGreenDim", "light": "fcavGreen" },
+    "markdownBlockQuote": { "dark": "rainGray", "light": "lightGray" },
+    "markdownEmph": { "dark": "uatOrange", "light": "uatOrangeDark" },
+    "markdownStrong": { "dark": "uatGold", "light": "uatGoldDark" },
+    "markdownHorizontalRule": { "dark": "matrixInk3", "light": "lightInk1" },
+    "markdownListItem": { "dark": "fcavGreen", "light": "fcavGreen" },
+    "markdownListEnumeration": { "dark": "uatOrange", "light": "uatOrangeDark" },
+    "markdownImage": { "dark": "uatBlueLight", "light": "uatBlue" },
+    "markdownImageText": { "dark": "fcavGreenHi", "light": "fcavGreen" },
+    "markdownCodeBlock": { "dark": "fcavGreenHi", "light": "lightText" },
+    "syntaxComment": { "dark": "rainGray", "light": "lightGray" },
+    "syntaxKeyword": { "dark": "uatOrange", "light": "uatOrangeDark" },
+    "syntaxFunction": { "dark": "uatBlueLight", "light": "uatBlue" },
+    "syntaxVariable": { "dark": "fcavGreenHi", "light": "lightText" },
+    "syntaxString": { "dark": "fcavGreen", "light": "fcavGreen" },
+    "syntaxNumber": { "dark": "uatGold", "light": "uatGoldDark" },
+    "syntaxType": { "dark": "uatGold", "light": "uatGoldDark" },
+    "syntaxOperator": { "dark": "fcavGreenDim", "light": "fcavGreen" },
+    "syntaxPunctuation": { "dark": "fcavGreenHi", "light": "lightText" }
+  }
 }

@@ -2,58 +2,59 @@
   "$schema": "https://opencode.ai/theme.json",
   "name": "fcav",
   "defs": {
-    "matrixInk0": "#0a0e0a",
-    "matrixInk1": "#0e130d",
-    "matrixInk2": "#141c12",
-    "matrixInk3": "#1e2a1b",
-    "rainGreen": "#2eff6a",
-    "rainGreenDim": "#1cc24b",
-    "rainGreenHi": "#62ff94",
-    "rainCyan": "#00efff",
-    "rainTeal": "#24f6d9",
-    "rainPurple": "#c770ff",
-    "rainOrange": "#ffa83d",
-    "alertRed": "#ff4b4b",
-    "alertYellow": "#e6ff57",
-    "alertBlue": "#30b3ff",
-    "rainGray": "#8ca391",
-    "lightBg": "#eef3ea",
-    "lightPaper": "#e4ebe1",
-    "lightInk1": "#dae1d7",
-    "lightText": "#203022",
-    "lightGray": "#748476"
+    "matrixInk0": "#080d08",
+    "matrixInk1": "#0e140e",
+    "matrixInk2": "#141d14",
+    "matrixInk3": "#1c281b",
+    "fcavGreen": "#22C55E",
+    "fcavGreenDim": "#16A34A",
+    "fcavGreenHi": "#4ADE80",
+    "uatBlue": "#0369A1",
+    "uatBlueLight": "#38BDF8",
+    "uatOrange": "#FB923C",
+    "uatOrangeDark": "#C2410C",
+    "uatGold": "#FBBF24",
+    "uatGoldDark": "#B45309",
+    "rainGray": "#6B8070",
+    "alertRed": "#EF4444",
+    "alertRedDark": "#DC2626",
+    "lightBg": "#FFFFFF",
+    "lightPaper": "#F4FAF4",
+    "lightInk1": "#E6F2E6",
+    "lightText": "#0D2B14",
+    "lightGray": "#5A7A60"
   },
   "theme": {
     "primary": {
-      "dark": "rainGreen",
-      "light": "rainGreenDim"
+      "dark": "fcavGreen",
+      "light": "fcavGreen"
     },
     "secondary": {
-      "dark": "rainCyan",
-      "light": "rainTeal"
+      "dark": "uatBlueLight",
+      "light": "uatBlue"
     },
     "accent": {
-      "dark": "rainPurple",
-      "light": "rainPurple"
+      "dark": "fcavGreenHi",
+      "light": "fcavGreenDim"
     },
     "error": {
       "dark": "alertRed",
-      "light": "alertRed"
+      "light": "alertRedDark"
     },
     "warning": {
-      "dark": "alertYellow",
-      "light": "alertYellow"
+      "dark": "uatGold",
+      "light": "uatGoldDark"
     },
     "success": {
-      "dark": "rainGreenHi",
-      "light": "rainGreenDim"
+      "dark": "fcavGreenHi",
+      "light": "fcavGreen"
     },
     "info": {
-      "dark": "alertBlue",
-      "light": "alertBlue"
+      "dark": "uatBlueLight",
+      "light": "uatBlue"
     },
     "text": {
-      "dark": "rainGreenHi",
+      "dark": "fcavGreenHi",
       "light": "lightText"
     },
     "textMuted": {
@@ -74,47 +75,47 @@
     },
     "border": {
       "dark": "matrixInk3",
-      "light": "lightGray"
+      "light": "lightInk1"
     },
     "borderActive": {
-      "dark": "rainGreen",
-      "light": "rainGreenDim"
+      "dark": "fcavGreen",
+      "light": "fcavGreen"
     },
     "borderSubtle": {
       "dark": "matrixInk2",
-      "light": "lightInk1"
+      "light": "lightPaper"
     },
     "diffAdded": {
-      "dark": "rainGreenDim",
-      "light": "rainGreenDim"
+      "dark": "fcavGreenDim",
+      "light": "fcavGreen"
     },
     "diffRemoved": {
       "dark": "alertRed",
-      "light": "alertRed"
+      "light": "alertRedDark"
     },
     "diffContext": {
       "dark": "rainGray",
       "light": "lightGray"
     },
     "diffHunkHeader": {
-      "dark": "alertBlue",
-      "light": "alertBlue"
+      "dark": "uatBlueLight",
+      "light": "uatBlue"
     },
     "diffHighlightAdded": {
-      "dark": "#77ffaf",
-      "light": "#5dac7e"
+      "dark": "fcavGreenHi",
+      "light": "fcavGreenDim"
     },
     "diffHighlightRemoved": {
-      "dark": "#ff7171",
-      "light": "#d53a3a"
+      "dark": "#FCA5A5",
+      "light": "#EF4444"
     },
     "diffAddedBg": {
-      "dark": "#132616",
-      "light": "#e0efde"
+      "dark": "#0f2312",
+      "light": "#E6F7E6"
     },
     "diffRemovedBg": {
       "dark": "#261212",
-      "light": "#f9e5e5"
+      "light": "#FEE2E2"
     },
     "diffContextBg": {
       "dark": "matrixInk1",
@@ -122,70 +123,70 @@
     },
     "diffLineNumber": {
       "dark": "textMuted",
-      "light": "#556156"
+      "light": "lightGray"
     },
     "diffAddedLineNumberBg": {
-      "dark": "#0f1b11",
-      "light": "#d6e7d2"
+      "dark": "#0f2312",
+      "light": "#E6F7E6"
     },
     "diffRemovedLineNumberBg": {
-      "dark": "#1b1414",
-      "light": "#f2d2d2"
+      "dark": "#261212",
+      "light": "#FEE2E2"
     },
     "markdownText": {
-      "dark": "rainGreenHi",
+      "dark": "fcavGreenHi",
       "light": "lightText"
     },
     "markdownHeading": {
-      "dark": "rainCyan",
-      "light": "rainTeal"
+      "dark": "uatBlueLight",
+      "light": "uatBlue"
     },
     "markdownLink": {
-      "dark": "alertBlue",
-      "light": "alertBlue"
+      "dark": "uatBlueLight",
+      "light": "uatBlue"
     },
     "markdownLinkText": {
-      "dark": "rainTeal",
-      "light": "rainTeal"
+      "dark": "fcavGreenHi",
+      "light": "fcavGreen"
     },
     "markdownCode": {
-      "dark": "rainGreenDim",
-      "light": "rainGreenDim"
+      "dark": "fcavGreenDim",
+      "light": "fcavGreen"
     },
     "markdownBlockQuote": {
       "dark": "rainGray",
       "light": "lightGray"
     },
     "markdownEmph": {
-      "dark": "rainOrange",
-      "light": "rainOrange"
+      "dark": "uatOrange",
+      "light": "uatOrangeDark"
     },
     "markdownStrong": {
-      "dark": "alertYellow",
-      "light": "alertYellow"
+      "dark": "uatGold",
+      "light": "uatGoldDark"
     },
     "markdownHorizontalRule": {
-      "dark": "rainGray",
-      "light": "lightGray"
+      "dark": "matrixInk3",
+      "light": "lightInk1"
     },
     "markdownListItem": {
-      "dark": "alertBlue",
-      "light": "alertBlue"
+      "dark": "fcavGreen",
+      "light": "fcavGreen"
     },
     "markdownListEnumeration": {
-      "dark": "rainTeal",
-      "light": "rainTeal"
+      "dark": "uatOrange",
+      "light": "uatOrangeDark"
     },
     "markdownImage": {
-      "dark": "alertBlue",
-      "light": "alertBlue"
+      "dark": "uatBlueLight",
+      "light": "uatBlue"
     },
     "markdownImageText": {
-      "dark": "rainTeal",
-      "light": "rainTeal"
+      "dark": "fcavGreenHi",
+      "light": "fcavGreen"
     },
     "markdownCodeBlock": {
-      "dark": "rainGreenHi",
+      "dark": "fcavGreenHi",
       "light": "lightText"
     },
     "syntaxComment": {
@@ -193,35 +194,35 @@
       "light": "lightGray"
     },
     "syntaxKeyword": {
-      "dark": "rainPurple",
-      "light": "rainPurple"
+      "dark": "uatOrange",
+      "light": "uatOrangeDark"
     },
     "syntaxFunction": {
-      "dark": "alertBlue",
-      "light": "alertBlue"
+      "dark": "uatBlueLight",
+      "light": "uatBlue"
     },
     "syntaxVariable": {
-      "dark": "rainGreenHi",
+      "dark": "fcavGreenHi",
       "light": "lightText"
     },
     "syntaxString": {
-      "dark": "rainGreenDim",
-      "light": "rainGreenDim"
+      "dark": "fcavGreen",
+      "light": "fcavGreen"
     },
     "syntaxNumber": {
-      "dark": "rainOrange",
-      "light": "rainOrange"
+      "dark": "uatGold",
+      "light": "uatGoldDark"
     },
     "syntaxType": {
-      "dark": "alertYellow",
-      "light": "alertYellow"
+      "dark": "uatGold",
+      "light": "uatGoldDark"
     },
     "syntaxOperator": {
-      "dark": "rainTeal",
-      "light": "rainTeal"
+      "dark": "fcavGreenDim",
+      "light": "fcavGreen"
     },
     "syntaxPunctuation": {
-      "dark": "rainGreenHi",
+      "dark": "fcavGreenHi",
       "light": "lightText"
     }
   }
