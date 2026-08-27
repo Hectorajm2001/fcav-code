@@ -52,11 +52,29 @@ fi
 
 cat << 'EOF' > "$WRAPPER"
 #!/bin/bash
-CONFIG_DIR="$HOME/.config/opencode"
+if [ "$1" = "update" ]; then
+    UPDATE_URL="https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/update-fcav.sh"
+    if curl -fsSL "$UPDATE_URL" | bash; then
+        exit 0
+    else
+        CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/opencode"
+        if [ -f "$CONFIG_DIR/update-fcav.js" ]; then
+            node "$CONFIG_DIR/update-fcav.js" "$@"
+            exit 0
+        fi
+        npm i -g opencode-ai@latest
+        if [ -f "$CONFIG_DIR/patch-logo.js" ]; then
+            node "$CONFIG_DIR/patch-logo.js"
+        fi
+        exit 0
+    fi
+fi
+
+CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/opencode"
 if [ ! -d ".opencode" ]; then
     mkdir -p ".opencode/themes" 2>/dev/null || true
 fi
-if [ ! -f ".opencode/tui.json" ]; then
+if [ ! -f ".opencode/tui.json" ] && [ -f "$CONFIG_DIR/tui.json" ]; then
     cp "$CONFIG_DIR/tui.json" ".opencode/tui.json" 2>/dev/null
 fi
 if [ -d "$CONFIG_DIR/themes" ] && [ ! -f ".opencode/themes/fcav.json" ]; then
@@ -77,6 +95,17 @@ curl -s -o "$CONFIG_DIR/tui.json" "$BASE_URL/tui.json"
 curl -s -o "$CONFIG_DIR/fcav-logo.txt" "$BASE_URL/fcav-logo.txt"
 curl -s -o "$CONFIG_DIR/themes/fcav.json" "$BASE_URL/themes/fcav.json"
 curl -s -o "$CONFIG_DIR/AGENTS.md" "$BASE_URL/AGENTS.md"
+
+# 4.1. Aplicar identidad visual FCAV al ejecutable de OpenCode
+echo -e "${YELLOW}      Personalizando identidad visual (FCAV Logo)...${NC}"
+TEMP_PATCH="/tmp/patch-logo-$$.js"
+if curl -s -o "$TEMP_PATCH" "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/patch-logo.js" 2>/dev/null; then
+    if [ -f "$TEMP_PATCH" ]; then
+        node "$TEMP_PATCH" >/dev/null 2>&1 || true
+        rm -f "$TEMP_PATCH"
+        echo -e "${GREEN}      Logo de FCAV CODE aplicado al motor ✓${NC}"
+    fi
+fi
 
 # 5. Preguntar IP del servidor
 echo -e "${YELLOW}[4/4] Configuracion del servidor...${NC}"

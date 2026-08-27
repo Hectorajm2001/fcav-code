@@ -1,0 +1,9 @@
+# Archivos de sistema y entorno local
+Imagen/
+skills/
+*.bak
+*.orig.bak
+*.old
+.DS_Store
+Thumbs.db
+node_modules/

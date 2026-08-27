@@ -49,24 +49,81 @@ try {
     $wrapperCmd = "$npmGlobal\fcavcode.cmd"
     @"
 @echo off
+if /i "%~1"=="update" (
+    powershell -NoProfile -ExecutionPolicy Bypass -Command "Invoke-Expression (Invoke-RestMethod 'https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/update-fcav.ps1' -ErrorAction SilentlyContinue); if (`$?) { exit 0 } else { node '%USERPROFILE%\.config\opencode\update-fcav.js' %* }"
+    if %ERRORLEVEL% neq 0 (
+        set "CONFIG_DIR=%USERPROFILE%\.config\opencode"
+        if exist "%CONFIG_DIR%\update-fcav.js" (
+            node "%CONFIG_DIR%\update-fcav.js" %*
+        ) else if exist "%CONFIG_DIR%\patch-logo.js" (
+            npm i -g opencode-ai@latest
+            node "%CONFIG_DIR%\patch-logo.js"
+        )
+    )
+    exit /b %ERRORLEVEL%
+)
+
 if not exist ".opencode" mkdir ".opencode"
 if not exist ".opencode\tui.json" copy "%USERPROFILE%\.config\opencode\tui.json" ".opencode\tui.json" >nul
 if not exist ".opencode\themes" xcopy "%USERPROFILE%\.config\opencode\themes" ".opencode\themes" /E /I /Q >nul
-opencode %*
+
+set "PATH=%APPDATA%\npm;%LOCALAPPDATA%\Programs\nodejs;C:\Program Files\nodejs;%PATH%"
+set "OPENCODE_EXE=%APPDATA%\npm\node_modules\opencode-ai\bin\opencode.exe"
+
+if exist "%OPENCODE_EXE%" (
+    "%OPENCODE_EXE%" %*
+) else (
+    call opencode %*
+)
 "@ | Out-File $wrapperCmd -Encoding utf8
     
     # Wrapper para PowerShell
     $wrapperPs1 = "$npmGlobal\fcavcode.ps1"
     @"
+param(
+    [Parameter(ValueFromRemainingArguments = `$true)]
+    [string[]]`$Arguments
+)
+
+`$firstArg = if (`$Arguments.Length -gt 0) { `$Arguments[0] } else { "" }
+
+if (`$firstArg -eq "update") {
+    `$updateUrl = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/update-fcav.ps1"
+    try {
+        `$script = Invoke-RestMethod `$updateUrl -ErrorAction Stop
+        if (`$script.Length -gt 0 -and `$script[0] -eq [char]0xFEFF) { `$script = `$script.Substring(1) }
+        Invoke-Expression `$script
+        exit 0
+    } catch {
+        `$localUpdate = "`$env:USERPROFILE\.config\opencode\update-fcav.js"
+        if (Test-Path `$localUpdate) {
+            node `$localUpdate
+            exit 0
+        }
+        `$localPatch = "`$env:USERPROFILE\.config\opencode\patch-logo.js"
+        if (Test-Path `$localPatch) {
+            npm i -g opencode-ai@latest
+            node `$localPatch
+            exit 0
+        }
+    }
+}
+
 `$configDir = "`$env:USERPROFILE\.config\opencode"
 try {
     if (!(Test-Path ".opencode")) { New-Item -ItemType Directory -Force -Path ".opencode" -ErrorAction Stop | Out-Null }
-    if (!(Test-Path ".opencode\tui.json")) { Copy-Item "`$configDir\tui.json" ".opencode\tui.json" -ErrorAction Stop }
-    if (!(Test-Path ".opencode\themes")) { Copy-Item "`$configDir\themes" ".opencode\themes" -Recurse -ErrorAction Stop }
-} catch {
-    # Ignorar si no hay permisos para crear .opencode localmente (ej: System32)
+    if (!(Test-Path ".opencode\tui.json") -and (Test-Path "`$configDir\tui.json")) { Copy-Item "`$configDir\tui.json" ".opencode\tui.json" -ErrorAction Stop }
+    if (!(Test-Path ".opencode\themes") -and (Test-Path "`$configDir\themes")) { Copy-Item "`$configDir\themes" ".opencode\themes" -Recurse -ErrorAction Stop }
+} catch {}
+
+`$env:PATH = "`$env:APPDATA\npm;`$env:LOCALAPPDATA\Programs\nodejs;C:\Program Files\nodejs;`$env:PATH"
+`$opencodeExe = "`$env:APPDATA\npm\node_modules\opencode-ai\bin\opencode.exe"
+
+if (Test-Path `$opencodeExe) {
+    & `$opencodeExe `$Arguments
+} else {
+    opencode `$Arguments
 }
-opencode `$args
 "@ | Out-File $wrapperPs1 -Encoding utf8
     
     Write-Host "      Comando fcavcode creado ✓" -ForegroundColor $Green
@@ -89,6 +146,19 @@ Invoke-WebRequest "$baseUrl/fcav-logo.txt" -OutFile "$configDir\fcav-logo.txt"
 Invoke-WebRequest "$baseUrl/themes/fcav.json" -OutFile "$themesDir\fcav.json"
 Invoke-WebRequest "$baseUrl/AGENTS.md" -OutFile "$configDir\AGENTS.md"
 
+# 4.1. Aplicar identidad visual FCAV al ejecutable de OpenCode
+Write-Host "      Personalizando identidad visual (FCAV Logo)..." -ForegroundColor $Yellow
+try {
+    $patchScript = "$tempDir\patch-logo.js"
+    Invoke-WebRequest "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/patch-logo.js" -OutFile $patchScript -ErrorAction SilentlyContinue
+    if (Test-Path $patchScript) {
+        node $patchScript | Out-Null
+        Write-Host "      Logo de FCAV CODE aplicado al motor ✓" -ForegroundColor $Green
+    }
+} catch {
+    # Ignorar si no se pudo aplicar el parche binario
+}
+
 # 5. Preguntar IP del servidor
 Write-Host "[4/4] Configuracion del servidor..." -ForegroundColor $Yellow
 $serverIP = Read-Host "  IP del servidor LM Studio (ej: 192.168.1.100)"
@@ -106,11 +176,11 @@ $opencodeJson = @{
             name = "LM Studio (FCAV Intranet)"
             options = @{ baseURL = "http://${serverIP}:1234/v1" }
             models = @{
-                "qwen2.5-coder-32b" = @{ model = "qwen2.5-coder-32b-instruct" }
+                "local-model" = @{ model = "local-model" }
             }
         }
     }
-    model = "lmstudio/qwen2.5-coder-32b"
+    model = "lmstudio/local-model"
 } | ConvertTo-Json -Depth 5
 $opencodeJson | Out-File "$configDir\opencode.json" -Encoding utf8
 
