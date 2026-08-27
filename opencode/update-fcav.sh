@@ -45,6 +45,7 @@ BASE_URL="https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/openc
 curl -s -o "$CONFIG_DIR/tui.json" "$BASE_URL/tui.json" || true
 curl -s -o "$CONFIG_DIR/fcav-logo.txt" "$BASE_URL/fcav-logo.txt" || true
 curl -s -o "$CONFIG_DIR/themes/fcav.json" "$BASE_URL/themes/fcav.json" || true
+curl -s -o "$CONFIG_DIR/themes/fcav-light.json" "$BASE_URL/themes/fcav-light.json" || true
 curl -s -o "$CONFIG_DIR/AGENTS.md" "$BASE_URL/AGENTS.md" || true
 
 # 3. Reinyectar logotipo y colores FCAV en los binarios

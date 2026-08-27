@@ -144,6 +144,7 @@ $baseUrl = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/ope
 Invoke-WebRequest "$baseUrl/tui.json" -OutFile "$configDir\tui.json"
 Invoke-WebRequest "$baseUrl/fcav-logo.txt" -OutFile "$configDir\fcav-logo.txt"
 Invoke-WebRequest "$baseUrl/themes/fcav.json" -OutFile "$themesDir\fcav.json"
+Invoke-WebRequest "$baseUrl/themes/fcav-light.json" -OutFile "$themesDir\fcav-light.json"
 Invoke-WebRequest "$baseUrl/AGENTS.md" -OutFile "$configDir\AGENTS.md"
 
 # 4.1. Aplicar identidad visual FCAV al ejecutable de OpenCode

@@ -54,6 +54,7 @@ try {
     Invoke-WebRequest "$baseUrl/tui.json" -OutFile "$configDir\tui.json" -ErrorAction SilentlyContinue
     Invoke-WebRequest "$baseUrl/fcav-logo.txt" -OutFile "$configDir\fcav-logo.txt" -ErrorAction SilentlyContinue
     Invoke-WebRequest "$baseUrl/themes/fcav.json" -OutFile "$themesDir\fcav.json" -ErrorAction SilentlyContinue
+    Invoke-WebRequest "$baseUrl/themes/fcav-light.json" -OutFile "$themesDir\fcav-light.json" -ErrorAction SilentlyContinue
     Invoke-WebRequest "$baseUrl/AGENTS.md" -OutFile "$configDir\AGENTS.md" -ErrorAction SilentlyContinue
 } catch {}
 

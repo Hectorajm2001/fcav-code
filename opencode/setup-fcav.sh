@@ -94,6 +94,7 @@ BASE_URL="https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/openc
 curl -s -o "$CONFIG_DIR/tui.json" "$BASE_URL/tui.json"
 curl -s -o "$CONFIG_DIR/fcav-logo.txt" "$BASE_URL/fcav-logo.txt"
 curl -s -o "$CONFIG_DIR/themes/fcav.json" "$BASE_URL/themes/fcav.json"
+curl -s -o "$CONFIG_DIR/themes/fcav-light.json" "$BASE_URL/themes/fcav-light.json"
 curl -s -o "$CONFIG_DIR/AGENTS.md" "$BASE_URL/AGENTS.md"
 
 # 4.1. Aplicar identidad visual FCAV al ejecutable de OpenCode
