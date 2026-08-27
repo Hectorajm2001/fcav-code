@@ -32,6 +32,12 @@ async function updateFcav(options = {}) {
   console.log('   FCAV CODE — Actualizador y Parcheador');
   console.log('========================================================\n');
 
+  if (process.platform === 'win32') {
+    try {
+      cp.execSync('taskkill /F /IM opencode.exe /T 2>nul', { stdio: 'ignore' });
+    } catch {}
+  }
+
   const skipNpm = options.patchOnly || process.argv.includes('--patch-only');
 
   if (!skipNpm) {
