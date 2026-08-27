@@ -348,7 +348,7 @@ function patchBinary(binaryPath, logoRaw) {
     }
   }
 
-  // --- 2. Patch chunk-zbpvt8mq.js (Legible Block Typography for TUI) ---
+  // --- 2. Patch chunk-zbpvt8mq.js (Legible Block Typography for TUI - Full and Compact) ---
   const start2 = newBuf.indexOf(Buffer.from('chunk-zbpvt8mq.js\x00// @bun\n', 'utf8'));
   const exportMarker2 = Buffer.from('export{_ as en,t as fn};\n', 'utf8');
   if (start2 !== -1) {
@@ -361,22 +361,31 @@ function patchBinary(binaryPath, logoRaw) {
         'var _={left:[' +
         '"                   ",' +
         '"\\u2588\\u2580\\u2580\\u2580 \\u2588\\u2580\\u2580\\u2580 \\u2588\\u2580\\u2580\\u2588 \\u2588  \\u2588",' +
-        '"\\u2588\\u2580\\u2580  \\u2588    \\u2588\\u2580\\u2580\\u2580\\u2588 \\u2588  \\u2588",' +
+        '"\\u2588^^_ \\u2588___ \\u2588__\\u2588 \\u2588__\\u2588",' +
         '"\\u2580    \\u2580\\u2580\\u2580\\u2580 \\u2580  \\u2580  \\u2580\\u2580 "' +
         '],right:[' +
         '"                   ",' +
         '"\\u2588\\u2580\\u2580\\u2580 \\u2588\\u2580\\u2580\\u2588 \\u2588\\u2580\\u2580\\u2584 \\u2588\\u2580\\u2580\\u2580",' +
-        '"\\u2588    \\u2588  \\u2588 \\u2588  \\u2588 \\u2588\\u2580\\u2580 ",' +
-        '"\\u2580\\u2580\\u2580\\u2580 \\u2580\\u2580\\u2580\\u2580 \\u2580\\u2580\\u2580\\u2580 \\u2580\\u2580\\u2580\\u2580"' +
+        '"\\u2588___ \\u2588__\\u2588 \\u2588__\\u2588 \\u2588^^_",' +
+        '"\\u2580\\u2580\\u2580\\u2580 \\u2580\\u2580\\u2580\\u2580 \\u2580~~\\u2580 \\u2580\\u2580\\u2580\\u2580"' +
+        ']},t={left:[' +
+        '"    ",' +
+        '"\\u2588\\u2580\\u2580\\u2580",' +
+        '"\\u2588^^_",' +
+        '"\\u2580   "' +
+        '],right:[' +
+        '"    ",' +
+        '"\\u2588\\u2580\\u2580\\u2580",' +
+        '"\\u2588___",' +
+        '"\\u2580\\u2580\\u2580\\u2580"' +
         ']};' +
-        'var t=_;' +
         '\nexport{_ as en,t as fn};\n';
 
       const padLen2 = targetLen2 - Buffer.byteLength(jsCode2, 'utf8');
       if (padLen2 >= 4) {
         const paddedJs2 = jsCode2.replace('\nexport{_ as en,t as fn};\n', '/*' + ' '.repeat(padLen2 - 4) + '*/\nexport{_ as en,t as fn};\n');
         Buffer.from(paddedJs2, 'utf8').copy(newBuf, start2);
-        console.log('  ✓ Patched chunk-zbpvt8mq.js (Legible TUI Block Typography)');
+        console.log('  ✓ Patched chunk-zbpvt8mq.js (Legible TUI Block Typography - Full and Compact)');
       }
     }
   }
@@ -393,13 +402,13 @@ function patchBinary(binaryPath, logoRaw) {
       const jsCode3 = 'var vn={left:[' +
         '"                   ",' +
         '"\\u2588\\u2580\\u2580\\u2580 \\u2588\\u2580\\u2580\\u2580 \\u2588\\u2580\\u2580\\u2588 \\u2588  \\u2588",' +
-        '"\\u2588\\u2580\\u2580  \\u2588    \\u2588\\u2580\\u2580\\u2580\\u2588 \\u2588  \\u2588",' +
+        '"\\u2588^^_ \\u2588___ \\u2588__\\u2588 \\u2588__\\u2588",' +
         '"\\u2580    \\u2580\\u2580\\u2580\\u2580 \\u2580  \\u2580  \\u2580\\u2580 "' +
         '],right:[' +
         '"                   ",' +
         '"\\u2588\\u2580\\u2580\\u2580 \\u2588\\u2580\\u2580\\u2588 \\u2588\\u2580\\u2580\\u2584 \\u2588\\u2580\\u2580\\u2580",' +
-        '"\\u2588    \\u2588  \\u2588 \\u2588  \\u2588 \\u2588\\u2580\\u2580 ",' +
-        '"\\u2580\\u2580\\u2580\\u2580 \\u2580\\u2580\\u2580\\u2580 \\u2580\\u2580\\u2580\\u2580 \\u2580\\u2580\\u2580\\u2580"' +
+        '"\\u2588___ \\u2588__\\u2588 \\u2588__\\u2588 \\u2588^^_",' +
+        '"\\u2580\\u2580\\u2580\\u2580 \\u2580\\u2580\\u2580\\u2580 \\u2580~~\\u2580 \\u2580\\u2580\\u2580\\u2580"' +
         ']};';
 
       const padLen3 = targetLen3 - Buffer.byteLength(jsCode3, 'utf8');
@@ -411,19 +420,7 @@ function patchBinary(binaryPath, logoRaw) {
     }
   }
 
-  // --- 4. Patch class vg default colors (Matrix Green Palette) ---
-  const vgColorTarget = Buffer.from('panelRgb=[0,0,0];primaryRgb=[255,255,255];logoBaseRgb=[180,180,180];', 'utf8');
-  const start4 = newBuf.indexOf(vgColorTarget);
-  if (start4 !== -1) {
-    const targetLen4 = vgColorTarget.length;
-    const replacement4 = 'panelRgb=[10,14,10];primaryRgb=[46,255,106];logoBaseRgb=[98,255,148];   ';
-    if (Buffer.byteLength(replacement4, 'utf8') === targetLen4) {
-      Buffer.from(replacement4, 'utf8').copy(newBuf, start4);
-      console.log('  ✓ Patched class vg default colors to Matrix Green');
-    }
-  }
-
-  // --- 5. Patch gi() TUI Logo Color (Force Verde Matrix base) ---
+  // --- 4. Patch gi() TUI Logo Color (Force Verde Matrix base) ---
   const giTarget = Buffer.from('var{backgroundPanel:i,primary:Z}=U,V=f0(U.background,U.text,0.62);', 'utf8');
   const start5 = newBuf.indexOf(giTarget);
   if (start5 !== -1) {
@@ -435,7 +432,7 @@ function patchBinary(binaryPath, logoRaw) {
     }
   }
 
-  // --- 6. Patch default theme Xa to point to Matrix theme Qa ---
+  // --- 5. Patch default theme Xa to point to Matrix theme Qa ---
   const start6 = newBuf.indexOf(Buffer.from('opencode:Xa,orng:Ja', 'utf8'));
   if (start6 !== -1) {
     const replacement6 = 'opencode:Qa,orng:Ja';
