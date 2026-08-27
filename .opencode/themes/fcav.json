@@ -1,5 +1,6 @@
 {
   "$schema": "https://opencode.ai/theme.json",
+  "name": "fcav",
   "defs": {
     "matrixInk0": "#0a0e0a",
     "matrixInk1": "#0e130d",
@@ -223,6 +224,5 @@
       "dark": "rainGreenHi",
       "light": "lightText"
     }
-  },
-  "name": "fcav"
+  }
 }

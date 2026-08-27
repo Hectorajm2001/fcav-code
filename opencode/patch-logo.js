@@ -218,17 +218,40 @@ function installThemeFiles() {
     };
     fs.writeFileSync(tuiFile, JSON.stringify(tuiContent, null, 2), 'utf8');
 
-    // Also update KV state so theme is immediately active
+    // Update tui.jsonc if exists
+    const tuiJsonc = path.join(userConfigDir, 'tui.jsonc');
+    if (fs.existsSync(tuiJsonc)) {
+      let content = fs.readFileSync(tuiJsonc, 'utf8');
+      if (content.includes('"theme"')) {
+        content = content.replace(/"theme":\s*"[^"]*"/, '"theme": "fcav"');
+      } else {
+        content = content.replace('{', '{\n  "theme": "fcav",');
+      }
+      fs.writeFileSync(tuiJsonc, content, 'utf8');
+    }
+
+    // Update local KV state
     const kvFile = path.join(os.homedir(), '.local', 'state', 'opencode', 'kv.json');
     if (fs.existsSync(kvFile)) {
       try {
         const kv = JSON.parse(fs.readFileSync(kvFile, 'utf8'));
         kv.theme = 'fcav';
-        fs.writeFileSync(kvFile, JSON.stringify(kv), 'utf8');
+        fs.writeFileSync(kvFile, JSON.stringify(kv, null, 2), 'utf8');
       } catch {}
     }
 
-    console.log('✓ Configurados temas fcav y fcav-light en ~/.config/opencode/themes/');
+    // Update current workspace .opencode if present
+    const wsThemes = path.join(process.cwd(), '.opencode', 'themes');
+    if (fs.existsSync(wsThemes)) {
+      fs.writeFileSync(path.join(wsThemes, 'fcav.json'), JSON.stringify(DEFAULT_FCAV_THEME, null, 2), 'utf8');
+      fs.writeFileSync(path.join(wsThemes, 'fcav-light.json'), JSON.stringify(DEFAULT_FCAV_LIGHT_THEME, null, 2), 'utf8');
+    }
+    const wsTui = path.join(process.cwd(), '.opencode', 'tui.json');
+    if (fs.existsSync(wsTui)) {
+      fs.writeFileSync(wsTui, JSON.stringify(tuiContent, null, 2), 'utf8');
+    }
+
+    console.log('✓ Configurados temas fcav y fcav-light en ~/.config/opencode/themes/ y KV state');
   } catch (e) {
     console.warn('Could not setup user global theme files:', e.message);
   }
@@ -338,7 +361,7 @@ function patchBinary(binaryPath, logoRaw) {
         'var _={left:[' +
         '"                   ",' +
         '"\\u2588\\u2580\\u2580\\u2580 \\u2588\\u2580\\u2580\\u2580 \\u2588\\u2580\\u2580\\u2588 \\u2588  \\u2588",' +
-        '"\\u2588\\u2580\\u2580  \\u2588    \\u2588\\u2580\\u2580\\u2588 \\u2588  \\u2588",' +
+        '"\\u2588\\u2580\\u2580  \\u2588    \\u2588\\u2580\\u2580\\u2580\\u2588 \\u2588  \\u2588",' +
         '"\\u2580    \\u2580\\u2580\\u2580\\u2580 \\u2580  \\u2580  \\u2580\\u2580 "' +
         '],right:[' +
         '"                   ",' +
@@ -370,7 +393,7 @@ function patchBinary(binaryPath, logoRaw) {
       const jsCode3 = 'var vn={left:[' +
         '"                   ",' +
         '"\\u2588\\u2580\\u2580\\u2580 \\u2588\\u2580\\u2580\\u2580 \\u2588\\u2580\\u2580\\u2588 \\u2588  \\u2588",' +
-        '"\\u2588\\u2580\\u2580  \\u2588    \\u2588\\u2580\\u2580\\u2588 \\u2588  \\u2588",' +
+        '"\\u2588\\u2580\\u2580  \\u2588    \\u2588\\u2580\\u2580\\u2580\\u2588 \\u2588  \\u2588",' +
         '"\\u2580    \\u2580\\u2580\\u2580\\u2580 \\u2580  \\u2580  \\u2580\\u2580 "' +
         '],right:[' +
         '"                   ",' +
@@ -393,7 +416,6 @@ function patchBinary(binaryPath, logoRaw) {
   const start4 = newBuf.indexOf(vgColorTarget);
   if (start4 !== -1) {
     const targetLen4 = vgColorTarget.length;
-    // panelRgb: [10, 14, 10] (#0a0e0a), primaryRgb: [46, 255, 106] (#2eff6a), logoBaseRgb: [98, 255, 148] (#62ff94)
     const replacement4 = 'panelRgb=[10,14,10];primaryRgb=[46,255,106];logoBaseRgb=[98,255,148];   ';
     if (Buffer.byteLength(replacement4, 'utf8') === targetLen4) {
       Buffer.from(replacement4, 'utf8').copy(newBuf, start4);
