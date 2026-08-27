@@ -348,7 +348,7 @@ function patchBinary(binaryPath, logoRaw) {
     }
   }
 
-  // --- 2. Patch chunk-zbpvt8mq.js (Legible Block Typography for TUI - Full and Compact) ---
+  // --- 2. Patch chunk-zbpvt8mq.js (FCAV CODE Block Typography - Full and Compact) ---
   const start2 = newBuf.indexOf(Buffer.from('chunk-zbpvt8mq.js\x00// @bun\n', 'utf8'));
   const exportMarker2 = Buffer.from('export{_ as en,t as fn};\n', 'utf8');
   if (start2 !== -1) {
@@ -361,17 +361,17 @@ function patchBinary(binaryPath, logoRaw) {
         'var _={left:[' +
         '"                   ",' +
         '"\\u2588\\u2580\\u2580\\u2580 \\u2588\\u2580\\u2580\\u2580 \\u2588\\u2580\\u2580\\u2588 \\u2588  \\u2588",' +
-        '"\\u2588^^_ \\u2588___ \\u2588__\\u2588 \\u2588__\\u2588",' +
+        '"\\u2588^^^ \\u2588___ \\u2588__\\u2588 \\u2588__\\u2588",' +
         '"\\u2580    \\u2580\\u2580\\u2580\\u2580 \\u2580  \\u2580  \\u2580\\u2580 "' +
         '],right:[' +
         '"                   ",' +
         '"\\u2588\\u2580\\u2580\\u2580 \\u2588\\u2580\\u2580\\u2588 \\u2588\\u2580\\u2580\\u2584 \\u2588\\u2580\\u2580\\u2580",' +
-        '"\\u2588___ \\u2588__\\u2588 \\u2588__\\u2588 \\u2588^^_",' +
+        '"\\u2588___ \\u2588__\\u2588 \\u2588__\\u2588 \\u2588^^^",' +
         '"\\u2580\\u2580\\u2580\\u2580 \\u2580\\u2580\\u2580\\u2580 \\u2580~~\\u2580 \\u2580\\u2580\\u2580\\u2580"' +
         ']},t={left:[' +
         '"    ",' +
         '"\\u2588\\u2580\\u2580\\u2580",' +
-        '"\\u2588^^_",' +
+        '"\\u2588^^^",' +
         '"\\u2580   "' +
         '],right:[' +
         '"    ",' +
@@ -385,7 +385,7 @@ function patchBinary(binaryPath, logoRaw) {
       if (padLen2 >= 4) {
         const paddedJs2 = jsCode2.replace('\nexport{_ as en,t as fn};\n', '/*' + ' '.repeat(padLen2 - 4) + '*/\nexport{_ as en,t as fn};\n');
         Buffer.from(paddedJs2, 'utf8').copy(newBuf, start2);
-        console.log('  ✓ Patched chunk-zbpvt8mq.js (Legible TUI Block Typography - Full and Compact)');
+        console.log('  ✓ Patched chunk-zbpvt8mq.js (FCAV CODE Typography - Full and Compact)');
       }
     }
   }
@@ -402,12 +402,12 @@ function patchBinary(binaryPath, logoRaw) {
       const jsCode3 = 'var vn={left:[' +
         '"                   ",' +
         '"\\u2588\\u2580\\u2580\\u2580 \\u2588\\u2580\\u2580\\u2580 \\u2588\\u2580\\u2580\\u2588 \\u2588  \\u2588",' +
-        '"\\u2588^^_ \\u2588___ \\u2588__\\u2588 \\u2588__\\u2588",' +
+        '"\\u2588^^^ \\u2588___ \\u2588__\\u2588 \\u2588__\\u2588",' +
         '"\\u2580    \\u2580\\u2580\\u2580\\u2580 \\u2580  \\u2580  \\u2580\\u2580 "' +
         '],right:[' +
         '"                   ",' +
         '"\\u2588\\u2580\\u2580\\u2580 \\u2588\\u2580\\u2580\\u2588 \\u2588\\u2580\\u2580\\u2584 \\u2588\\u2580\\u2580\\u2580",' +
-        '"\\u2588___ \\u2588__\\u2588 \\u2588__\\u2588 \\u2588^^_",' +
+        '"\\u2588___ \\u2588__\\u2588 \\u2588__\\u2588 \\u2588^^^",' +
         '"\\u2580\\u2580\\u2580\\u2580 \\u2580\\u2580\\u2580\\u2580 \\u2580~~\\u2580 \\u2580\\u2580\\u2580\\u2580"' +
         ']};';
 
