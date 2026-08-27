@@ -24,78 +24,79 @@ const DEFAULT_FCAV_THEME = {
   "$schema": "https://opencode.ai/theme.json",
   "name": "fcav",
   "defs": {
+    "matrixInk0": "#080d08",
+    "matrixInk1": "#0e140e",
+    "matrixInk2": "#141d14",
+    "matrixInk3": "#1c281b",
     "fcavGreen": "#22C55E",
-    "fcavGreenDark": "#15803D",
-    "fcavGreenLight": "#4ADE80",
-    "fcavGreenDeep": "#166534",
-    "bgDark": "#071209",
-    "bgPanelDark": "#0D1C10",
-    "bgElementDark": "#152B1B",
-    "borderDark": "#1E4D27",
-    "borderActiveDark": "#22C55E",
-    "borderSubtleDark": "#0F2A15",
-    "textLight": "#E8F5E9",
-    "textMutedDark": "#739478",
-    "bgLight": "#FFFFFF",
-    "bgPanelLight": "#F4F9F4",
-    "bgElementLight": "#E5EFE5",
-    "borderLight": "#B2D8B6",
-    "borderActiveLight": "#15803D",
-    "borderSubtleLight": "#D5EBD7",
-    "textDark": "#0F2A14",
-    "textMutedLight": "#4A6B4E"
+    "fcavGreenDim": "#16A34A",
+    "fcavGreenHi": "#4ADE80",
+    "uatBlue": "#0369A1",
+    "uatBlueLight": "#38BDF8",
+    "uatOrange": "#FB923C",
+    "uatOrangeDark": "#C2410C",
+    "uatGold": "#FBBF24",
+    "uatGoldDark": "#B45309",
+    "rainGray": "#6B8070",
+    "alertRed": "#EF4444",
+    "alertRedDark": "#DC2626",
+    "lightBg": "#FFFFFF",
+    "lightPaper": "#F4FAF4",
+    "lightInk1": "#E6F2E6",
+    "lightText": "#0D2B14",
+    "lightGray": "#5A7A60"
   },
   "theme": {
-    "primary": { "dark": "fcavGreen", "light": "fcavGreenDark" },
-    "secondary": { "dark": "fcavGreenDeep", "light": "fcavGreenDeep" },
-    "accent": { "dark": "fcavGreenLight", "light": "fcavGreen" },
-    "error": { "dark": "#EF4444", "light": "#DC2626" },
-    "warning": { "dark": "#F59E0B", "light": "#B45309" },
-    "success": { "dark": "fcavGreen", "light": "fcavGreenDark" },
-    "info": { "dark": "fcavGreenLight", "light": "fcavGreenDark" },
-    "text": { "dark": "textLight", "light": "textDark" },
-    "textMuted": { "dark": "textMutedDark", "light": "textMutedLight" },
-    "background": { "dark": "bgDark", "light": "bgLight" },
-    "backgroundPanel": { "dark": "bgPanelDark", "light": "bgPanelLight" },
-    "backgroundElement": { "dark": "bgElementDark", "light": "bgElementLight" },
-    "border": { "dark": "borderDark", "light": "borderLight" },
-    "borderActive": { "dark": "borderActiveDark", "light": "borderActiveLight" },
-    "borderSubtle": { "dark": "borderSubtleDark", "light": "borderSubtleLight" },
-    "diffAdded": { "dark": "fcavGreenLight", "light": "fcavGreenDark" },
-    "diffRemoved": { "dark": "#EF4444", "light": "#DC2626" },
-    "diffContext": { "dark": "textMutedDark", "light": "textMutedLight" },
-    "diffHunkHeader": { "dark": "fcavGreenLight", "light": "fcavGreenDeep" },
-    "diffHighlightAdded": { "dark": "#86EFAC", "light": "#16A34A" },
+    "primary": { "dark": "fcavGreen", "light": "fcavGreen" },
+    "secondary": { "dark": "uatBlueLight", "light": "uatBlue" },
+    "accent": { "dark": "fcavGreenHi", "light": "fcavGreenDim" },
+    "error": { "dark": "alertRed", "light": "alertRedDark" },
+    "warning": { "dark": "uatGold", "light": "uatGoldDark" },
+    "success": { "dark": "fcavGreenHi", "light": "fcavGreen" },
+    "info": { "dark": "uatBlueLight", "light": "uatBlue" },
+    "text": { "dark": "fcavGreenHi", "light": "lightText" },
+    "textMuted": { "dark": "rainGray", "light": "lightGray" },
+    "background": { "dark": "matrixInk0", "light": "lightBg" },
+    "backgroundPanel": { "dark": "matrixInk1", "light": "lightPaper" },
+    "backgroundElement": { "dark": "matrixInk2", "light": "lightInk1" },
+    "border": { "dark": "matrixInk3", "light": "lightInk1" },
+    "borderActive": { "dark": "fcavGreen", "light": "fcavGreen" },
+    "borderSubtle": { "dark": "matrixInk2", "light": "lightPaper" },
+    "diffAdded": { "dark": "fcavGreenDim", "light": "fcavGreen" },
+    "diffRemoved": { "dark": "alertRed", "light": "alertRedDark" },
+    "diffContext": { "dark": "rainGray", "light": "lightGray" },
+    "diffHunkHeader": { "dark": "uatBlueLight", "light": "uatBlue" },
+    "diffHighlightAdded": { "dark": "fcavGreenHi", "light": "fcavGreenDim" },
     "diffHighlightRemoved": { "dark": "#FCA5A5", "light": "#EF4444" },
-    "diffAddedBg": { "dark": "#0E2E14", "light": "#DCFCE7" },
-    "diffRemovedBg": { "dark": "#2E0F12", "light": "#FEE2E2" },
-    "diffContextBg": { "dark": "bgPanelDark", "light": "bgPanelLight" },
-    "diffLineNumber": { "dark": "textMutedDark", "light": "textMutedLight" },
-    "diffAddedLineNumberBg": { "dark": "#0E2E14", "light": "#DCFCE7" },
-    "diffRemovedLineNumberBg": { "dark": "#2E0F12", "light": "#FEE2E2" },
-    "markdownText": { "dark": "textLight", "light": "textDark" },
-    "markdownHeading": { "dark": "fcavGreenLight", "light": "fcavGreenDark" },
-    "markdownLink": { "dark": "fcavGreenLight", "light": "fcavGreenDark" },
-    "markdownLinkText": { "dark": "fcavGreen", "light": "fcavGreenDark" },
-    "markdownCode": { "dark": "fcavGreenLight", "light": "fcavGreenDark" },
-    "markdownBlockQuote": { "dark": "textMutedDark", "light": "textMutedLight" },
-    "markdownEmph": { "dark": "#F59E0B", "light": "#B45309" },
-    "markdownStrong": { "dark": "fcavGreenLight", "light": "fcavGreenDark" },
-    "markdownHorizontalRule": { "dark": "borderDark", "light": "borderLight" },
-    "markdownListItem": { "dark": "fcavGreen", "light": "fcavGreenDark" },
-    "markdownListEnumeration": { "dark": "#F59E0B", "light": "#B45309" },
-    "markdownImage": { "dark": "fcavGreenLight", "light": "fcavGreenDark" },
-    "markdownImageText": { "dark": "fcavGreen", "light": "fcavGreenDark" },
-    "markdownCodeBlock": { "dark": "textLight", "light": "textDark" },
-    "syntaxComment": { "dark": "#527357", "light": "#658269" },
-    "syntaxKeyword": { "dark": "fcavGreenLight", "light": "fcavGreenDark" },
-    "syntaxFunction": { "dark": "fcavGreen", "light": "fcavGreenDark" },
-    "syntaxVariable": { "dark": "textLight", "light": "textDark" },
-    "syntaxString": { "dark": "#86EFAC", "light": "#16A34A" },
-    "syntaxNumber": { "dark": "#4ADE80", "light": "#15803D" },
-    "syntaxType": { "dark": "#86EFAC", "light": "fcavGreenDeep" },
-    "syntaxOperator": { "dark": "fcavGreen", "light": "fcavGreenDark" },
-    "syntaxPunctuation": { "dark": "textLight", "light": "textDark" }
+    "diffAddedBg": { "dark": "#0f2312", "light": "#E6F7E6" },
+    "diffRemovedBg": { "dark": "#261212", "light": "#FEE2E2" },
+    "diffContextBg": { "dark": "matrixInk1", "light": "lightPaper" },
+    "diffLineNumber": { "dark": "textMuted", "light": "lightGray" },
+    "diffAddedLineNumberBg": { "dark": "#0f2312", "light": "#E6F7E6" },
+    "diffRemovedLineNumberBg": { "dark": "#261212", "light": "#FEE2E2" },
+    "markdownText": { "dark": "fcavGreenHi", "light": "lightText" },
+    "markdownHeading": { "dark": "uatBlueLight", "light": "uatBlue" },
+    "markdownLink": { "dark": "uatBlueLight", "light": "uatBlue" },
+    "markdownLinkText": { "dark": "fcavGreenHi", "light": "fcavGreen" },
+    "markdownCode": { "dark": "fcavGreenDim", "light": "fcavGreen" },
+    "markdownBlockQuote": { "dark": "rainGray", "light": "lightGray" },
+    "markdownEmph": { "dark": "uatOrange", "light": "uatOrangeDark" },
+    "markdownStrong": { "dark": "uatGold", "light": "uatGoldDark" },
+    "markdownHorizontalRule": { "dark": "matrixInk3", "light": "lightInk1" },
+    "markdownListItem": { "dark": "fcavGreen", "light": "fcavGreen" },
+    "markdownListEnumeration": { "dark": "uatOrange", "light": "uatOrangeDark" },
+    "markdownImage": { "dark": "uatBlueLight", "light": "uatBlue" },
+    "markdownImageText": { "dark": "fcavGreenHi", "light": "fcavGreen" },
+    "markdownCodeBlock": { "dark": "fcavGreenHi", "light": "lightText" },
+    "syntaxComment": { "dark": "rainGray", "light": "lightGray" },
+    "syntaxKeyword": { "dark": "uatOrange", "light": "uatOrangeDark" },
+    "syntaxFunction": { "dark": "uatBlueLight", "light": "uatBlue" },
+    "syntaxVariable": { "dark": "fcavGreenHi", "light": "lightText" },
+    "syntaxString": { "dark": "fcavGreen", "light": "fcavGreen" },
+    "syntaxNumber": { "dark": "uatGold", "light": "uatGoldDark" },
+    "syntaxType": { "dark": "uatGold", "light": "uatGoldDark" },
+    "syntaxOperator": { "dark": "fcavGreenDim", "light": "fcavGreen" },
+    "syntaxPunctuation": { "dark": "fcavGreenHi", "light": "lightText" }
   }
 };
 
@@ -103,69 +104,70 @@ const DEFAULT_FCAV_LIGHT_THEME = {
   "$schema": "https://opencode.ai/theme.json",
   "name": "fcav-light",
   "defs": {
+    "lightBg": "#FFFFFF",
+    "lightPaper": "#F4FAF4",
+    "lightInk1": "#E6F2E6",
+    "lightText": "#0D2B14",
+    "lightGray": "#5A7A60",
     "fcavGreen": "#15803D",
-    "fcavGreenAccent": "#16A34A",
+    "fcavGreenDim": "#16A34A",
     "fcavGreenDeep": "#14532D",
-    "bgLight": "#FFFFFF",
-    "bgPanelLight": "#F4F9F4",
-    "bgElementLight": "#E5EFE5",
-    "borderLight": "#B2D8B6",
-    "borderActiveLight": "#15803D",
-    "borderSubtleLight": "#D5EBD7",
-    "textDark": "#0F2A14",
-    "textMutedLight": "#4A6B4E"
+    "uatBlue": "#0369A1",
+    "uatOrange": "#C2410C",
+    "uatGold": "#B45309",
+    "alertRed": "#DC2626"
   },
   "theme": {
     "primary": { "dark": "fcavGreen", "light": "fcavGreen" },
-    "secondary": { "dark": "fcavGreenDeep", "light": "fcavGreenDeep" },
-    "accent": { "dark": "fcavGreenAccent", "light": "fcavGreenAccent" },
-    "error": { "dark": "#DC2626", "light": "#DC2626" },
-    "warning": { "dark": "#B45309", "light": "#B45309" },
+    "secondary": { "dark": "uatBlue", "light": "uatBlue" },
+    "accent": { "dark": "fcavGreenDim", "light": "fcavGreenDim" },
+    "error": { "dark": "alertRed", "light": "alertRed" },
+    "warning": { "dark": "uatGold", "light": "uatGold" },
     "success": { "dark": "fcavGreen", "light": "fcavGreen" },
-    "info": { "dark": "fcavGreenAccent", "light": "fcavGreenAccent" },
-    "text": { "dark": "textDark", "light": "textDark" },
-    "textMuted": { "dark": "textMutedLight", "light": "textMutedLight" },
-    "background": { "dark": "bgLight", "light": "bgLight" },
-    "backgroundPanel": { "dark": "bgPanelLight", "light": "bgPanelLight" },
-    "backgroundElement": { "dark": "bgElementLight", "light": "bgElementLight" },
-    "border": { "dark": "borderLight", "light": "borderLight" },
-    "borderActive": { "dark": "borderActiveLight", "light": "borderActiveLight" },
-    "borderSubtle": { "dark": "borderSubtleLight", "light": "borderSubtleLight" },
+    "info": { "dark": "uatBlue", "light": "uatBlue" },
+    "text": { "dark": "lightText", "light": "lightText" },
+    "textMuted": { "dark": "lightGray", "light": "lightGray" },
+    "background": { "dark": "lightBg", "light": "lightBg" },
+    "backgroundPanel": { "dark": "lightPaper", "light": "lightPaper" },
+    "backgroundElement": { "dark": "lightInk1", "light": "lightInk1" },
+    "border": { "dark": "lightInk1", "light": "lightInk1" },
+    "borderActive": { "dark": "fcavGreen", "light": "fcavGreen" },
+    "borderSubtle": { "dark": "lightPaper", "light": "lightPaper" },
     "diffAdded": { "dark": "fcavGreen", "light": "fcavGreen" },
-    "diffRemoved": { "dark": "#DC2626", "light": "#DC2626" },
-    "diffContext": { "dark": "textMutedLight", "light": "textMutedLight" },
-    "diffHunkHeader": { "dark": "fcavGreenDeep", "light": "fcavGreenDeep" },
-    "diffHighlightAdded": { "dark": "fcavGreenAccent", "light": "fcavGreenAccent" },
+    "diffRemoved": { "dark": "alertRed", "light": "alertRed" },
+    "diffContext": { "dark": "lightGray", "light": "lightGray" },
+    "diffHunkHeader": { "dark": "uatBlue", "light": "uatBlue" },
+    "diffHighlightAdded": { "dark": "fcavGreenDim", "light": "fcavGreenDim" },
     "diffHighlightRemoved": { "dark": "#EF4444", "light": "#EF4444" },
-    "diffAddedBg": { "dark": "#DCFCE7", "light": "#DCFCE7" },
+    "diffAddedBg": { "dark": "#E6F7E6", "light": "#E6F7E6" },
     "diffRemovedBg": { "dark": "#FEE2E2", "light": "#FEE2E2" },
-    "diffContextBg": { "dark": "bgPanelLight", "light": "bgPanelLight" },
-    "diffLineNumber": { "dark": "textMutedLight", "light": "textMutedLight" },
-    "diffAddedLineNumberBg": { "dark": "#DCFCE7", "light": "#DCFCE7" },
+    "diffContextBg": { "dark": "lightPaper", "light": "lightPaper" },
+    "diffLineNumber": { "dark": "lightGray", "light": "lightGray" },
+    "diffAddedLineNumberBg": { "dark": "#E6F7E6", "light": "#E6F7E6" },
     "diffRemovedLineNumberBg": { "dark": "#FEE2E2", "light": "#FEE2E2" },
-    "markdownText": { "dark": "textDark", "light": "textDark" },
+    "markdownText": { "dark": "lightText", "light": "lightText" },
     "markdownHeading": { "dark": "fcavGreenDeep", "light": "fcavGreenDeep" },
-    "markdownLink": { "dark": "fcavGreenAccent", "light": "fcavGreenAccent" },
+    "markdownLink": { "dark": "uatBlue", "light": "uatBlue" },
     "markdownLinkText": { "dark": "fcavGreen", "light": "fcavGreen" },
     "markdownCode": { "dark": "fcavGreenDeep", "light": "fcavGreenDeep" },
-    "markdownBlockQuote": { "dark": "textMutedLight", "light": "textMutedLight" },
-    "markdownEmph": { "dark": "#B45309", "light": "#B45309" },
+    "markdownBlockQuote": { "dark": "lightGray", "light": "lightGray" },
+    "markdownEmph": { "dark": "uatOrange", "light": "uatOrange" },
     "markdownStrong": { "dark": "fcavGreenDeep", "light": "fcavGreenDeep" },
-    "markdownHorizontalRule": { "dark": "borderLight", "light": "borderLight" },
+    "markdownHorizontalRule": { "dark": "lightInk1", "light": "lightInk1" },
     "markdownListItem": { "dark": "fcavGreen", "light": "fcavGreen" },
-    "markdownListEnumeration": { "dark": "#B45309", "light": "#B45309" },
-    "markdownImage": { "dark": "fcavGreenAccent", "light": "fcavGreenAccent" },
+    "markdownListEnumeration": { "dark": "uatOrange", "light": "uatOrange" },
+    "markdownImage": { "dark": "uatBlue", "light": "uatBlue" },
     "markdownImageText": { "dark": "fcavGreen", "light": "fcavGreen" },
-    "markdownCodeBlock": { "dark": "textDark", "light": "textDark" },
+    "markdownCodeBlock": { "dark": "lightText", "light": "lightText" },
     "syntaxComment": { "dark": "#658269", "light": "#658269" },
     "syntaxKeyword": { "dark": "fcavGreenDeep", "light": "fcavGreenDeep" },
-    "syntaxFunction": { "dark": "fcavGreen", "light": "fcavGreen" },
-    "syntaxVariable": { "dark": "textDark", "light": "textDark" },
-    "syntaxString": { "dark": "fcavGreenAccent", "light": "fcavGreenAccent" },
-    "syntaxNumber": { "dark": "fcavGreen", "light": "fcavGreen" },
+    "syntaxFunction": { "dark": "uatBlue", "light": "uatBlue" },
+    "syntaxVariable": { "dark": "lightText", "light": "lightText" },
+    "syntaxString": { "dark": "fcavGreenDim", "light": "fcavGreenDim" },
+    "syntaxNumber": { "dark": "uatGold", "light": "uatGold" },
     "syntaxType": { "dark": "fcavGreenDeep", "light": "fcavGreenDeep" },
     "syntaxOperator": { "dark": "fcavGreen", "light": "fcavGreen" },
-    "syntaxPunctuation": { "dark": "textDark", "light": "textDark" }
+    "syntaxPunctuation": { "dark": "lightText", "light": "lightText" }
   }
 };
 
@@ -314,7 +316,7 @@ function patchBinary(binaryPath, logoRaw) {
         'var _={left:[' +
         '"                   ",' +
         '"\\u2588\\u2580\\u2580\\u2580 \\u2588\\u2580\\u2580\\u2580 \\u2588\\u2580\\u2580\\u2588 \\u2588  \\u2588",' +
-        '"\\u2588\\u2580\\u2580  \\u2588    \\u2588\\u2580\\u2580\\u2588 \\u2588  \\u2588",' +
+        '"\\u2588\\u2580\\u2580  \\u2588    \\u2588\\u2580\\u2580\\u2580\\u2588 \\u2588  \\u2588",' +
         '"\\u2580    \\u2580\\u2580\\u2580\\u2580 \\u2580  \\u2580  \\u2580\\u2580 "' +
         '],right:[' +
         '"                   ",' +
@@ -369,8 +371,8 @@ function patchBinary(binaryPath, logoRaw) {
   const start4 = newBuf.indexOf(vgColorTarget);
   if (start4 !== -1) {
     const targetLen4 = vgColorTarget.length;
-    // panelRgb: [13, 28, 16] (#0D1C10), primaryRgb: [34, 197, 94] (#22C55E), logoBaseRgb: [74, 222, 128] (#4ADE80)
-    const replacement4 = 'panelRgb=[13,28,16];primaryRgb=[34,197,94];logoBaseRgb=[74,222,128]; ';
+    // panelRgb: [14, 20, 14] (#0E140E), primaryRgb: [34, 197, 94] (#22C55E), logoBaseRgb: [74, 222, 128] (#4ADE80)
+    const replacement4 = 'panelRgb=[14,20,14];primaryRgb=[34,197,94];logoBaseRgb=[74,222,128];  ';
     if (Buffer.byteLength(replacement4, 'utf8') === targetLen4) {
       Buffer.from(replacement4, 'utf8').copy(newBuf, start4);
       console.log('  ✓ Patched class vg default colors to Deep Green & FCAV Institutional Green');
@@ -386,6 +388,59 @@ function patchBinary(binaryPath, logoRaw) {
     if (Buffer.byteLength(replacement5, 'utf8') === targetLen5) {
       Buffer.from(replacement5, 'utf8').copy(newBuf, start5);
       console.log('  ✓ Patched gi() to render TUI logo in Verde FCAV (U.primary)');
+    }
+  }
+
+  // --- 6. Patch Xa (Builtin Default Theme to Matrix-style FCAV Green) ---
+  const start6 = newBuf.indexOf(Buffer.from('var Xa={$schema:"https://opencode.ai/theme.json",defs:{darkStep1:"#0a0a0a"', 'utf8'));
+  const endMarker6 = Buffer.from(';var Ja={', 'utf8');
+  if (start6 !== -1) {
+    const endPos6 = newBuf.indexOf(endMarker6, start6);
+    if (endPos6 !== -1) {
+      const origXaBuf = newBuf.subarray(start6, endPos6);
+      let resXa = origXaBuf.toString('utf8');
+      resXa = resXa.replace('darkStep1:"#0a0a0a"', 'darkStep1:"#080d08"');
+      resXa = resXa.replace('darkStep2:"#141414"', 'darkStep2:"#0e140e"');
+      resXa = resXa.replace('darkStep3:"#1e1e1e"', 'darkStep3:"#141d14"');
+      resXa = resXa.replace('darkStep4:"#282828"', 'darkStep4:"#182318"');
+      resXa = resXa.replace('darkStep5:"#323232"', 'darkStep5:"#1c281b"');
+      resXa = resXa.replace('darkStep6:"#3c3c3c"', 'darkStep6:"#141d14"');
+      resXa = resXa.replace('darkStep7:"#484848"', 'darkStep7:"#1c281b"');
+      resXa = resXa.replace('darkStep8:"#606060"', 'darkStep8:"#22c55e"');
+      resXa = resXa.replace('darkStep9:"#fab283"', 'darkStep9:"#22c55e"');
+      resXa = resXa.replace('darkStep10:"#ffc09f"', 'darkStep10:"#4ade80"');
+      resXa = resXa.replace('darkStep11:"#808080"', 'darkStep11:"#6b8070"');
+      resXa = resXa.replace('darkStep12:"#eeeeee"', 'darkStep12:"#4ade80"');
+      resXa = resXa.replace('darkSecondary:"#5c9cf5"', 'darkSecondary:"#38bdf8"');
+      resXa = resXa.replace('darkAccent:"#9d7cd8"', 'darkAccent:"#4ade80"');
+      resXa = resXa.replace('darkRed:"#e06c75"', 'darkRed:"#ef4444"');
+      resXa = resXa.replace('darkOrange:"#f5a742"', 'darkOrange:"#fb923c"');
+      resXa = resXa.replace('darkGreen:"#7fd88f"', 'darkGreen:"#22c55e"');
+      resXa = resXa.replace('darkCyan:"#56b6c2"', 'darkCyan:"#38bdf8"');
+      resXa = resXa.replace('darkYellow:"#e5c07b"', 'darkYellow:"#fbbf24"');
+      resXa = resXa.replace('lightStep2:"#fafafa"', 'lightStep2:"#f4faf4"');
+      resXa = resXa.replace('lightStep3:"#f5f5f5"', 'lightStep3:"#e6f2e6"');
+      resXa = resXa.replace('lightStep4:"#ebebeb"', 'lightStep4:"#d8ebd8"');
+      resXa = resXa.replace('lightStep5:"#e1e1e1"', 'lightStep5:"#cae3ca"');
+      resXa = resXa.replace('lightStep6:"#d4d4d4"', 'lightStep6:"#e6f2e6"');
+      resXa = resXa.replace('lightStep7:"#b8b8b8"', 'lightStep7:"#b2d8b6"');
+      resXa = resXa.replace('lightStep8:"#a0a0a0"', 'lightStep8:"#15803d"');
+      resXa = resXa.replace('lightStep9:"#3b7dd8"', 'lightStep9:"#15803d"');
+      resXa = resXa.replace('lightStep10:"#2968c3"', 'lightStep10:"#16a34a"');
+      resXa = resXa.replace('lightStep11:"#8a8a8a"', 'lightStep11:"#5a7a60"');
+      resXa = resXa.replace('lightStep12:"#1a1a1a"', 'lightStep12:"#0d2b14"');
+      resXa = resXa.replace('lightSecondary:"#7b5bb6"', 'lightSecondary:"#0369a1"');
+      resXa = resXa.replace('lightAccent:"#d68c27"', 'lightAccent:"#16a34a"');
+      resXa = resXa.replace('lightRed:"#d1383d"', 'lightRed:"#dc2626"');
+      resXa = resXa.replace('lightOrange:"#d68c27"', 'lightOrange:"#c2410c"');
+      resXa = resXa.replace('lightGreen:"#3d9a57"', 'lightGreen:"#15803d"');
+      resXa = resXa.replace('lightCyan:"#318795"', 'lightCyan:"#0284c7"');
+      resXa = resXa.replace('lightYellow:"#b0851f"', 'lightYellow:"#b45309"');
+
+      if (Buffer.byteLength(resXa, 'utf8') === origXaBuf.length) {
+        Buffer.from(resXa, 'utf8').copy(newBuf, start6);
+        console.log('  ✓ Patched Xa (Builtin Default Theme in Matrix-style FCAV Green)');
+      }
     }
   }
 
