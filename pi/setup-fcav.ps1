@@ -58,12 +58,27 @@ New-Item -ItemType Directory -Force -Path $configDir | Out-Null
 New-Item -ItemType Directory -Force -Path $themesDir | Out-Null
 New-Item -ItemType Directory -Force -Path $tempDir | Out-Null
 
-$baseUrl = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/resources"
-Invoke-WebRequest "$baseUrl/fcav-logo.txt" -OutFile "$configDir\fcav-logo.txt"
+$localResDir = if ($PSScriptRoot) { Join-Path $PSScriptRoot "..\resources" } else { "..\resources" }
+$localSkillsDir = if ($PSScriptRoot) { Join-Path $PSScriptRoot "skills" } else { ".\skills" }
+$localConfigDir = if ($PSScriptRoot) { Join-Path $PSScriptRoot "..\opencode\config" } else { "..\opencode\config" }
 
-$baseUrlConfig = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/config"
-Invoke-WebRequest "$baseUrlConfig/AGENTS.md" -OutFile "$configDir\AGENTS.md" -ErrorAction SilentlyContinue
-Invoke-WebRequest "$baseUrlConfig/themes/fcav.json" -OutFile "$themesDir\fcav.json" -ErrorAction SilentlyContinue
+if (Test-Path (Join-Path $localResDir "fcav-logo.txt")) {
+    Copy-Item (Join-Path $localResDir "fcav-logo.txt") "$configDir\fcav-logo.txt" -Force
+} else {
+    $baseUrl = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/resources"
+    try { Invoke-WebRequest "$baseUrl/fcav-logo.txt" -OutFile "$configDir\fcav-logo.txt" -ErrorAction SilentlyContinue } catch {}
+}
+
+if (Test-Path (Join-Path $localConfigDir "AGENTS.md")) {
+    Copy-Item (Join-Path $localConfigDir "AGENTS.md") "$configDir\AGENTS.md" -Force
+    Copy-Item (Join-Path $localConfigDir "themes\fcav.json") "$themesDir\fcav.json" -Force -ErrorAction SilentlyContinue
+} else {
+    $baseUrlConfig = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/config"
+    try {
+        Invoke-WebRequest "$baseUrlConfig/AGENTS.md" -OutFile "$configDir\AGENTS.md" -ErrorAction SilentlyContinue
+        Invoke-WebRequest "$baseUrlConfig/themes/fcav.json" -OutFile "$themesDir\fcav.json" -ErrorAction SilentlyContinue
+    } catch {}
+}
 
 # 5. Configurar Pi y crear comando fcavcode
 Write-Host "[4/4] Configurando opciones globales..." -ForegroundColor $Yellow
@@ -79,10 +94,16 @@ New-Item -ItemType Directory -Force -Path "$globalSkillsDir\fcav-cybersecurity" 
 New-Item -ItemType Directory -Force -Path "$globalSkillsDir\fcav-visual" | Out-Null
 New-Item -ItemType Directory -Force -Path "$globalSkillsDir\audit-seguridad" | Out-Null
 
-$baseUrlMaster = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master"
-Invoke-WebRequest "$baseUrlMaster/pi/skills/fcav-cybersecurity/SKILL.md" -OutFile "$globalSkillsDir\fcav-cybersecurity\SKILL.md" -ErrorAction SilentlyContinue
-Invoke-WebRequest "$baseUrlMaster/pi/skills/fcav-visual/SKILL.md" -OutFile "$globalSkillsDir\fcav-visual\SKILL.md" -ErrorAction SilentlyContinue
-Invoke-WebRequest "$baseUrlMaster/pi/skills/audit-seguridad/SKILL.md" -OutFile "$globalSkillsDir\audit-seguridad\SKILL.md" -ErrorAction SilentlyContinue
+if (Test-Path $localSkillsDir) {
+    Copy-Item "$localSkillsDir\*" "$globalSkillsDir\" -Recurse -Force -ErrorAction SilentlyContinue
+} else {
+    $baseUrlMaster = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master"
+    try {
+        Invoke-WebRequest "$baseUrlMaster/pi/skills/fcav-cybersecurity/SKILL.md" -OutFile "$globalSkillsDir\fcav-cybersecurity\SKILL.md" -ErrorAction SilentlyContinue
+        Invoke-WebRequest "$baseUrlMaster/pi/skills/fcav-visual/SKILL.md" -OutFile "$globalSkillsDir\fcav-visual\SKILL.md" -ErrorAction SilentlyContinue
+        Invoke-WebRequest "$baseUrlMaster/pi/skills/audit-seguridad/SKILL.md" -OutFile "$globalSkillsDir\audit-seguridad\SKILL.md" -ErrorAction SilentlyContinue
+    } catch {}
+}
 
 try {
     $npmGlobal = npm root -g | Split-Path

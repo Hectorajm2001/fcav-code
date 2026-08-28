@@ -104,12 +104,22 @@ get_interactive_menu "Motores de IA disponibles:" \
     "OpenCode (Version original legacy)"
 opcion=$?
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+
 if [ "$opcion" = "1" ]; then
     echo -e ""
     write_log "INFO" "Iniciando instalacion de Pi..."
+    if [ -f "$SCRIPT_DIR/pi/setup-fcav.sh" ]; then
+        bash "$SCRIPT_DIR/pi/setup-fcav.sh"
+        exit 0
+    fi
     curl -fsSL https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/pi/setup-fcav.sh | bash
 else
     echo -e ""
     write_log "INFO" "Iniciando instalacion de OpenCode..."
+    if [ -f "$SCRIPT_DIR/opencode/setup-fcav.sh" ]; then
+        bash "$SCRIPT_DIR/opencode/setup-fcav.sh"
+        exit 0
+    fi
     curl -fsSL https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/setup-fcav.sh | bash
 fi

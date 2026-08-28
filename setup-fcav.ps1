@@ -107,10 +107,20 @@ $opcion = Get-InteractiveMenu -Title "Motores de IA disponibles:" -Options @(
 if ($opcion -eq "1") {
     Write-Host ""
     Write-Log "INFO" "Iniciando instalacion de Pi..."
+    $localScript = if ($PSScriptRoot) { Join-Path $PSScriptRoot "pi\setup-fcav.ps1" } else { ".\pi\setup-fcav.ps1" }
+    if (Test-Path $localScript) {
+        & $localScript
+        exit 0
+    }
     $scriptUrl = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/pi/setup-fcav.ps1"
 } else {
     Write-Host ""
     Write-Log "INFO" "Iniciando instalacion de OpenCode..."
+    $localScript = if ($PSScriptRoot) { Join-Path $PSScriptRoot "opencode\setup-fcav.ps1" } else { ".\opencode\setup-fcav.ps1" }
+    if (Test-Path $localScript) {
+        & $localScript
+        exit 0
+    }
     $scriptUrl = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/setup-fcav.ps1"
 }
 
@@ -119,7 +129,8 @@ try {
     if ($script.Length -gt 0 -and $script[0] -eq [char]0xFEFF) { $script = $script.Substring(1) }
     Invoke-Expression $script
 } catch {
-    Write-Log "ERR" "Hubo un error al descargar o ejecutar el script de instalacion."
+    Write-Log "ERR" "Hubo un error al descargar o ejecutar el script de instalacion ($($_.Exception.Message))."
+    Write-Log "WARN" "Si este repositorio es privado, clona el repositorio localmente ('git clone') y ejecuta .\setup-fcav.ps1 directamente."
     Read-Host "Presiona Enter para salir..."
     exit 1
 }

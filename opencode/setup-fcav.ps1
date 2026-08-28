@@ -140,21 +140,38 @@ $tempDir = "$env:TEMP\fcav-code-setup"
 New-Item -ItemType Directory -Force -Path $themesDir | Out-Null
 New-Item -ItemType Directory -Force -Path $tempDir | Out-Null
 
-$baseUrl = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/config"
-Invoke-WebRequest "$baseUrl/tui.json" -OutFile "$configDir\tui.json"
-Invoke-WebRequest "$baseUrl/fcav-logo.txt" -OutFile "$configDir\fcav-logo.txt"
-Invoke-WebRequest "$baseUrl/themes/fcav.json" -OutFile "$themesDir\fcav.json"
-Invoke-WebRequest "$baseUrl/themes/fcav-light.json" -OutFile "$themesDir\fcav-light.json"
-Invoke-WebRequest "$baseUrl/AGENTS.md" -OutFile "$configDir\AGENTS.md"
+$localConfigDir = if ($PSScriptRoot) { Join-Path $PSScriptRoot "config" } else { ".\config" }
+if (Test-Path $localConfigDir) {
+    Copy-Item "$localConfigDir\*" "$configDir\" -Recurse -Force -ErrorAction SilentlyContinue
+} else {
+    $baseUrl = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/config"
+    try {
+        Invoke-WebRequest "$baseUrl/tui.json" -OutFile "$configDir\tui.json" -ErrorAction SilentlyContinue
+        Invoke-WebRequest "$baseUrl/fcav-logo.txt" -OutFile "$configDir\fcav-logo.txt" -ErrorAction SilentlyContinue
+        Invoke-WebRequest "$baseUrl/themes/fcav.json" -OutFile "$themesDir\fcav.json" -ErrorAction SilentlyContinue
+        Invoke-WebRequest "$baseUrl/themes/fcav-light.json" -OutFile "$themesDir\fcav-light.json" -ErrorAction SilentlyContinue
+        Invoke-WebRequest "$baseUrl/AGENTS.md" -OutFile "$configDir\AGENTS.md" -ErrorAction SilentlyContinue
+    } catch {}
+}
 
 # 4.1. Aplicar identidad visual FCAV al ejecutable de OpenCode
 Write-Host "      Personalizando identidad visual (FCAV Logo)..." -ForegroundColor $Yellow
 try {
-    $patchScript = "$tempDir\patch-logo.js"
-    Invoke-WebRequest "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/patch-logo.js" -OutFile $patchScript -ErrorAction SilentlyContinue
-    if (Test-Path $patchScript) {
-        node $patchScript | Out-Null
+    $localPatch = if ($PSScriptRoot) { Join-Path $PSScriptRoot "patch-logo.js" } else { ".\patch-logo.js" }
+    $localUpdate = if ($PSScriptRoot) { Join-Path $PSScriptRoot "update-fcav.js" } else { ".\update-fcav.js" }
+    if (Test-Path $localPatch) {
+        node $localPatch | Out-Null
+        Copy-Item $localPatch "$configDir\patch-logo.js" -Force -ErrorAction SilentlyContinue
+        if (Test-Path $localUpdate) { Copy-Item $localUpdate "$configDir\update-fcav.js" -Force -ErrorAction SilentlyContinue }
         Write-Host "      Logo de FCAV CODE aplicado al motor ✓" -ForegroundColor $Green
+    } else {
+        $patchScript = "$tempDir\patch-logo.js"
+        Invoke-WebRequest "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/patch-logo.js" -OutFile $patchScript -ErrorAction SilentlyContinue
+        if (Test-Path $patchScript) {
+            node $patchScript | Out-Null
+            Copy-Item $patchScript "$configDir\patch-logo.js" -Force -ErrorAction SilentlyContinue
+            Write-Host "      Logo de FCAV CODE aplicado al motor ✓" -ForegroundColor $Green
+        }
     }
 } catch {
     # Ignorar si no se pudo aplicar el parche binario
