@@ -39,14 +39,21 @@ echo -e "${GREEN}      Motor actualizado ✓${NC}"
 echo -e ""
 echo -e "${YELLOW}[2/3] Sincronizando identidad visual y temas FCAV...${NC}"
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/opencode"
-mkdir -p "$CONFIG_DIR/themes"
+mkdir -p "$CONFIG_DIR/themes" "$CONFIG_DIR/commands" "$CONFIG_DIR/plugins"
 
 BASE_URL="https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/config"
 curl -s -o "$CONFIG_DIR/tui.json" "$BASE_URL/tui.json" || true
 curl -s -o "$CONFIG_DIR/fcav-logo.txt" "$BASE_URL/fcav-logo.txt" || true
 curl -s -o "$CONFIG_DIR/themes/fcav.json" "$BASE_URL/themes/fcav.json" || true
+curl -s -o "$CONFIG_DIR/themes/fcav-dark.json" "$BASE_URL/themes/fcav-dark.json" || true
 curl -s -o "$CONFIG_DIR/themes/fcav-light.json" "$BASE_URL/themes/fcav-light.json" || true
 curl -s -o "$CONFIG_DIR/AGENTS.md" "$BASE_URL/AGENTS.md" || true
+curl -s -o "$CONFIG_DIR/plugins/fcav-toolkit.js" "$BASE_URL/plugins/fcav-toolkit.js" || true
+curl -s -o "$CONFIG_DIR/commands/audit-seguridad.md" "$BASE_URL/commands/audit-seguridad.md" || true
+curl -s -o "$CONFIG_DIR/commands/commit-es.md" "$BASE_URL/commands/commit-es.md" || true
+curl -s -o "$CONFIG_DIR/commands/design-check.md" "$BASE_URL/commands/design-check.md" || true
+curl -s -o "$CONFIG_DIR/commands/doc-api.md" "$BASE_URL/commands/doc-api.md" || true
+curl -s -o "$CONFIG_DIR/commands/ayuda.md" "$BASE_URL/commands/ayuda.md" || true
 
 # 3. Reinyectar logotipo y colores FCAV en los binarios
 echo -e ""

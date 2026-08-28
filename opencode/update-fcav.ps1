@@ -44,9 +44,13 @@ Write-Host ""
 Write-Host "[2/3] Sincronizando identidad visual y temas FCAV..." -ForegroundColor $Yellow
 $configDir = "$env:USERPROFILE\.config\opencode"
 $themesDir = "$configDir\themes"
+$commandsDir = "$configDir\commands"
+$pluginsDir = "$configDir\plugins"
 $tempDir = "$env:TEMP\fcav-update-$([Guid]::NewGuid().ToString('N'))"
 
 New-Item -ItemType Directory -Force -Path $themesDir | Out-Null
+New-Item -ItemType Directory -Force -Path $commandsDir | Out-Null
+New-Item -ItemType Directory -Force -Path $pluginsDir | Out-Null
 New-Item -ItemType Directory -Force -Path $tempDir | Out-Null
 
 $baseUrl = "https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/config"
@@ -54,8 +58,15 @@ try {
     Invoke-WebRequest "$baseUrl/tui.json" -OutFile "$configDir\tui.json" -ErrorAction SilentlyContinue
     Invoke-WebRequest "$baseUrl/fcav-logo.txt" -OutFile "$configDir\fcav-logo.txt" -ErrorAction SilentlyContinue
     Invoke-WebRequest "$baseUrl/themes/fcav.json" -OutFile "$themesDir\fcav.json" -ErrorAction SilentlyContinue
+    Invoke-WebRequest "$baseUrl/themes/fcav-dark.json" -OutFile "$themesDir\fcav-dark.json" -ErrorAction SilentlyContinue
     Invoke-WebRequest "$baseUrl/themes/fcav-light.json" -OutFile "$themesDir\fcav-light.json" -ErrorAction SilentlyContinue
     Invoke-WebRequest "$baseUrl/AGENTS.md" -OutFile "$configDir\AGENTS.md" -ErrorAction SilentlyContinue
+    Invoke-WebRequest "$baseUrl/plugins/fcav-toolkit.js" -OutFile "$pluginsDir\fcav-toolkit.js" -ErrorAction SilentlyContinue
+    Invoke-WebRequest "$baseUrl/commands/audit-seguridad.md" -OutFile "$commandsDir\audit-seguridad.md" -ErrorAction SilentlyContinue
+    Invoke-WebRequest "$baseUrl/commands/commit-es.md" -OutFile "$commandsDir\commit-es.md" -ErrorAction SilentlyContinue
+    Invoke-WebRequest "$baseUrl/commands/design-check.md" -OutFile "$commandsDir\design-check.md" -ErrorAction SilentlyContinue
+    Invoke-WebRequest "$baseUrl/commands/doc-api.md" -OutFile "$commandsDir\doc-api.md" -ErrorAction SilentlyContinue
+    Invoke-WebRequest "$baseUrl/commands/ayuda.md" -OutFile "$commandsDir\ayuda.md" -ErrorAction SilentlyContinue
 } catch {}
 
 # 3. Reinyectar logotipo y colores FCAV en los binarios

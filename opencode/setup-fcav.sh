@@ -72,13 +72,19 @@ fi
 
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/opencode"
 if [ ! -d ".opencode" ]; then
-    mkdir -p ".opencode/themes" 2>/dev/null || true
+    mkdir -p ".opencode/themes" ".opencode/commands" ".opencode/plugins" 2>/dev/null || true
 fi
 if [ ! -f ".opencode/tui.json" ] && [ -f "$CONFIG_DIR/tui.json" ]; then
     cp "$CONFIG_DIR/tui.json" ".opencode/tui.json" 2>/dev/null
 fi
 if [ -d "$CONFIG_DIR/themes" ] && [ ! -f ".opencode/themes/fcav.json" ]; then
     cp -r "$CONFIG_DIR/themes/"* ".opencode/themes/" 2>/dev/null
+fi
+if [ -d "$CONFIG_DIR/commands" ] && [ ! -f ".opencode/commands/audit-seguridad.md" ]; then
+    cp -r "$CONFIG_DIR/commands/"* ".opencode/commands/" 2>/dev/null
+fi
+if [ -d "$CONFIG_DIR/plugins" ] && [ ! -f ".opencode/plugins/fcav-toolkit.js" ]; then
+    cp -r "$CONFIG_DIR/plugins/"* ".opencode/plugins/" 2>/dev/null
 fi
 opencode "$@"
 EOF
@@ -88,14 +94,21 @@ echo -e "${GREEN}      Comando fcavcode creado en $WRAPPER ✓${NC}"
 # 4. Clonar config FCAV
 echo -e "${YELLOW}[3/4] Configurando identidad FCAV CODE...${NC}"
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/opencode"
-mkdir -p "$CONFIG_DIR/themes"
+mkdir -p "$CONFIG_DIR/themes" "$CONFIG_DIR/commands" "$CONFIG_DIR/plugins"
 
 BASE_URL="https://raw.githubusercontent.com/Hectorajm2001/fcav-code/master/opencode/config"
 curl -s -o "$CONFIG_DIR/tui.json" "$BASE_URL/tui.json"
 curl -s -o "$CONFIG_DIR/fcav-logo.txt" "$BASE_URL/fcav-logo.txt"
 curl -s -o "$CONFIG_DIR/themes/fcav.json" "$BASE_URL/themes/fcav.json"
+curl -s -o "$CONFIG_DIR/themes/fcav-dark.json" "$BASE_URL/themes/fcav-dark.json"
 curl -s -o "$CONFIG_DIR/themes/fcav-light.json" "$BASE_URL/themes/fcav-light.json"
 curl -s -o "$CONFIG_DIR/AGENTS.md" "$BASE_URL/AGENTS.md"
+curl -s -o "$CONFIG_DIR/plugins/fcav-toolkit.js" "$BASE_URL/plugins/fcav-toolkit.js"
+curl -s -o "$CONFIG_DIR/commands/audit-seguridad.md" "$BASE_URL/commands/audit-seguridad.md"
+curl -s -o "$CONFIG_DIR/commands/commit-es.md" "$BASE_URL/commands/commit-es.md"
+curl -s -o "$CONFIG_DIR/commands/design-check.md" "$BASE_URL/commands/design-check.md"
+curl -s -o "$CONFIG_DIR/commands/doc-api.md" "$BASE_URL/commands/doc-api.md"
+curl -s -o "$CONFIG_DIR/commands/ayuda.md" "$BASE_URL/commands/ayuda.md"
 
 # 4.1. Aplicar identidad visual FCAV al ejecutable de OpenCode
 echo -e "${YELLOW}      Personalizando identidad visual (FCAV Logo)...${NC}"

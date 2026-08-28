@@ -55,6 +55,26 @@ function installThemeFiles() {
       fs.copyFileSync(srcLight, path.join(themesDir, 'fcav-light.json'));
     }
 
+    // Copy plugins to ~/.config/opencode/plugins/
+    const pluginsDir = path.join(userConfigDir, 'plugins');
+    fs.mkdirSync(pluginsDir, { recursive: true });
+    const srcPlugins = path.join(__dirname, 'config', 'plugins');
+    if (fs.existsSync(srcPlugins)) {
+      for (const f of fs.readdirSync(srcPlugins)) {
+        fs.copyFileSync(path.join(srcPlugins, f), path.join(pluginsDir, f));
+      }
+    }
+
+    // Copy commands to ~/.config/opencode/commands/
+    const commandsDir = path.join(userConfigDir, 'commands');
+    fs.mkdirSync(commandsDir, { recursive: true });
+    const srcCommands = path.join(__dirname, 'config', 'commands');
+    if (fs.existsSync(srcCommands)) {
+      for (const f of fs.readdirSync(srcCommands)) {
+        fs.copyFileSync(path.join(srcCommands, f), path.join(commandsDir, f));
+      }
+    }
+
     const tuiFile = path.join(userConfigDir, 'tui.json');
     const tuiContent = {
       "$schema": "https://opencode.ai/tui.json",
@@ -89,12 +109,30 @@ function installThemeFiles() {
     fs.writeFileSync(kvFile, JSON.stringify(kv, null, 2), 'utf8');
 
     // Update current workspace .opencode if present
-    const wsTui = path.join(process.cwd(), '.opencode', 'tui.json');
-    if (fs.existsSync(wsTui)) {
+    const wsOpencode = path.join(process.cwd(), '.opencode');
+    if (fs.existsSync(wsOpencode)) {
+      const wsTui = path.join(wsOpencode, 'tui.json');
       fs.writeFileSync(wsTui, JSON.stringify(tuiContent, null, 2), 'utf8');
+
+      // Sincronizar commands y plugins locales
+      const wsCmds = path.join(wsOpencode, 'commands');
+      fs.mkdirSync(wsCmds, { recursive: true });
+      if (fs.existsSync(srcCommands)) {
+        for (const f of fs.readdirSync(srcCommands)) {
+          fs.copyFileSync(path.join(srcCommands, f), path.join(wsCmds, f));
+        }
+      }
+
+      const wsPlugs = path.join(wsOpencode, 'plugins');
+      fs.mkdirSync(wsPlugs, { recursive: true });
+      if (fs.existsSync(srcPlugins)) {
+        for (const f of fs.readdirSync(srcPlugins)) {
+          fs.copyFileSync(path.join(srcPlugins, f), path.join(wsPlugs, f));
+        }
+      }
     }
 
-    console.log('✓ Configurado tema fcav como predeterminado en tui.json, themes/ y KV state');
+    console.log('✓ Configurado tema fcav, plugins y comandos en tui.json, commands/, plugins/ y KV state');
   } catch (e) {
     console.warn('Could not setup user global theme files:', e.message);
   }

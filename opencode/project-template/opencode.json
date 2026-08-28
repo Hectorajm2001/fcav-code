@@ -15,10 +15,28 @@
     }
   },
   "model": "lmstudio/qwen2.5-coder-32b",
+  "plugin": [
+    "./.opencode/plugins/fcav-toolkit.js"
+  ],
+  "mcp": {
+    "fetch": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"]
+    },
+    "git": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-git"]
+    }
+  },
   "agent": {
     "auditor": {
       "description": "Auditor de ciberseguridad FCAV — OWASP Top 10 + LGPDPPP",
       "prompt": "Eres un auditor de ciberseguridad de la FCAV. Revisa el código C#/.NET/SQL Server siguiendo OWASP Top 10 y la LGPDPPP. Una línea por hallazgo: archivo:línea → problema → fix. Sin ensayos.",
+      "model": "lmstudio/qwen2.5-coder-32b"
+    },
+    "diseñador": {
+      "description": "Auditor del Sistema Visual FCAV — Tokens CSS y Accesibilidad",
+      "prompt": "Eres el diseñador UI/UX oficial de la FCAV. Audita y genera interfaces web cumpliendo el Design System institucional (tokens CSS, tipografía Space Grotesk/Outfit y Glassmorphism).",
       "model": "lmstudio/qwen2.5-coder-32b"
     }
   }

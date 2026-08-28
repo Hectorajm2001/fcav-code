@@ -66,6 +66,8 @@ if /i "%~1"=="update" (
 if not exist ".opencode" mkdir ".opencode"
 if not exist ".opencode\tui.json" copy "%USERPROFILE%\.config\opencode\tui.json" ".opencode\tui.json" >nul
 if not exist ".opencode\themes" xcopy "%USERPROFILE%\.config\opencode\themes" ".opencode\themes" /E /I /Q >nul
+if not exist ".opencode\commands" xcopy "%USERPROFILE%\.config\opencode\commands" ".opencode\commands" /E /I /Q >nul
+if not exist ".opencode\plugins" xcopy "%USERPROFILE%\.config\opencode\plugins" ".opencode\plugins" /E /I /Q >nul
 
 set "PATH=%APPDATA%\npm;%LOCALAPPDATA%\Programs\nodejs;C:\Program Files\nodejs;%PATH%"
 set "OPENCODE_EXE=%APPDATA%\npm\node_modules\opencode-ai\bin\opencode.exe"
@@ -114,6 +116,8 @@ try {
     if (!(Test-Path ".opencode")) { New-Item -ItemType Directory -Force -Path ".opencode" -ErrorAction Stop | Out-Null }
     if (!(Test-Path ".opencode\tui.json") -and (Test-Path "`$configDir\tui.json")) { Copy-Item "`$configDir\tui.json" ".opencode\tui.json" -ErrorAction Stop }
     if (!(Test-Path ".opencode\themes") -and (Test-Path "`$configDir\themes")) { Copy-Item "`$configDir\themes" ".opencode\themes" -Recurse -ErrorAction Stop }
+    if (!(Test-Path ".opencode\commands") -and (Test-Path "`$configDir\commands")) { Copy-Item "`$configDir\commands" ".opencode\commands" -Recurse -ErrorAction Stop }
+    if (!(Test-Path ".opencode\plugins") -and (Test-Path "`$configDir\plugins")) { Copy-Item "`$configDir\plugins" ".opencode\plugins" -Recurse -ErrorAction Stop }
 } catch {}
 
 `$env:PATH = "`$env:APPDATA\npm;`$env:LOCALAPPDATA\Programs\nodejs;C:\Program Files\nodejs;`$env:PATH"
@@ -135,9 +139,13 @@ if (Test-Path `$opencodeExe) {
 Write-Host "[3/4] Configurando identidad FCAV CODE..." -ForegroundColor $Yellow
 $configDir = "$env:USERPROFILE\.config\opencode"
 $themesDir = "$configDir\themes"
+$commandsDir = "$configDir\commands"
+$pluginsDir = "$configDir\plugins"
 $tempDir = "$env:TEMP\fcav-code-setup"
 
 New-Item -ItemType Directory -Force -Path $themesDir | Out-Null
+New-Item -ItemType Directory -Force -Path $commandsDir | Out-Null
+New-Item -ItemType Directory -Force -Path $pluginsDir | Out-Null
 New-Item -ItemType Directory -Force -Path $tempDir | Out-Null
 
 $localConfigDir = if ($PSScriptRoot) { Join-Path $PSScriptRoot "config" } else { ".\config" }
@@ -152,6 +160,12 @@ if (Test-Path $localConfigDir) {
         Invoke-WebRequest "$baseUrl/themes/fcav-dark.json" -OutFile "$themesDir\fcav-dark.json" -ErrorAction SilentlyContinue
         Invoke-WebRequest "$baseUrl/themes/fcav-light.json" -OutFile "$themesDir\fcav-light.json" -ErrorAction SilentlyContinue
         Invoke-WebRequest "$baseUrl/AGENTS.md" -OutFile "$configDir\AGENTS.md" -ErrorAction SilentlyContinue
+        Invoke-WebRequest "$baseUrl/plugins/fcav-toolkit.js" -OutFile "$pluginsDir\fcav-toolkit.js" -ErrorAction SilentlyContinue
+        Invoke-WebRequest "$baseUrl/commands/audit-seguridad.md" -OutFile "$commandsDir\audit-seguridad.md" -ErrorAction SilentlyContinue
+        Invoke-WebRequest "$baseUrl/commands/commit-es.md" -OutFile "$commandsDir\commit-es.md" -ErrorAction SilentlyContinue
+        Invoke-WebRequest "$baseUrl/commands/design-check.md" -OutFile "$commandsDir\design-check.md" -ErrorAction SilentlyContinue
+        Invoke-WebRequest "$baseUrl/commands/doc-api.md" -OutFile "$commandsDir\doc-api.md" -ErrorAction SilentlyContinue
+        Invoke-WebRequest "$baseUrl/commands/ayuda.md" -OutFile "$commandsDir\ayuda.md" -ErrorAction SilentlyContinue
     } catch {}
 }
 
