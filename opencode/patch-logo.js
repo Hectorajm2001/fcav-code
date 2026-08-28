@@ -20,157 +20,6 @@ const DEFAULT_FCAV_LOGO = `  ███████╗ ██████╗ █�
                  y
        Administración Victoria`;
 
-const DEFAULT_FCAV_THEME = {
-  "$schema": "https://opencode.ai/theme.json",
-  "name": "fcav",
-  "defs": {
-    "matrixInk0": "#080d08",
-    "matrixInk1": "#0e140e",
-    "matrixInk2": "#141d14",
-    "matrixInk3": "#1c281b",
-    "fcavGreen": "#22C55E",
-    "fcavGreenDim": "#16A34A",
-    "fcavGreenHi": "#4ADE80",
-    "uatBlue": "#0369A1",
-    "uatBlueLight": "#38BDF8",
-    "uatOrange": "#FB923C",
-    "uatOrangeDark": "#C2410C",
-    "uatGold": "#FBBF24",
-    "uatGoldDark": "#B45309",
-    "rainGray": "#6B8070",
-    "alertRed": "#EF4444",
-    "alertRedDark": "#DC2626",
-    "lightBg": "#FFFFFF",
-    "lightPaper": "#F4FAF4",
-    "lightInk1": "#E6F2E6",
-    "lightText": "#0D2B14",
-    "lightGray": "#5A7A60"
-  },
-  "theme": {
-    "primary": { "dark": "fcavGreen", "light": "fcavGreen" },
-    "secondary": { "dark": "uatBlueLight", "light": "uatBlue" },
-    "accent": { "dark": "fcavGreenHi", "light": "fcavGreenDim" },
-    "error": { "dark": "alertRed", "light": "alertRedDark" },
-    "warning": { "dark": "uatGold", "light": "uatGoldDark" },
-    "success": { "dark": "fcavGreenHi", "light": "fcavGreen" },
-    "info": { "dark": "uatBlueLight", "light": "uatBlue" },
-    "text": { "dark": "fcavGreenHi", "light": "lightText" },
-    "textMuted": { "dark": "rainGray", "light": "lightGray" },
-    "background": { "dark": "matrixInk0", "light": "lightBg" },
-    "backgroundPanel": { "dark": "matrixInk1", "light": "lightPaper" },
-    "backgroundElement": { "dark": "matrixInk2", "light": "lightInk1" },
-    "border": { "dark": "matrixInk3", "light": "lightInk1" },
-    "borderActive": { "dark": "fcavGreen", "light": "fcavGreen" },
-    "borderSubtle": { "dark": "matrixInk2", "light": "lightPaper" },
-    "diffAdded": { "dark": "fcavGreenDim", "light": "fcavGreen" },
-    "diffRemoved": { "dark": "alertRed", "light": "alertRedDark" },
-    "diffContext": { "dark": "rainGray", "light": "lightGray" },
-    "diffHunkHeader": { "dark": "uatBlueLight", "light": "uatBlue" },
-    "diffHighlightAdded": { "dark": "fcavGreenHi", "light": "fcavGreenDim" },
-    "diffHighlightRemoved": { "dark": "#FCA5A5", "light": "#EF4444" },
-    "diffAddedBg": { "dark": "#0f2312", "light": "#E6F7E6" },
-    "diffRemovedBg": { "dark": "#261212", "light": "#FEE2E2" },
-    "diffContextBg": { "dark": "matrixInk1", "light": "lightPaper" },
-    "diffLineNumber": { "dark": "textMuted", "light": "lightGray" },
-    "diffAddedLineNumberBg": { "dark": "#0f2312", "light": "#E6F7E6" },
-    "diffRemovedLineNumberBg": { "dark": "#261212", "light": "#FEE2E2" },
-    "markdownText": { "dark": "fcavGreenHi", "light": "lightText" },
-    "markdownHeading": { "dark": "uatBlueLight", "light": "uatBlue" },
-    "markdownLink": { "dark": "uatBlueLight", "light": "uatBlue" },
-    "markdownLinkText": { "dark": "fcavGreenHi", "light": "fcavGreen" },
-    "markdownCode": { "dark": "fcavGreenDim", "light": "fcavGreen" },
-    "markdownBlockQuote": { "dark": "rainGray", "light": "lightGray" },
-    "markdownEmph": { "dark": "uatOrange", "light": "uatOrangeDark" },
-    "markdownStrong": { "dark": "uatGold", "light": "uatGoldDark" },
-    "markdownHorizontalRule": { "dark": "matrixInk3", "light": "lightInk1" },
-    "markdownListItem": { "dark": "fcavGreen", "light": "fcavGreen" },
-    "markdownListEnumeration": { "dark": "uatOrange", "light": "uatOrangeDark" },
-    "markdownImage": { "dark": "uatBlueLight", "light": "uatBlue" },
-    "markdownImageText": { "dark": "fcavGreenHi", "light": "fcavGreen" },
-    "markdownCodeBlock": { "dark": "fcavGreenHi", "light": "lightText" },
-    "syntaxComment": { "dark": "rainGray", "light": "lightGray" },
-    "syntaxKeyword": { "dark": "uatOrange", "light": "uatOrangeDark" },
-    "syntaxFunction": { "dark": "uatBlueLight", "light": "uatBlue" },
-    "syntaxVariable": { "dark": "fcavGreenHi", "light": "lightText" },
-    "syntaxString": { "dark": "fcavGreen", "light": "fcavGreen" },
-    "syntaxNumber": { "dark": "uatGold", "light": "uatGoldDark" },
-    "syntaxType": { "dark": "uatGold", "light": "uatGoldDark" },
-    "syntaxOperator": { "dark": "fcavGreenDim", "light": "fcavGreen" },
-    "syntaxPunctuation": { "dark": "fcavGreenHi", "light": "lightText" }
-  }
-};
-
-const DEFAULT_FCAV_LIGHT_THEME = {
-  "$schema": "https://opencode.ai/theme.json",
-  "name": "fcav-light",
-  "defs": {
-    "lightBg": "#FFFFFF",
-    "lightPaper": "#F4FAF4",
-    "lightInk1": "#E6F2E6",
-    "lightText": "#0D2B14",
-    "lightGray": "#5A7A60",
-    "fcavGreen": "#15803D",
-    "fcavGreenDim": "#16A34A",
-    "fcavGreenDeep": "#14532D",
-    "uatBlue": "#0369A1",
-    "uatOrange": "#C2410C",
-    "uatGold": "#B45309",
-    "alertRed": "#DC2626"
-  },
-  "theme": {
-    "primary": { "dark": "fcavGreen", "light": "fcavGreen" },
-    "secondary": { "dark": "uatBlue", "light": "uatBlue" },
-    "accent": { "dark": "fcavGreenDim", "light": "fcavGreenDim" },
-    "error": { "dark": "alertRed", "light": "alertRed" },
-    "warning": { "dark": "uatGold", "light": "uatGold" },
-    "success": { "dark": "fcavGreen", "light": "fcavGreen" },
-    "info": { "dark": "uatBlue", "light": "uatBlue" },
-    "text": { "dark": "lightText", "light": "lightText" },
-    "textMuted": { "dark": "lightGray", "light": "lightGray" },
-    "background": { "dark": "lightBg", "light": "lightBg" },
-    "backgroundPanel": { "dark": "lightPaper", "light": "lightPaper" },
-    "backgroundElement": { "dark": "lightInk1", "light": "lightInk1" },
-    "border": { "dark": "lightInk1", "light": "lightInk1" },
-    "borderActive": { "dark": "fcavGreen", "light": "fcavGreen" },
-    "borderSubtle": { "dark": "lightPaper", "light": "lightPaper" },
-    "diffAdded": { "dark": "fcavGreen", "light": "fcavGreen" },
-    "diffRemoved": { "dark": "alertRed", "light": "alertRed" },
-    "diffContext": { "dark": "lightGray", "light": "lightGray" },
-    "diffHunkHeader": { "dark": "uatBlue", "light": "uatBlue" },
-    "diffHighlightAdded": { "dark": "fcavGreenDim", "light": "fcavGreenDim" },
-    "diffHighlightRemoved": { "dark": "#EF4444", "light": "#EF4444" },
-    "diffAddedBg": { "dark": "#E6F7E6", "light": "#E6F7E6" },
-    "diffRemovedBg": { "dark": "#FEE2E2", "light": "#FEE2E2" },
-    "diffContextBg": { "dark": "lightPaper", "light": "lightPaper" },
-    "diffLineNumber": { "dark": "lightGray", "light": "lightGray" },
-    "diffAddedLineNumberBg": { "dark": "#E6F7E6", "light": "#E6F7E6" },
-    "diffRemovedLineNumberBg": { "dark": "#FEE2E2", "light": "#FEE2E2" },
-    "markdownText": { "dark": "lightText", "light": "lightText" },
-    "markdownHeading": { "dark": "fcavGreenDeep", "light": "fcavGreenDeep" },
-    "markdownLink": { "dark": "uatBlue", "light": "uatBlue" },
-    "markdownLinkText": { "dark": "fcavGreen", "light": "fcavGreen" },
-    "markdownCode": { "dark": "fcavGreenDeep", "light": "fcavGreenDeep" },
-    "markdownBlockQuote": { "dark": "lightGray", "light": "lightGray" },
-    "markdownEmph": { "dark": "uatOrange", "light": "uatOrange" },
-    "markdownStrong": { "dark": "fcavGreenDeep", "light": "fcavGreenDeep" },
-    "markdownHorizontalRule": { "dark": "lightInk1", "light": "lightInk1" },
-    "markdownListItem": { "dark": "fcavGreen", "light": "fcavGreen" },
-    "markdownListEnumeration": { "dark": "uatOrange", "light": "uatOrange" },
-    "markdownImage": { "dark": "uatBlue", "light": "uatBlue" },
-    "markdownImageText": { "dark": "fcavGreen", "light": "fcavGreen" },
-    "markdownCodeBlock": { "dark": "lightText", "light": "lightText" },
-    "syntaxComment": { "dark": "#658269", "light": "#658269" },
-    "syntaxKeyword": { "dark": "fcavGreenDeep", "light": "fcavGreenDeep" },
-    "syntaxFunction": { "dark": "uatBlue", "light": "uatBlue" },
-    "syntaxVariable": { "dark": "lightText", "light": "lightText" },
-    "syntaxString": { "dark": "fcavGreenDim", "light": "fcavGreenDim" },
-    "syntaxNumber": { "dark": "uatGold", "light": "uatGold" },
-    "syntaxType": { "dark": "fcavGreenDeep", "light": "fcavGreenDeep" },
-    "syntaxOperator": { "dark": "fcavGreen", "light": "fcavGreen" },
-    "syntaxPunctuation": { "dark": "lightText", "light": "lightText" }
-  }
-};
-
 function getLogoText() {
   const candidates = [
     path.join(__dirname, '..', 'resources', 'fcav-logo.txt'),
@@ -189,31 +38,12 @@ function getLogoText() {
 function installThemeFiles() {
   try {
     const userConfigDir = path.join(os.homedir(), '.config', 'opencode');
-    const userThemeDir = path.join(userConfigDir, 'themes');
-    fs.mkdirSync(userThemeDir, { recursive: true });
-
-    // fcav.json
-    const themeFile = path.join(userThemeDir, 'fcav.json');
-    const themeSrc = path.join(__dirname, 'config', 'themes', 'fcav.json');
-    if (fs.existsSync(themeSrc)) {
-      fs.copyFileSync(themeSrc, themeFile);
-    } else {
-      fs.writeFileSync(themeFile, JSON.stringify(DEFAULT_FCAV_THEME, null, 2), 'utf8');
-    }
-
-    // fcav-light.json
-    const themeLightFile = path.join(userThemeDir, 'fcav-light.json');
-    const themeLightSrc = path.join(__dirname, 'config', 'themes', 'fcav-light.json');
-    if (fs.existsSync(themeLightSrc)) {
-      fs.copyFileSync(themeLightSrc, themeLightFile);
-    } else {
-      fs.writeFileSync(themeLightFile, JSON.stringify(DEFAULT_FCAV_LIGHT_THEME, null, 2), 'utf8');
-    }
+    fs.mkdirSync(userConfigDir, { recursive: true });
 
     const tuiFile = path.join(userConfigDir, 'tui.json');
     const tuiContent = {
       "$schema": "https://opencode.ai/tui.json",
-      "theme": "fcav",
+      "theme": "matrix",
       "logo": getLogoText() + "\n"
     };
     fs.writeFileSync(tuiFile, JSON.stringify(tuiContent, null, 2), 'utf8');
@@ -223,35 +53,33 @@ function installThemeFiles() {
     if (fs.existsSync(tuiJsonc)) {
       let content = fs.readFileSync(tuiJsonc, 'utf8');
       if (content.includes('"theme"')) {
-        content = content.replace(/"theme":\s*"[^"]*"/, '"theme": "fcav"');
+        content = content.replace(/"theme":\s*"[^"]*"/, '"theme": "matrix"');
       } else {
-        content = content.replace('{', '{\n  "theme": "fcav",');
+        content = content.replace('{', '{\n  "theme": "matrix",');
       }
       fs.writeFileSync(tuiJsonc, content, 'utf8');
     }
 
-    // Update local KV state
-    const kvFile = path.join(os.homedir(), '.local', 'state', 'opencode', 'kv.json');
+    // Update local KV state so theme is immediately active
+    const stateDir = path.join(os.homedir(), '.local', 'state', 'opencode');
+    fs.mkdirSync(stateDir, { recursive: true });
+    const kvFile = path.join(stateDir, 'kv.json');
+    let kv = {};
     if (fs.existsSync(kvFile)) {
       try {
-        const kv = JSON.parse(fs.readFileSync(kvFile, 'utf8'));
-        kv.theme = 'fcav';
-        fs.writeFileSync(kvFile, JSON.stringify(kv, null, 2), 'utf8');
+        kv = JSON.parse(fs.readFileSync(kvFile, 'utf8'));
       } catch {}
     }
+    kv.theme = 'matrix';
+    fs.writeFileSync(kvFile, JSON.stringify(kv, null, 2), 'utf8');
 
     // Update current workspace .opencode if present
-    const wsThemes = path.join(process.cwd(), '.opencode', 'themes');
-    if (fs.existsSync(wsThemes)) {
-      fs.writeFileSync(path.join(wsThemes, 'fcav.json'), JSON.stringify(DEFAULT_FCAV_THEME, null, 2), 'utf8');
-      fs.writeFileSync(path.join(wsThemes, 'fcav-light.json'), JSON.stringify(DEFAULT_FCAV_LIGHT_THEME, null, 2), 'utf8');
-    }
     const wsTui = path.join(process.cwd(), '.opencode', 'tui.json');
     if (fs.existsSync(wsTui)) {
       fs.writeFileSync(wsTui, JSON.stringify(tuiContent, null, 2), 'utf8');
     }
 
-    console.log('✓ Configurados temas fcav y fcav-light en ~/.config/opencode/themes/ y KV state');
+    console.log('✓ Configurado tema matrix como predeterminado en tui.json y KV state');
   } catch (e) {
     console.warn('Could not setup user global theme files:', e.message);
   }
@@ -348,7 +176,7 @@ function patchBinary(binaryPath, logoRaw) {
     }
   }
 
-  // --- 2. Patch chunk-zbpvt8mq.js (Crisp Pure Block Typography - Identical to Image 1) ---
+  // --- 2. Patch chunk-zbpvt8mq.js (Crisp Pure Block Typography - Image 1) ---
   const start2 = newBuf.indexOf(Buffer.from('chunk-zbpvt8mq.js\x00// @bun\n', 'utf8'));
   const exportMarker2 = Buffer.from('export{_ as en,t as fn};\n', 'utf8');
   if (start2 !== -1) {
@@ -420,20 +248,20 @@ function patchBinary(binaryPath, logoRaw) {
     }
   }
 
-  // --- 4. Patch class vg default colors (Deep Green Background & FCAV Green Primary) ---
+  // --- 4. Patch class vg default colors (Matrix Green Colors) ---
   const vgColorTarget = Buffer.from('panelRgb=[0,0,0];primaryRgb=[255,255,255];logoBaseRgb=[180,180,180];', 'utf8');
   const start4 = newBuf.indexOf(vgColorTarget);
   if (start4 !== -1) {
     const targetLen4 = vgColorTarget.length;
-    // panelRgb: [14, 20, 14] (#0E140E), primaryRgb: [34, 197, 94] (#22C55E), logoBaseRgb: [74, 222, 128] (#4ADE80)
-    const replacement4 = 'panelRgb=[14,20,14];primaryRgb=[34,197,94];logoBaseRgb=[74,222,128];  ';
+    // panelRgb: [10, 14, 10] (#0A0E0A), primaryRgb: [46, 255, 106] (#2EFF6A), logoBaseRgb: [98, 255, 148] (#62FF94)
+    const replacement4 = 'panelRgb=[10,14,10];primaryRgb=[46,255,106];logoBaseRgb=[98,255,148];   ';
     if (Buffer.byteLength(replacement4, 'utf8') === targetLen4) {
       Buffer.from(replacement4, 'utf8').copy(newBuf, start4);
-      console.log('  ✓ Patched class vg default colors to Deep Green & FCAV Institutional Green');
+      console.log('  ✓ Patched class vg default colors to Matrix Green');
     }
   }
 
-  // --- 5. Patch gi() TUI Logo Color (Force Verde FCAV base) ---
+  // --- 5. Patch gi() TUI Logo Color (Force Matrix Green base) ---
   const giTarget = Buffer.from('var{backgroundPanel:i,primary:Z}=U,V=f0(U.background,U.text,0.62);', 'utf8');
   const start5 = newBuf.indexOf(giTarget);
   if (start5 !== -1) {
@@ -441,61 +269,16 @@ function patchBinary(binaryPath, logoRaw) {
     const replacement5 = 'var{backgroundPanel:i,primary:Z}=U,V=U.primary;/*               */';
     if (Buffer.byteLength(replacement5, 'utf8') === targetLen5) {
       Buffer.from(replacement5, 'utf8').copy(newBuf, start5);
-      console.log('  ✓ Patched gi() to render TUI logo in Verde FCAV (U.primary)');
+      console.log('  ✓ Patched gi() to render TUI logo in Matrix Green (U.primary)');
     }
   }
 
-  // --- 6. Patch Xa (Builtin Default Theme to Matrix-style FCAV Green with Green Letters) ---
-  const start6 = newBuf.indexOf(Buffer.from('var Xa={$schema:"https://opencode.ai/theme.json",defs:{darkStep1:"#0a0a0a"', 'utf8'));
-  const endMarker6 = Buffer.from(';var Ja={', 'utf8');
+  // --- 6. Patch default theme Xa directly to Matrix Theme Qa ---
+  const start6 = newBuf.indexOf(Buffer.from('opencode:Xa,orng:Ja', 'utf8'));
   if (start6 !== -1) {
-    const endPos6 = newBuf.indexOf(endMarker6, start6);
-    if (endPos6 !== -1) {
-      const origXaBuf = newBuf.subarray(start6, endPos6);
-      let resXa = origXaBuf.toString('utf8');
-      resXa = resXa.replace('darkStep1:"#0a0a0a"', 'darkStep1:"#080d08"'); // Deep Forest/Black-Green
-      resXa = resXa.replace('darkStep2:"#141414"', 'darkStep2:"#0e140e"'); // Deep Green Panel
-      resXa = resXa.replace('darkStep3:"#1e1e1e"', 'darkStep3:"#141d14"');
-      resXa = resXa.replace('darkStep4:"#282828"', 'darkStep4:"#182318"');
-      resXa = resXa.replace('darkStep5:"#323232"', 'darkStep5:"#1c281b"');
-      resXa = resXa.replace('darkStep6:"#3c3c3c"', 'darkStep6:"#141d14"');
-      resXa = resXa.replace('darkStep7:"#484848"', 'darkStep7:"#1c281b"');
-      resXa = resXa.replace('darkStep8:"#606060"', 'darkStep8:"#22c55e"');
-      resXa = resXa.replace('darkStep9:"#fab283"', 'darkStep9:"#22c55e"'); // Primary Green
-      resXa = resXa.replace('darkStep10:"#ffc09f"', 'darkStep10:"#4ade80"');
-      resXa = resXa.replace('darkStep11:"#808080"', 'darkStep11:"#6b8070"');
-      resXa = resXa.replace('darkStep12:"#eeeeee"', 'darkStep12:"#4ade80"'); // GREEN TEXT EVERYWHERE!
-      resXa = resXa.replace('darkSecondary:"#5c9cf5"', 'darkSecondary:"#38bdf8"');
-      resXa = resXa.replace('darkAccent:"#9d7cd8"', 'darkAccent:"#4ade80"');
-      resXa = resXa.replace('darkRed:"#e06c75"', 'darkRed:"#ef4444"');
-      resXa = resXa.replace('darkOrange:"#f5a742"', 'darkOrange:"#fb923c"');
-      resXa = resXa.replace('darkGreen:"#7fd88f"', 'darkGreen:"#22c55e"');
-      resXa = resXa.replace('darkCyan:"#56b6c2"', 'darkCyan:"#38bdf8"');
-      resXa = resXa.replace('darkYellow:"#e5c07b"', 'darkYellow:"#fbbf24"');
-      resXa = resXa.replace('lightStep2:"#fafafa"', 'lightStep2:"#f4faf4"');
-      resXa = resXa.replace('lightStep3:"#f5f5f5"', 'lightStep3:"#e6f2e6"');
-      resXa = resXa.replace('lightStep4:"#ebebeb"', 'lightStep4:"#d8ebd8"');
-      resXa = resXa.replace('lightStep5:"#e1e1e1"', 'lightStep5:"#cae3ca"');
-      resXa = resXa.replace('lightStep6:"#d4d4d4"', 'lightStep6:"#e6f2e6"');
-      resXa = resXa.replace('lightStep7:"#b8b8b8"', 'lightStep7:"#b2d8b6"');
-      resXa = resXa.replace('lightStep8:"#a0a0a0"', 'lightStep8:"#15803d"');
-      resXa = resXa.replace('lightStep9:"#3b7dd8"', 'lightStep9:"#15803d"');
-      resXa = resXa.replace('lightStep10:"#2968c3"', 'lightStep10:"#16a34a"');
-      resXa = resXa.replace('lightStep11:"#8a8a8a"', 'lightStep11:"#5a7a60"');
-      resXa = resXa.replace('lightStep12:"#1a1a1a"', 'lightStep12:"#0d2b14"');
-      resXa = resXa.replace('lightSecondary:"#7b5bb6"', 'lightSecondary:"#0369a1"');
-      resXa = resXa.replace('lightAccent:"#d68c27"', 'lightAccent:"#16a34a"');
-      resXa = resXa.replace('lightRed:"#d1383d"', 'lightRed:"#dc2626"');
-      resXa = resXa.replace('lightOrange:"#d68c27"', 'lightOrange:"#c2410c"');
-      resXa = resXa.replace('lightGreen:"#3d9a57"', 'lightGreen:"#15803d"');
-      resXa = resXa.replace('lightCyan:"#318795"', 'lightCyan:"#0284c7"');
-      resXa = resXa.replace('lightYellow:"#b0851f"', 'lightYellow:"#b45309"');
-
-      if (Buffer.byteLength(resXa, 'utf8') === origXaBuf.length) {
-        Buffer.from(resXa, 'utf8').copy(newBuf, start6);
-        console.log('  ✓ Patched Xa (Builtin Default Theme in Matrix-style FCAV Green with Green Letters)');
-      }
-    }
+    const replacement6 = 'opencode:Qa,orng:Ja';
+    Buffer.from(replacement6, 'utf8').copy(newBuf, start6);
+    console.log('  ✓ Patched default opencode theme to use Matrix theme directly (Qa)');
   }
 
   // Write patched binary with atomic fallback
