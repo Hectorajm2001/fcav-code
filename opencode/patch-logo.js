@@ -46,6 +46,10 @@ function installThemeFiles() {
     if (fs.existsSync(srcTheme)) {
       fs.copyFileSync(srcTheme, path.join(themesDir, 'fcav.json'));
     }
+    const srcDark = path.join(__dirname, 'config', 'themes', 'fcav-dark.json');
+    if (fs.existsSync(srcDark)) {
+      fs.copyFileSync(srcDark, path.join(themesDir, 'fcav-dark.json'));
+    }
     const srcLight = path.join(__dirname, 'config', 'themes', 'fcav-light.json');
     if (fs.existsSync(srcLight)) {
       fs.copyFileSync(srcLight, path.join(themesDir, 'fcav-light.json'));
