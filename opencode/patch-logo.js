@@ -38,12 +38,23 @@ function getLogoText() {
 function installThemeFiles() {
   try {
     const userConfigDir = path.join(os.homedir(), '.config', 'opencode');
-    fs.mkdirSync(userConfigDir, { recursive: true });
+    const themesDir = path.join(userConfigDir, 'themes');
+    fs.mkdirSync(themesDir, { recursive: true });
+
+    // Copy theme files to ~/.config/opencode/themes/
+    const srcTheme = path.join(__dirname, 'config', 'themes', 'fcav.json');
+    if (fs.existsSync(srcTheme)) {
+      fs.copyFileSync(srcTheme, path.join(themesDir, 'fcav.json'));
+    }
+    const srcLight = path.join(__dirname, 'config', 'themes', 'fcav-light.json');
+    if (fs.existsSync(srcLight)) {
+      fs.copyFileSync(srcLight, path.join(themesDir, 'fcav-light.json'));
+    }
 
     const tuiFile = path.join(userConfigDir, 'tui.json');
     const tuiContent = {
       "$schema": "https://opencode.ai/tui.json",
-      "theme": "matrix",
+      "theme": "fcav",
       "logo": getLogoText() + "\n"
     };
     fs.writeFileSync(tuiFile, JSON.stringify(tuiContent, null, 2), 'utf8');
@@ -53,9 +64,9 @@ function installThemeFiles() {
     if (fs.existsSync(tuiJsonc)) {
       let content = fs.readFileSync(tuiJsonc, 'utf8');
       if (content.includes('"theme"')) {
-        content = content.replace(/"theme":\s*"[^"]*"/, '"theme": "matrix"');
+        content = content.replace(/"theme":\s*"[^"]*"/, '"theme": "fcav"');
       } else {
-        content = content.replace('{', '{\n  "theme": "matrix",');
+        content = content.replace('{', '{\n  "theme": "fcav",');
       }
       fs.writeFileSync(tuiJsonc, content, 'utf8');
     }
@@ -70,7 +81,7 @@ function installThemeFiles() {
         kv = JSON.parse(fs.readFileSync(kvFile, 'utf8'));
       } catch {}
     }
-    kv.theme = 'matrix';
+    kv.theme = 'fcav';
     fs.writeFileSync(kvFile, JSON.stringify(kv, null, 2), 'utf8');
 
     // Update current workspace .opencode if present
@@ -79,7 +90,7 @@ function installThemeFiles() {
       fs.writeFileSync(wsTui, JSON.stringify(tuiContent, null, 2), 'utf8');
     }
 
-    console.log('✓ Configurado tema matrix como predeterminado en tui.json y KV state');
+    console.log('✓ Configurado tema fcav como predeterminado en tui.json, themes/ y KV state');
   } catch (e) {
     console.warn('Could not setup user global theme files:', e.message);
   }
@@ -236,7 +247,7 @@ function patchBinary(binaryPath, logoRaw) {
         '"                   ",' +
         '"\\u2588\\u2580\\u2580\\u2580 \\u2588\\u2580\\u2580\\u2588 \\u2588\\u2580\\u2580\\u2584 \\u2588\\u2580\\u2580\\u2580",' +
         '"\\u2588    \\u2588  \\u2588 \\u2588  \\u2588 \\u2588\\u2580\\u2580 ",' +
-        '"\\u2580\\u2580\\u2580\\u2580 \\u2580\\u2580\\u2580\\u2580 \\u2580\\u2580\\u2580\\u2580 \\u2580\\u2580\\u2580\\u2580"' +
+        '"\\u2580\\u2580\\u2580\\u2580 \\u2588\\u2580\\u2580\\u2580\\u2580 \\u2580\\u2580\\u2580\\u2580 \\u2580\\u2580\\u2580\\u2580"' +
         ']};';
 
       const padLen3 = targetLen3 - Buffer.byteLength(jsCode3, 'utf8');
@@ -248,20 +259,20 @@ function patchBinary(binaryPath, logoRaw) {
     }
   }
 
-  // --- 4. Patch class vg default colors (Matrix Green Colors) ---
+  // --- 4. Patch class vg default colors (Institutional Green Colors) ---
   const vgColorTarget = Buffer.from('panelRgb=[0,0,0];primaryRgb=[255,255,255];logoBaseRgb=[180,180,180];', 'utf8');
   const start4 = newBuf.indexOf(vgColorTarget);
   if (start4 !== -1) {
     const targetLen4 = vgColorTarget.length;
-    // panelRgb: [10, 14, 10] (#0A0E0A), primaryRgb: [46, 255, 106] (#2EFF6A), logoBaseRgb: [98, 255, 148] (#62FF94)
-    const replacement4 = 'panelRgb=[10,14,10];primaryRgb=[46,255,106];logoBaseRgb=[98,255,148];   ';
+    // panelRgb: [14, 20, 14] (#0E140E), primaryRgb: [34, 197, 94] (#22C55E), logoBaseRgb: [74, 222, 128] (#4ADE80)
+    const replacement4 = 'panelRgb=[14,20,14];primaryRgb=[34,197,94];logoBaseRgb=[74,222,128];';
     if (Buffer.byteLength(replacement4, 'utf8') === targetLen4) {
       Buffer.from(replacement4, 'utf8').copy(newBuf, start4);
-      console.log('  ✓ Patched class vg default colors to Matrix Green');
+      console.log('  ✓ Patched class vg default colors to FCAV Institutional Green');
     }
   }
 
-  // --- 5. Patch gi() TUI Logo Color (Force Matrix Green base) ---
+  // --- 5. Patch gi() TUI Logo Color (Force Verde FCAV base) ---
   const giTarget = Buffer.from('var{backgroundPanel:i,primary:Z}=U,V=f0(U.background,U.text,0.62);', 'utf8');
   const start5 = newBuf.indexOf(giTarget);
   if (start5 !== -1) {
@@ -269,16 +280,88 @@ function patchBinary(binaryPath, logoRaw) {
     const replacement5 = 'var{backgroundPanel:i,primary:Z}=U,V=U.primary;/*               */';
     if (Buffer.byteLength(replacement5, 'utf8') === targetLen5) {
       Buffer.from(replacement5, 'utf8').copy(newBuf, start5);
-      console.log('  ✓ Patched gi() to render TUI logo in Matrix Green (U.primary)');
+      console.log('  ✓ Patched gi() to render TUI logo in Verde FCAV (U.primary)');
     }
   }
 
-  // --- 6. Patch default theme Xa directly to Matrix Theme Qa ---
-  const start6 = newBuf.indexOf(Buffer.from('opencode:Xa,orng:Ja', 'utf8'));
+  // --- 6. Patch default theme Xa directly to Matrix/FCAV Dark Theme with Institutional Accents ---
+  const start6 = newBuf.indexOf(Buffer.from('var Xa={$schema:"https://opencode.ai/theme.json"', 'utf8'));
+  const endMarker6 = Buffer.from(';var Ja={', 'utf8');
   if (start6 !== -1) {
-    const replacement6 = 'opencode:Qa,orng:Ja';
-    Buffer.from(replacement6, 'utf8').copy(newBuf, start6);
-    console.log('  ✓ Patched default opencode theme to use Matrix theme directly (Qa)');
+    const endPos6 = newBuf.indexOf(endMarker6, start6);
+    if (endPos6 !== -1) {
+      const targetLen6 = endPos6 - start6;
+      const jsCode6 = 'var Xa={' +
+        '$schema:"https://opencode.ai/theme.json",' +
+        'defs:{' +
+        'darkStep1:"#080d08",darkStep2:"#0e140e",darkStep3:"#141d14",darkStep4:"#182317",darkStep5:"#1c281b",' +
+        'darkStep6:"#223221",darkStep7:"#2a3e29",darkStep8:"#344e33",darkStep9:"#22c55e",darkStep10:"#16a34a",' +
+        'darkStep11:"#4ade80",darkStep12:"#4ade80",' +
+        'lightStep1:"#ffffff",lightStep2:"#f4faf4",lightStep3:"#e6f2e6",lightStep4:"#d9ebd9",lightStep5:"#cbe3cb",' +
+        'lightStep6:"#b9d8b9",lightStep7:"#a1c9a1",lightStep8:"#7eb57e",lightStep9:"#15803d",lightStep10:"#14532d",' +
+        'lightStep11:"#15803d",lightStep12:"#0d2b14",' +
+        'uatBlue:"#0369a1",uatBlueLight:"#38bdf8",uatOrange:"#fb923c",uatGold:"#fbbf24",alertRed:"#ef4444"' +
+        '},' +
+        'theme:{' +
+        'primary:{dark:"darkStep9",light:"lightStep9"},' +
+        'secondary:{dark:"uatBlueLight",light:"uatBlue"},' +
+        'accent:{dark:"darkStep11",light:"lightStep10"},' +
+        'error:{dark:"alertRed",light:"alertRed"},' +
+        'warning:{dark:"uatGold",light:"uatGold"},' +
+        'success:{dark:"darkStep9",light:"lightStep9"},' +
+        'info:{dark:"uatBlueLight",light:"uatBlue"},' +
+        'text:{dark:"darkStep12",light:"lightStep12"},' +
+        'textMuted:{dark:"#6b8070",light:"#5a7a60"},' +
+        'background:{dark:"darkStep1",light:"lightStep1"},' +
+        'backgroundPanel:{dark:"darkStep2",light:"lightStep2"},' +
+        'backgroundElement:{dark:"darkStep3",light:"lightStep3"},' +
+        'border:{dark:"darkStep5",light:"lightStep3"},' +
+        'borderActive:{dark:"darkStep9",light:"lightStep9"},' +
+        'borderSubtle:{dark:"darkStep3",light:"lightStep2"},' +
+        'diffAdded:{dark:"darkStep9",light:"lightStep9"},' +
+        'diffRemoved:{dark:"alertRed",light:"alertRed"},' +
+        'diffContext:{dark:"#6b8070",light:"#5a7a60"},' +
+        'diffHunkHeader:{dark:"uatBlueLight",light:"uatBlue"},' +
+        'diffHighlightAdded:{dark:"darkStep11",light:"lightStep9"},' +
+        'diffHighlightRemoved:{dark:"#ef4444",light:"#ef4444"},' +
+        'diffAddedBg:{dark:"#102814",light:"#e6f7e6"},' +
+        'diffRemovedBg:{dark:"#2a1010",light:"#fee2e2"},' +
+        'diffContextBg:{dark:"darkStep2",light:"lightStep2"},' +
+        'diffLineNumber:{dark:"#6b8070",light:"#5a7a60"},' +
+        'diffAddedLineNumberBg:{dark:"#102814",light:"#e6f7e6"},' +
+        'diffRemovedLineNumberBg:{dark:"#2a1010",light:"#fee2e2"},' +
+        'markdownText:{dark:"darkStep12",light:"lightStep12"},' +
+        'markdownHeading:{dark:"uatBlueLight",light:"lightStep10"},' +
+        'markdownLink:{dark:"uatBlueLight",light:"uatBlue"},' +
+        'markdownLinkText:{dark:"darkStep11",light:"lightStep9"},' +
+        'markdownCode:{dark:"darkStep11",light:"lightStep10"},' +
+        'markdownBlockQuote:{dark:"#6b8070",light:"#5a7a60"},' +
+        'markdownEmph:{dark:"uatOrange",light:"uatOrange"},' +
+        'markdownStrong:{dark:"uatGold",light:"lightStep10"},' +
+        'markdownHorizontalRule:{dark:"darkStep5",light:"lightStep3"},' +
+        'markdownListItem:{dark:"darkStep9",light:"lightStep9"},' +
+        'markdownListEnumeration:{dark:"uatOrange",light:"uatOrange"},' +
+        'markdownImage:{dark:"uatBlueLight",light:"uatBlue"},' +
+        'markdownImageText:{dark:"darkStep11",light:"lightStep9"},' +
+        'markdownCodeBlock:{dark:"darkStep12",light:"lightStep12"},' +
+        'syntaxComment:{dark:"#6b8070",light:"#658269"},' +
+        'syntaxKeyword:{dark:"uatOrange",light:"lightStep10"},' +
+        'syntaxFunction:{dark:"uatBlueLight",light:"uatBlue"},' +
+        'syntaxVariable:{dark:"darkStep12",light:"lightStep12"},' +
+        'syntaxString:{dark:"darkStep9",light:"lightStep9"},' +
+        'syntaxNumber:{dark:"uatGold",light:"uatGold"},' +
+        'syntaxType:{dark:"uatGold",light:"lightStep10"},' +
+        'syntaxOperator:{dark:"darkStep10",light:"lightStep9"},' +
+        'syntaxPunctuation:{dark:"darkStep12",light:"lightStep12"}' +
+        '}}';
+
+      const padLen6 = targetLen6 - Buffer.byteLength(jsCode6, 'utf8');
+      if (padLen6 >= 4) {
+        const paddedJs6 = jsCode6 + '/*' + ' '.repeat(padLen6 - 4) + '*/';
+        Buffer.from(paddedJs6, 'utf8').copy(newBuf, start6);
+        console.log('  ✓ Patched Xa (Builtin Default Theme with FCAV Dark and Light Palette)');
+      }
+    }
   }
 
   // Write patched binary with atomic fallback
