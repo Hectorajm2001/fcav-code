@@ -368,6 +368,21 @@ function patchBinary(binaryPath, logoRaw) {
     }
   }
 
+  // --- 7. Patch Home Screen Placeholders & Tips (FCAV Skills Guidance) ---
+  const wdTarget = Buffer.from('var qg=!1,WD={normal:["Fix a TODO in the codebase","What is the tech stack of this project?","Fix broken tests"],shell:["ls -la","git status","pwd"]};', 'utf8');
+  const start7 = newBuf.indexOf(wdTarget);
+  if (start7 !== -1) {
+    const targetLen7 = wdTarget.length;
+    const replacement7 = 'var qg=!1,WD={normal:["Usa /audit-seguridad contra OWASP","Disena UI con fcav-visual","Crea APIs con fcav-api"],shell:["git status","fcavcode"]};';
+    const repLen7 = Buffer.byteLength(replacement7, 'utf8');
+    const pad7 = targetLen7 - repLen7;
+    if (pad7 >= 4) {
+      const paddedJs7 = replacement7.replace('};', '/*' + ' '.repeat(pad7 - 4) + '*/};');
+      Buffer.from(paddedJs7, 'utf8').copy(newBuf, start7);
+      console.log('  ✓ Patched Home Screen Tips & Placeholders with FCAV Skills Guidance');
+    }
+  }
+
   // Write patched binary with atomic fallback
   safeWriteBinary(binaryPath, newBuf);
 
