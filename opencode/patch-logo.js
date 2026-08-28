@@ -421,6 +421,43 @@ function patchBinary(binaryPath, logoRaw) {
     }
   }
 
+  // --- 8. Patch Prompt Input Placeholders (Ask anything... -> Pregunta lo que sea...) ---
+  const askTarget1 = Buffer.from('N=G(()=>{if(U.showPlaceholder===!1)return;if(FU.mode==="shell"){if(!_().length)return;return`Run a command... "${_()[FU.placeholder%_().length]}"`}if(!fU().length)return;return`Ask anything... "${fU()[FU.placeholder%fU().length]}"`}),wU=G(', 'utf8');
+  const start8a = newBuf.indexOf(askTarget1);
+  if (start8a !== -1) {
+    const targetLen8a = askTarget1.length;
+    const compactReplacement8a = 'N=G(()=>{if(!U.showPlaceholder)return;if(FU.mode=="shell")return _()[0]?`Ejecuta comando... "${_()[FU.placeholder%_().length]}"`:void 0;return fU()[0]?`Pregunta lo que sea... "${fU()[FU.placeholder%fU().length]}"`:void 0}),wU=G(';
+    const diff8a = targetLen8a - Buffer.byteLength(compactReplacement8a, 'utf8');
+    if (diff8a >= 4) {
+      const padded8a = compactReplacement8a.replace('}),wU=G(', '/*' + ' '.repeat(diff8a - 4) + '*/}),wU=G(');
+      Buffer.from(padded8a, 'utf8').copy(newBuf, start8a);
+      console.log('  ✓ Patched dynamic prompt placeholder ("Pregunta lo que sea...")');
+    }
+  }
+
+  const askTarget2 = Buffer.from('if(y())return new by([Qy(f.theme().muted)(\'Run a command... "git status"\')]);if(!f.state().first)return"";return new by([Qy(f.theme().muted)(\'Ask anything... "Fix a TODO in the codebase"\')])', 'utf8');
+  const start8b = newBuf.indexOf(askTarget2);
+  if (start8b !== -1) {
+    const targetLen8b = askTarget2.length;
+    const compactReplacement8b = 'if(y())return new by([Qy(f.theme().muted)(\'Ejecuta... "git status"\')]);return !f.state().first?"":new by([Qy(f.theme().muted)(\'Pregunta lo que sea... "Usa /ayuda o describe tu tarea"\')])';
+    const diff8b = targetLen8b - Buffer.byteLength(compactReplacement8b, 'utf8');
+    if (diff8b >= 4) {
+      const padded8b = compactReplacement8b.replace('\')])', '\'/*' + ' '.repeat(diff8b - 4) + '*/)])');
+      Buffer.from(padded8b, 'utf8').copy(newBuf, start8b);
+      console.log('  ✓ Patched static session placeholder ("Pregunta lo que sea...")');
+    }
+  }
+
+  const askTarget3 = Buffer.from('"ui.promptInput.placeholder.normal":"Ask anything, {{slash}} for commands, {{at}} for context..."', 'utf8');
+  const start8c = newBuf.indexOf(askTarget3);
+  if (start8c !== -1) {
+    const rep8c = Buffer.from('"ui.promptInput.placeholder.normal":"Pregunta lo que sea, {{slash}} comandos, {{at}} contexto..."', 'utf8');
+    if (rep8c.length === askTarget3.length) {
+      rep8c.copy(newBuf, start8c);
+      console.log('  ✓ Patched dictionary normal prompt placeholder ("Pregunta lo que sea")');
+    }
+  }
+
   // Write patched binary with atomic fallback
   safeWriteBinary(binaryPath, newBuf);
 
